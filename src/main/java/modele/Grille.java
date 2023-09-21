@@ -1,4 +1,5 @@
-package controller.puzzle;
+package modele;
+
 import java.util.HashSet;
 import java.util.Arrays;
 public class Grille implements Parametres {

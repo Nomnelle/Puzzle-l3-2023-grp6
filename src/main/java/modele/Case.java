@@ -1,4 +1,4 @@
-package controller.puzzle;
+package modele;
 
 public class Case {
 

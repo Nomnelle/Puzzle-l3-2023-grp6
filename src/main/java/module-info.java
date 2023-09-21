@@ -5,4 +5,6 @@ module com.example.puzzle {
 
     opens controller.puzzle to javafx.fxml;
     exports controller.puzzle;
+    exports modele;
+    opens modele to javafx.fxml;
 }

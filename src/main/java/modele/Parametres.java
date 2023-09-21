@@ -1,4 +1,4 @@
-package controller.puzzle;
+package modele;
 
 public interface Parametres {
     static final int HAUT = 1;
