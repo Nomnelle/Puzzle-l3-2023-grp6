@@ -5,19 +5,16 @@ import java.util.Arrays;
 public class Grille implements Parametres {
 
     private final HashSet<Case> grille;
-    private int longueur;
-    private String[] etatVictoire;
+    private final int longueur;
 
     public Grille() {
         this.grille = new HashSet<>();
         this.longueur = TAILLE;
-        this.etatVictoire = RESULTAT;
     }
 
     public Grille(int l) {
         this.grille = new HashSet<>();
         this.longueur = l;
-        this.etatVictoire = RESULTAT;
     }
 
     public HashSet<Case> getGrille() {
@@ -28,31 +25,37 @@ public class Grille implements Parametres {
         return longueur;
     }
 
-    public String[] transformerGrilleArray1D() {
-        String[][] tableau2D = transformerGrilleArray2D();
-        String[] resultat = new String[longueur ^ 2];
+    public int[] transformerGrilleArray1D() {
+        Case[][] tableau2D = transformerGrilleArray2D();
+        int[] resultat = new int[this.longueur*this.longueur];
         for (int i = 0; i < longueur; i++) {
             for (int j = 0; j < longueur; j++) {
-                resultat[i * longueur + j] = tableau2D[j][i];
+                resultat[i * longueur + j] = tableau2D[i][j].getIndice();
             }
         }
         return resultat;
     }
 
-    public String[][] transformerGrilleArray2D() {
-        String[][] tableau = new String[this.longueur][this.longueur];
+    public Case[][] transformerGrilleArray2D() {
+        Case[][] tableau = new Case[this.longueur][this.longueur];
         for (Case c : this.grille) {
-            tableau[c.getY()][c.getX()] = c.getValeur();
+            tableau[c.getX()][c.getY()] = c;
         }
         return tableau;
     }
 
     @Override
     public String toString() {
-        String[][] tableau = transformerGrilleArray2D();
+        Case[][] tableau = transformerGrilleArray2D();
         String result = "";
-        for (int i = 0; i < tableau.length; i++) {
-            result += Arrays.toString(tableau[i]) + "\n";
+        for (int i = 0; i < this.longueur; i++) {
+            result += "[";
+            String subResult = "";
+            for (int j = 0; j<this.longueur; j++){
+                subResult += tableau[i][j].getValeur()+",";
+            }
+            result += subResult.substring(0, subResult.length() - 1);
+            result += "]\n";
         }
         return result;
     }
@@ -68,19 +71,11 @@ public class Grille implements Parametres {
 
     public Case retournerCaseVide() {
         for (Case c : this.grille) {
-            if (c.getValeur().compareTo("x") == 0) {
+            if (c.getIndice() == 0) {
                 return c;
             }
         }
         return null;
-    }
-
-    public static void echangerValeursCases(Case c1, Case c2) {
-        if (c1.getValeur().compareTo("x") == 0 || c2.getValeur().compareTo("x") == 0) {
-            String temp = c1.getValeur();
-            c1.setValeur(c2.getValeur());
-            c2.setValeur(temp);
-        }
     }
 
     public void deplacerCase(String input) {
@@ -90,34 +85,77 @@ public class Grille implements Parametres {
             case "haut":
                 if (longueur > vide.getX() + 1) {
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
-                    echangerValeursCases(vide, mouvante);
+                    vide.echangerValeursCases(mouvante);
                 }
             case "bas":
-                if (0 > vide.getX() - 1) {
+                if (0 <= vide.getX() - 1) {
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
-                    echangerValeursCases(vide, mouvante);
-                }
-            case "droite":
-                if (longueur > vide.getY() + 1) {
-                    mouvante = retrouverCase(vide.getY() + 1, vide.getX());
-                    echangerValeursCases(vide, mouvante);
+                    vide.echangerValeursCases(mouvante);
                 }
             case "gauche":
-                if (0 > vide.getY() - 1) {
-                    mouvante = retrouverCase(vide.getY() - 1, vide.getX());
-                    echangerValeursCases(vide, mouvante);
+                if (longueur > vide.getY() + 1) {
+                    mouvante = retrouverCase((vide.getY() + 1), vide.getX());
+                    vide.echangerValeursCases(mouvante);
+                }
+            case "droite":
+                if (0 <= vide.getY() - 1) {
+                    mouvante = retrouverCase((vide.getY() - 1), vide.getX());
+                    vide.echangerValeursCases(mouvante);
                 }
         }
     }
 
     public boolean verifierVictoire() {
-        String[] etatActuel = this.transformerGrilleArray1D();
-        for(int i = 0; i < (longueur^2); i++) {
-            if (etatActuel[i].compareTo(this.etatVictoire[i]) != 0) {
+        int[] etatActuel = this.transformerGrilleArray1D();
+        for(int i = 1; i < (longueur^2) - 1; i++) {
+            if (etatActuel[i-1] > etatActuel[i]) {
                 return false;
             }
         }
         return true;
+    }
+
+    public int compterInversions(){
+        int[] grilleTest = this.transformerGrilleArray1D();
+        int compteur = 0;
+        boolean finTri;
+
+        for(int i = grilleTest.length-1; i<=0; i--){
+            finTri = true;
+            for(int j = 0; j<i-1;j++){
+                if((grilleTest[j]<grilleTest[j+1])){
+                    int tmp = grilleTest[j];
+                    grilleTest[j] = grilleTest[j+1];
+                    grilleTest[j+1] = tmp;
+                    if((grilleTest[j]!=0)&&(grilleTest[j+1]!=0)){
+                        compteur +=1;
+                    }
+                }
+            }
+
+        }
+
+        return compteur;
+    }
+
+    public int compterColonne(){
+        Case c = this.retournerCaseVide();
+        return this.longueur - c.getY();
+    }
+
+    public boolean testerSolubiliteGrille(){
+
+        if(this.longueur%2!=0){
+            if(this.compterInversions()%2==0){
+                return true;
+            }
+        }else{
+            if(this.compterInversions()%2 != this.compterColonne()%2){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

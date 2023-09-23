@@ -2,14 +2,19 @@ package modele;
 
 public class Case {
 
-    private int x, y;
-    private String valeur;
-    private final Grille grille;
+    private final int x, y;
+    class Piece {
+        public String valeur;
+        public int indice;
+    }
+    private Piece piece = new Piece();
+    private Grille grille;
 
-    public Case(int abs, int ord, String v, Grille g) {
-        this.x = abs;
-        this.y = ord;
-        this.valeur = v;
+    public Case(int xVal, int yVal, String v, int ind, Grille g) {
+        this.x = xVal;
+        this.y = yVal;
+        this.piece.valeur = v;
+        this.piece.indice = ind;
         this.grille = g;
     }
 
@@ -21,21 +26,11 @@ public class Case {
         return this.y;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    public String getValeur() { return this.piece.valeur; }
 
-    public void setY(int y) {
-        this.y = y;
-    }
+    public int getIndice() { return this.piece.indice; }
 
-    public void setValeur(String valeur) {
-        this.valeur = valeur;
-    }
-
-    public String getValeur() {
-        return this.valeur;
-    }
+    public void setGrille(Grille g) { this.grille = g; }
 
     @Override
     public boolean equals(Object obj) { // la méthode equals est utilisée lors de l'ajout d'une case à un ensemble pour vérifier qu'il n'y a pas de doublons (teste parmi tous les candidats qui ont le même hashcode)
@@ -54,6 +49,14 @@ public class Case {
 
     @Override
     public String toString() {
-        return "Case(" + this.x + "," + this.y + "," + this.valeur + ")";
+        return "Case(" + this.x + "," + this.y + "," + this.piece.valeur + ")";
+    }
+
+    public void echangerValeursCases(Case c) {
+        if (this.piece.indice == 0) {
+            Piece temp = this.piece;
+            this.piece = c.piece;
+            c.piece = temp;
+        }
     }
 }
