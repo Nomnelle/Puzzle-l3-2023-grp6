@@ -107,7 +107,7 @@ public class Grille implements Parametres {
 
     public boolean verifierVictoire() {
         int[] etatActuel = this.transformerGrilleArray1D();
-        for(int i = 1; i < (longueur^2) - 1; i++) {
+        for(int i = 1; i < (longueur*longueur) - 1; i++) {
             if (etatActuel[i-1] > etatActuel[i]) {
                 return false;
             }
@@ -120,17 +120,21 @@ public class Grille implements Parametres {
         int compteur = 0;
         boolean finTri;
 
-        for(int i = grilleTest.length-1; i<=0; i--){
+        grilleTest = retirerCaseVideTableau(grilleTest);
+
+        for(int i = (longueur*longueur)-1; i> 0; i--){
             finTri = true;
-            for(int j = 0; j<i-1;j++){
-                if((grilleTest[j]<grilleTest[j+1])){
+            for(int j = 0; j<(i-1);j++){
+                if(grilleTest[j]>grilleTest[j+1]){
                     int tmp = grilleTest[j];
                     grilleTest[j] = grilleTest[j+1];
                     grilleTest[j+1] = tmp;
-                    if((grilleTest[j]!=0)&&(grilleTest[j+1]!=0)){
-                        compteur +=1;
-                    }
+                    finTri = false;
+                    compteur ++;
                 }
+            }
+            if(finTri){
+                break;
             }
 
         }
@@ -138,23 +142,33 @@ public class Grille implements Parametres {
         return compteur;
     }
 
-    public int compterColonne(){
-        Case c = this.retournerCaseVide();
-        return this.longueur - c.getY();
+    public static int[] retirerCaseVideTableau(int[] tabGrille){
+        int[] newTabGrille = new int[tabGrille.length - 1];
+        int i = 0;
+        for(int indice : tabGrille){
+            if(indice !=0){
+                newTabGrille[i] = indice;
+                i++;
+            }
+        }
+        return newTabGrille;
     }
 
-    public boolean testerSolubiliteGrille(){
+    public int compterColonne(){
+        Case c = this.retournerCaseVide();
+        return this.longueur - c.getX();
+    }
 
-        if(this.longueur%2!=0){
-            if(this.compterInversions()%2==0){
+    public boolean testerSiGrilleSoluble(){
+        if((this.longueur%2) != 0){
+            if((this.compterInversions()%2)==0){
                 return true;
             }
         }else{
-            if(this.compterInversions()%2 != this.compterColonne()%2){
+            if((this.compterColonne() % 2) != (this.compterInversions() % 2)){
                 return true;
             }
         }
-
         return false;
     }
 
