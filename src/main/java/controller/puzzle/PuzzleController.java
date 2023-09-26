@@ -29,7 +29,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button closeButton;
     @FXML
-    private AnchorPane panDrag;
+    private AnchorPane paneDrag;
     @FXML
     private Button menuButton;
     @FXML
@@ -47,15 +47,15 @@ public class PuzzleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//SUPRIMME
+            //SUPRIMME
        anchorPaneOfButton.setVisible(false);
 
-                //ok
+       //ok
 
         closeButton.getStyleClass().add("closeButton"); //Style du bouton close
         menuButton.getStyleClass().add("menuButton");
         TopAnchorPaneLogic topAnchorPaneLogic = new TopAnchorPaneLogic();
-        topAnchorPaneLogic.anchorPaneDrag(panDrag); //Permet de déplacer le jeu
+        topAnchorPaneLogic.anchorPaneDrag(paneDrag); //Permet de déplacer le jeu
 
 
         // TODO
@@ -135,6 +135,5 @@ public class PuzzleController implements Initializable {
     protected void setMenuButton(){
         grille.setVisible(false);
         anchorPaneOfButton.setVisible(true);
-
     }
 }

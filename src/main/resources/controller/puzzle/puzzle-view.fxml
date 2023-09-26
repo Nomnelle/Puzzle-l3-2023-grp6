@@ -51,7 +51,7 @@
             </AnchorPane>
             </children>
         </Pane>
-      <AnchorPane fx:id="panDrag" layoutX="163.0" layoutY="2.0" prefHeight="0.0" prefWidth="445.0" style="-fx-background-color: #666666;" AnchorPane.bottomAnchor="573.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="paneDrag" layoutX="163.0" layoutY="2.0" prefHeight="0.0" prefWidth="445.0" style="-fx-background-color: #666666;" AnchorPane.bottomAnchor="573.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="closeButton" layoutX="415.0" layoutY="-6.0" mnemonicParsing="false" onAction="#setCloseButton" prefHeight="40.0" prefWidth="35.0" text="X" textAlignment="CENTER" textFill="#888888" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
