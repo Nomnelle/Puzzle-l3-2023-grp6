@@ -1,10 +1,11 @@
 package modele;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Arrays;
 public class Grille implements Parametres {
 
-    private final HashSet<Case> grille;
+    private HashSet<Case> grille;
     private final int longueur;
 
     public Grille() {
@@ -13,7 +14,7 @@ public class Grille implements Parametres {
     }
 
     public Grille(int l) {
-        this.grille = new HashSet<>();
+        this.grille = new HashSet<>();;
         this.longueur = l;
     }
 
@@ -23,6 +24,31 @@ public class Grille implements Parametres {
 
     public int getLongueur() {
         return longueur;
+    }
+
+    public void remplirGrille(){
+        this.grille = new HashSet<>();
+        ArrayList<Integer> listIndex = new ArrayList();
+        for(int i = 0;i<longueur*longueur;i++){
+            listIndex.add(i);
+        }
+
+        Collections.shuffle(listIndex);
+
+        if(this.longueur<6){
+            for(int i = 0; i<this.longueur; i++){
+                for(int j = 0; j<this.longueur; j++){
+                    this.grille.add(new Case(i, j, VALEUR[listIndex.get(i * this.longueur + j)], listIndex.get(i * this.longueur + j), this));
+                }
+            }
+        }else{
+            for(int i = 0; i<this.longueur; i++){
+                for(int j = 0; j<this.longueur; j++){
+                    this.grille.add(new Case(i, j, listIndex.get(i * this.longueur + j), this));
+                }
+            }
+        }
+
     }
 
     public int[] transformerGrilleArray1D() {
@@ -87,32 +113,39 @@ public class Grille implements Parametres {
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                 }
+                break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                 }
+                break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                 }
+                break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                 }
+                break;
         }
     }
 
     public boolean verifierVictoire() {
         int[] etatActuel = this.transformerGrilleArray1D();
-        for(int i = 1; i < (longueur*longueur) - 1; i++) {
-            if (etatActuel[i-1] > etatActuel[i]) {
-                return false;
+        if(etatActuel[etatActuel.length -1]==0){
+            for(int i = 1; i < (longueur*longueur) - 1; i++) {
+                if (etatActuel[i-1] > etatActuel[i]) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     public int compterInversions(){

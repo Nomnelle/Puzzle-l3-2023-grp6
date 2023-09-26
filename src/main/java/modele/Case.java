@@ -18,6 +18,14 @@ public class Case {
         this.grille = g;
     }
 
+    public Case(int xVal, int yVal, int ind, Grille g) {
+        this.x = xVal;
+        this.y = yVal;
+        this.piece.valeur = String.valueOf(ind);
+        this.piece.indice = ind;
+        this.grille = g;
+    }
+
     public int getX() {
         return this.x;
     }
