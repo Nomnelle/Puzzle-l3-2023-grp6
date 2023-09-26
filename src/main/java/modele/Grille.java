@@ -35,11 +35,20 @@ public class Grille implements Parametres {
 
         Collections.shuffle(listIndex);
 
-        for(int i = 0; i<this.longueur; i++){
-            for(int j = 0; j<this.longueur; j++){
-                this.grille.add(new Case(i, j, VALEUR[listIndex.get(i * this.longueur + j)], listIndex.get(i * this.longueur + j), this));
+        if(this.longueur<6){
+            for(int i = 0; i<this.longueur; i++){
+                for(int j = 0; j<this.longueur; j++){
+                    this.grille.add(new Case(i, j, VALEUR[listIndex.get(i * this.longueur + j)], listIndex.get(i * this.longueur + j), this));
+                }
+            }
+        }else{
+            for(int i = 0; i<this.longueur; i++){
+                for(int j = 0; j<this.longueur; j++){
+                    this.grille.add(new Case(i, j, listIndex.get(i * this.longueur + j), this));
+                }
             }
         }
+
     }
 
     public int[] transformerGrilleArray1D() {
