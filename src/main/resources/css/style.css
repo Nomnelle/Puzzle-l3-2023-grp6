@@ -1,0 +1,23 @@
+.closeButton {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+
+}
+.closeButton:hover {
+    -fx-background-color: #c91212;
+    -fx-cursor: hand;
+}
+.closeButton:pressed {
+    -fx-background-color: #fd0000;
+
+}
+.menuButton {
+    -fx-background-color: #123456;
+}
+.menuButton:hover{
+    -fx-background-color: #054279;
+}
+.menuButton:pressed{
+    -fx-background-color: #123456;
+}
