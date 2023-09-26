@@ -9,12 +9,12 @@ public class Grille implements Parametres {
     private final int longueur;
 
     public Grille() {
-        this.grille = null;
+        this.grille = new HashSet<>();
         this.longueur = TAILLE;
     }
 
     public Grille(int l) {
-        this.grille = null;
+        this.grille = new HashSet<>();;
         this.longueur = l;
     }
 
