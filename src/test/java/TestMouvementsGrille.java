@@ -31,6 +31,7 @@ public class TestMouvementsGrille {
         int[] grilleAttendue = {0, 8, 2, 1, 4, 3, 7, 6, 5};
 
         assertArrayEquals(grilleAttendue, grilleObtenue);
+        assert grilleTest.getNombreCoups() == 1;
     }
 
     @Test
@@ -79,6 +80,17 @@ public class TestMouvementsGrille {
         int[] grilleAttendue = {1, 8, 2, 0, 4, 3, 7, 6, 5};
 
         assertArrayEquals(grilleAttendue, grilleObtenue);
+    }
+
+    @Test
+    public void testerCompteurMouvements(){
+
+        grilleTest.deplacerCase("haut");
+        grilleTest.deplacerCase("bas");
+        grilleTest.deplacerCase("haut");
+        grilleTest.deplacerCase("bas");
+
+        assert grilleTest.getNombreCoups() == 4;
     }
 
 }
