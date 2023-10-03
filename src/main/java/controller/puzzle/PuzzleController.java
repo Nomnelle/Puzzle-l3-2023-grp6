@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import logic.TopAnchorPaneLogic;
+import logic.Shift;
 import modele.Grille;
 
 /**
@@ -21,19 +21,37 @@ import modele.Grille;
  */
 public class PuzzleController implements Initializable {
     @FXML
-    private Label score; // value will be injected by the FXMLLoader
+    private GridPane grille; //Grille
     @FXML
-    private GridPane grille;
+    private AnchorPane AnchorPaneBackground; // panneau recouvrant toute la fenêtre
     @FXML
-    private Pane fond; // panneau recouvrant toute la fenêtre
+    private AnchorPane anchorPaneDrag; //panneau TOP
     @FXML
-    private Button closeButton;
+    private AnchorPane anchorPaneMid; //panneau contenant undo, menu et le score
     @FXML
-    private AnchorPane paneDrag;
+    private AnchorPane anchorPaneStats; //panneau contenant undo, menu et le score
     @FXML
-    private Button menuButton;
+    private AnchorPane anchorPaneMenu; //panneau du menu
+
     @FXML
-    private AnchorPane anchorPaneOfButton;
+    private Button buttonClose;
+    @FXML
+    private Button buttonMenu;
+    @FXML
+    private Button buttonUndo;
+    @FXML
+    private Button buttonResume;
+    @FXML
+    private Button buttonSave;
+    @FXML
+    private Button buttonLoad;
+    @FXML
+    private Button buttonStopAI;
+    @FXML
+    private Button buttonStats;
+
+    @FXML
+    private Label labelScore; // value will be injected by the FXMLLoader
 
     // variable globale pour initialiser le modèle
     private Grille grilleModele = new Grille();
@@ -43,19 +61,58 @@ public class PuzzleController implements Initializable {
     private final Label c = new Label("2");
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
+    private final Shift shiftLogic = new Shift(); //logique de déplacement
 
+    /*
+    Action des boutons
+     */
+    @FXML
+    protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
+    @FXML
+    protected void setButtonMenu(){
+        grille.setDisable(true);
+        shiftLogic.nodeShift(anchorPaneMenu, 600, 1000, "bas");
+    }
+    @FXML
+    protected void setButtonPlay(){
+        shiftLogic.nodeShift(anchorPaneMenu, 600, 1000, "haut");
+        grille.setDisable(false);
+    }
+    @FXML
+    protected void setButtonLoad(){
 
+    }
+    @FXML
+    protected void setButtonSave(){
+
+    }
+    @FXML
+    protected void setButtonStopAI(){
+
+    }
+    @FXML
+    protected void setButtonStatsShow(){
+
+    }
+    @FXML
+    protected void setButtonUndo(){
+
+    }
+
+    /*
+    Initialisation
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            //SUPRIMME
-       anchorPaneOfButton.setVisible(false);
 
-       //ok
+        buttonClose.getStyleClass().add("buttonClose"); //Style
+        buttonMenu.getStyleClass().add("buttonMenu"); //Style
+        //anchorPaneMid.getStyleClass().add("anchorPaneMid");
+        //anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
-        closeButton.getStyleClass().add("closeButton"); //Style du bouton close
-        menuButton.getStyleClass().add("menuButton");
-        TopAnchorPaneLogic topAnchorPaneLogic = new TopAnchorPaneLogic();
-        topAnchorPaneLogic.anchorPaneDrag(paneDrag); //Permet de déplacer le jeu
+
+        Shift topAnchorPaneLogic = new Shift();
+        topAnchorPaneLogic.anchorPaneShift(anchorPaneDrag); //Déplacer la fenetre
 
 
         // TODO
@@ -66,7 +123,7 @@ public class PuzzleController implements Initializable {
         c.getStyleClass().add("tuile");
         grille.getStyleClass().add("gridpane");
         GridPane.setHalignment(c, HPos.CENTER);
-        fond.getChildren().add(p);
+        AnchorPaneBackground.getChildren().add(p);
         p.getChildren().add(c);
 
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
@@ -87,9 +144,9 @@ public class PuzzleController implements Initializable {
         double y = event.getY();//translation en ordonnée
         if (x > y) {
             for (int i = 0; i < grille.getChildren().size(); i++) { //pour chaque colonne
-                //for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
+                for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
                 System.out.println("ok1");
-                grille.getChildren().remove(i);
+                //grille.getChildren().remove(i);
 
                 /*Node tuile = grille.getChildren().get(i);
                  if (tuile != null) {
@@ -97,6 +154,7 @@ public class PuzzleController implements Initializable {
                  int rowEnd = GridPane.getRowIndex(tuile);
                  }*/
                 // }
+                }
             }
         } else if (x < y) {
             System.out.println("ok2");
@@ -112,10 +170,6 @@ public class PuzzleController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleButtonAction(MouseEvent event) {
-        System.out.println("Clic de souris sur le bouton menu");
-    }
 
     @FXML
     public void keyPressed(KeyEvent ke) {
@@ -126,14 +180,5 @@ public class PuzzleController implements Initializable {
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
 
         }
-    }
-    @FXML
-    protected void setCloseButton(){
-        System.exit(0);
-    }
-    @FXML
-    protected void setMenuButton(){
-        grille.setVisible(false);
-        anchorPaneOfButton.setVisible(true);
     }
 }
