@@ -7,15 +7,18 @@ public class Grille implements Parametres {
 
     private HashSet<Case> grille;
     private final int longueur;
+    private int nombreCoups;
 
     public Grille() {
         this.grille = new HashSet<>();
         this.longueur = TAILLE;
+        this.nombreCoups = 0;
     }
 
     public Grille(int l) {
         this.grille = new HashSet<>();;
         this.longueur = l;
+        this.nombreCoups = 0;
     }
 
     public HashSet<Case> getGrille() {
@@ -26,9 +29,11 @@ public class Grille implements Parametres {
         return longueur;
     }
 
+    public int getNombreCoups() { return nombreCoups; }
+
     public void remplirGrille(){
         this.grille = new HashSet<>();
-        ArrayList<Integer> listIndex = new ArrayList();
+        ArrayList<Integer> listIndex = new ArrayList<>();
         for(int i = 0;i<longueur*longueur;i++){
             listIndex.add(i);
         }
@@ -112,24 +117,28 @@ public class Grille implements Parametres {
                 if (longueur > vide.getX() + 1) {
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
+                    this.nombreCoups++;
                 }
                 break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
+                    this.nombreCoups++;
                 }
                 break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
+                    this.nombreCoups++;
                 }
                 break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
+                    this.nombreCoups++;
                 }
                 break;
         }
