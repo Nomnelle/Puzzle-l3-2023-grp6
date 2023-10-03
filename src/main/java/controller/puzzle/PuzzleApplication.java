@@ -13,7 +13,7 @@ public class PuzzleApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PuzzleApplication.class.getResource("puzzle-view.fxml")); //Vue
-        Scene scene = new Scene(fxmlLoader.load(), 445, 613); //Scene
+        Scene scene = new Scene(fxmlLoader.load(), 380, 520); //Scene
 
         //Parametres généraux du stage
         stage.setTitle("Puzzle");

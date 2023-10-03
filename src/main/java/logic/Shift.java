@@ -4,9 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-import java.util.function.Function;
-
-public class ShiftLogic {
+public class Shift {
 
     /*
     Déplacements du logiciel avec un AnchorPane
