@@ -8,17 +8,20 @@ public class Grille implements Parametres {
     private HashSet<Case> grille;
     private final int longueur;
     private int nombreCoups;
+    private Caretaker pastGrid;
 
     public Grille() {
         this.grille = new HashSet<>();
         this.longueur = TAILLE;
         this.nombreCoups = 0;
+        pastGrid = new Caretaker();
     }
 
     public Grille(int l) {
         this.grille = new HashSet<>();;
         this.longueur = l;
         this.nombreCoups = 0;
+        pastGrid = new Caretaker();
     }
 
     public HashSet<Case> getGrille() {
@@ -115,6 +118,7 @@ public class Grille implements Parametres {
         switch (input) {
             case "haut":
                 if (longueur > vide.getX() + 1) {
+                    saveToMemento();
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -122,6 +126,7 @@ public class Grille implements Parametres {
                 break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
+                    saveToMemento();
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -129,6 +134,7 @@ public class Grille implements Parametres {
                 break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
+                    saveToMemento();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -136,10 +142,14 @@ public class Grille implements Parametres {
                 break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
+                    saveToMemento();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
                 }
+                break;
+            case "undo":
+                    undoLastMovement();
                 break;
         }
     }
@@ -212,6 +222,16 @@ public class Grille implements Parametres {
             }
         }
         return false;
+    }
+
+    public void saveToMemento(){
+        this.pastGrid.saveGrille(new Memento(this.grille));
+    }
+
+    public void undoLastMovement(){
+        if(!this.pastGrid.isEmpty()){
+            this.grille = new HashSet<>(this.pastGrid.retrieveMemento().getGrilleSauvegarde());
+        }
     }
 
 }

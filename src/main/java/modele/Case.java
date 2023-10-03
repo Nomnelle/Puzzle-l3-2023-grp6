@@ -26,6 +26,14 @@ public class Case {
         this.grille = g;
     }
 
+    public Case(Case c){
+        this.x = c.x;
+        this.y = c.y;
+        this.piece.valeur = c.piece.valeur;
+        this.piece.indice = c.piece.indice;
+        this.grille = c.grille;
+    }
+
     public int getX() {
         return this.x;
     }
