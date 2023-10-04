@@ -2,7 +2,6 @@
     -fx-background-color: transparent;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
-
 }
 .buttonClose:hover {
     -fx-background-color: #c91212;
@@ -10,8 +9,8 @@
 }
 .buttonClose:pressed {
     -fx-background-color: #fd0000;
-
 }
+
 .buttonMenu {
     -fx-background-color: #123456;
 }
@@ -20,4 +19,64 @@
 }
 .buttonMenu:pressed{
     -fx-background-color: #123456;
+}
+
+.buttonUndo {
+    -fx-background-color: #561218;
+}
+.buttonUndo:hover{
+    -fx-background-color: #830b2b;
+}
+.buttonUndo:pressed{
+    -fx-background-color: #50060e;
+}
+
+.buttonPlay {
+    -fx-background-color: #007BFF;
+}
+.buttonPlay:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonPlay:pressed{
+    -fx-background-color: #007BFF;
+}
+
+.buttonSave {
+    -fx-background-color: #007BFF;
+}
+.buttonSave:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonSave:pressed{
+    -fx-background-color: #007BFF;
+}
+
+.buttonLoad {
+    -fx-background-color: #007BFF;
+}
+.buttonLoad:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonLoad:pressed{
+    -fx-background-color: #007BFF;
+}
+
+.buttonSTOPAI {
+    -fx-background-color: #007BFF;
+}
+.buttonSTOPAI:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonSTOPAI:pressed{
+    -fx-background-color: #007BFF;
+}
+
+.buttonStats {
+    -fx-background-color: #007BFF;
+}
+.buttonStats:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonStats:pressed{
+    -fx-background-color: #007BFF;
 }

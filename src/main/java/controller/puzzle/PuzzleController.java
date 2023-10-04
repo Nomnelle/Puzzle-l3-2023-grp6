@@ -23,7 +23,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private GridPane grille; //Grille
     @FXML
-    private AnchorPane AnchorPaneBackground; // panneau recouvrant toute la fenêtre
+    private AnchorPane anchorPaneBackground; // panneau recouvrant toute la fenêtre
     @FXML
     private AnchorPane anchorPaneDrag; //panneau TOP
     @FXML
@@ -40,7 +40,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonUndo;
     @FXML
-    private Button buttonResume;
+    private Button buttonPlay;
     @FXML
     private Button buttonSave;
     @FXML
@@ -49,10 +49,13 @@ public class PuzzleController implements Initializable {
     private Button buttonStopAI;
     @FXML
     private Button buttonStats;
+    @FXML
+    private Button buttonBack;
 
     @FXML
     private Label labelScore; // value will be injected by the FXMLLoader
 
+    private final Shift shift = new Shift();
     // variable globale pour initialiser le modèle
     private Grille grilleModele = new Grille();
 
@@ -61,7 +64,6 @@ public class PuzzleController implements Initializable {
     private final Label c = new Label("2");
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
-    private final Shift shiftLogic = new Shift(); //logique de déplacement
 
     /*
     Action des boutons
@@ -70,13 +72,13 @@ public class PuzzleController implements Initializable {
     protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
     @FXML
     protected void setButtonMenu(){
-        grille.setDisable(true);
-        shiftLogic.nodeShift(anchorPaneMenu, 600, 1000, "bas");
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
+        anchorPaneMid.setDisable(true);
     }
     @FXML
     protected void setButtonPlay(){
-        shiftLogic.nodeShift(anchorPaneMenu, 600, 1000, "haut");
-        grille.setDisable(false);
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
+        shift.disabledNodeDuration(anchorPaneMid, 800);
     }
     @FXML
     protected void setButtonLoad(){
@@ -92,11 +94,17 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void setButtonStatsShow(){
-
+        shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
+        shift.disabledNodeDuration(anchorPaneStats, 800);
     }
     @FXML
     protected void setButtonUndo(){
 
+    }
+    @FXML
+    protected void setbuttonBack(){
+        shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
+        anchorPaneStats.setDisable(true);
     }
 
     /*
@@ -105,25 +113,28 @@ public class PuzzleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        buttonClose.getStyleClass().add("buttonClose"); //Style
-        buttonMenu.getStyleClass().add("buttonMenu"); //Style
+        //Initialisation du style
+        buttonClose.getStyleClass().add("buttonClose");
+        buttonMenu.getStyleClass().add("buttonMenu");
         //anchorPaneMid.getStyleClass().add("anchorPaneMid");
         //anchorPaneStats.getStyleClass().add("anchorPaneStats");
+        buttonUndo.getStyleClass().add("buttonUndo");
 
+        //Initialisation de l'état des noeuds
+        anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture
 
-        Shift topAnchorPaneLogic = new Shift();
-        topAnchorPaneLogic.anchorPaneShift(anchorPaneDrag); //Déplacer la fenetre
+        anchorPaneMid.setDisable(true);
 
+        shift.anchorPaneShift(anchorPaneDrag); //Déplacer la fenetre
 
         // TODO
 
-        System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane");
         c.getStyleClass().add("tuile");
         grille.getStyleClass().add("gridpane");
         GridPane.setHalignment(c, HPos.CENTER);
-        AnchorPaneBackground.getChildren().add(p);
+        anchorPaneBackground.getChildren().add(p);
         p.getChildren().add(c);
 
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche

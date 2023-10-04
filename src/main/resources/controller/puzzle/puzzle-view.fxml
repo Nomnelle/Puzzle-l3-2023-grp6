@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="AnchorPaneBackground" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.puzzle.PuzzleController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneBackground" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.puzzle.PuzzleController">
     <children>
-          <AnchorPane fx:id="anchorPaneDrag" prefHeight="0.0" prefWidth="445.0" style="-fx-background-color: #666666;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <AnchorPane fx:id="anchorPaneDrag" prefHeight="35.0" prefWidth="380.0" style="-fx-background-color: #666666;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                  <Button fx:id="buttonClose" layoutX="415.0" layoutY="-6.0" mnemonicParsing="false" onAction="#setButtonClose" prefHeight="40.0" prefWidth="35.0" text="X" textAlignment="CENTER" textFill="#888888" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="buttonClose" layoutX="415.0" layoutY="-6.0" mnemonicParsing="false" onAction="#setButtonClose" prefHeight="35.0" prefWidth="35.0" text="X" textAlignment="CENTER" textFill="#888888" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <font>
                           <Font size="16.0" />
                       </font>
@@ -50,13 +50,16 @@
           </GridPane>
           <AnchorPane fx:id="anchorPaneMenu" layoutX="61.0" layoutY="-4.0" prefHeight="202.0" prefWidth="244.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
               <children>
-                  <Button fx:id="buttonResume" layoutX="136.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonPlay" prefHeight="64.0" prefWidth="300.0" text="Continuer" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                  <Button fx:id="buttonSave" layoutX="188.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonSave" prefHeight="54.0" prefWidth="132.0" text="Sauvegarder" AnchorPane.rightAnchor="20.0" />
-                  <Button fx:id="buttonLoad" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonLoad" prefHeight="54.0" prefWidth="113.0" text="Charger" AnchorPane.leftAnchor="20.0" />
-                  <Button fx:id="buttonStopAI" layoutX="143.0" layoutY="180.0" mnemonicParsing="false" onAction="#setButtonStopAI" prefHeight="64.0" prefWidth="300.0" text="IA Stop" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-                  <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="64.0" prefWidth="76.0" text="STAT" AnchorPane.bottomAnchor="20.0" />
+                  <Button fx:id="buttonPlay" layoutX="136.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonPlay" prefHeight="60.0" prefWidth="300.0" text="CONTINUER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <Button fx:id="buttonSave" layoutX="188.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonSave" prefHeight="55.0" prefWidth="132.0" text="SAUVEGARDER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="95.0" />
+                  <Button fx:id="buttonLoad" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonLoad" prefHeight="55.0" prefWidth="113.0" text="CHARGER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="95.0" />
+                  <Button fx:id="buttonStopAI" layoutX="143.0" layoutY="180.0" mnemonicParsing="false" onAction="#setButtonStopAI" prefHeight="55.0" prefWidth="300.0" text="IA STOP" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="170.0" />
+                  <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="55.0" prefWidth="76.0" text="STAT" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="245.0" />
               </children>
           </AnchorPane>
-      <AnchorPane fx:id="anchorPaneStats" layoutX="-80.0" layoutY="49.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0" />
+      <AnchorPane fx:id="anchorPaneStats" layoutX="20.0" layoutY="160.0" prefHeight="340.0" prefWidth="340.0" style="-fx-background-color: #666666;">
+         <children>
+            <Button fx:id="buttonBack" onAction="#setbuttonBack" layoutX="144.0" layoutY="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="300.0" text="RETOUR" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+         </children></AnchorPane>
     </children>
 </AnchorPane>
