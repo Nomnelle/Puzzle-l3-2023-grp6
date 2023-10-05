@@ -113,19 +113,30 @@ public class PuzzleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //Initialisation du style
+        //Initialisation du style des bouttons
         buttonClose.getStyleClass().add("buttonClose");
         buttonMenu.getStyleClass().add("buttonMenu");
-        //anchorPaneMid.getStyleClass().add("anchorPaneMid");
-        //anchorPaneStats.getStyleClass().add("anchorPaneStats");
         buttonUndo.getStyleClass().add("buttonUndo");
+        buttonPlay.getStyleClass().add("buttonPlay");
+        buttonLoad.getStyleClass().add("buttonLoad");
+        buttonSave.getStyleClass().add("buttonSave");
+        buttonStopAI.getStyleClass().add("buttonStopAI");
+        buttonStats.getStyleClass().add("buttonStats");
+        buttonBack.getStyleClass().add("buttonBack");
+
+        anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
+        anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
+        anchorPaneMid.getStyleClass().add("anchorPaneMid");
+        anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
+        anchorPaneStats.getStyleClass().add("anchorPaneStats");
+
 
         //Initialisation de l'état des noeuds
-        anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture
-
+        anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)
         anchorPaneMid.setDisable(true);
-
-        shift.anchorPaneShift(anchorPaneDrag); //Déplacer la fenetre
+        anchorPaneStats.setVisible(true);
+        anchorPaneMenu.setVisible(true);
+        shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
         // TODO
 

@@ -1,3 +1,5 @@
+/* Styles boutons */
+
 .buttonClose {
     -fx-background-color: transparent;
     -fx-border-radius: 0px;
@@ -5,10 +7,9 @@
 }
 .buttonClose:hover {
     -fx-background-color: #c91212;
-    -fx-cursor: hand;
 }
 .buttonClose:pressed {
-    -fx-background-color: #fd0000;
+    -fx-background-color: #ff6464;
 }
 
 .buttonMenu {
@@ -22,13 +23,13 @@
 }
 
 .buttonUndo {
-    -fx-background-color: #561218;
+    -fx-background-color: #0056B3;
 }
 .buttonUndo:hover{
-    -fx-background-color: #830b2b;
+    -fx-background-color: #1c85f6;
 }
 .buttonUndo:pressed{
-    -fx-background-color: #50060e;
+    -fx-background-color: #0056B3;
 }
 
 .buttonPlay {
@@ -61,13 +62,13 @@
     -fx-background-color: #007BFF;
 }
 
-.buttonSTOPAI {
+.buttonStopAI {
     -fx-background-color: #007BFF;
 }
-.buttonSTOPAI:hover{
+.buttonStopAI:hover{
     -fx-background-color: #007BFF;
 }
-.buttonSTOPAI:pressed{
+.buttonStopAI:pressed{
     -fx-background-color: #007BFF;
 }
 
@@ -79,4 +80,38 @@
 }
 .buttonStats:pressed{
     -fx-background-color: #007BFF;
+}
+
+.buttonBack {
+    -fx-background-color: #007BFF;
+}
+.buttonBack:hover{
+    -fx-background-color: #007BFF;
+}
+.buttonBack:pressed{
+    -fx-background-color: #007BFF;
+}
+
+/* Styles panes */
+
+.anchorPaneDrag {
+    -fx-opacity: 0.2;
+    -fx-background-color: #5e5e5e;
+}
+.anchorPaneBackground {
+
+    -fx-border-color: #989898;
+    -fx-background-color: linear-gradient(#a1c4fd, #c2e9fb);
+}
+.anchorPaneMid {
+    -fx-background-color: #F4F4F4;
+    -fx-border-color: #989898;
+}
+.anchorPaneMenu {
+    -fx-background-color: #F4F4F4;
+    -fx-border-color: #989898;
+}
+.anchorPaneStats {
+    -fx-background-color: #F4F4F4;
+    -fx-border-color: #989898;
 }
