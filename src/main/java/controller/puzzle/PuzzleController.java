@@ -130,6 +130,7 @@ public class PuzzleController implements Initializable {
         anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
+        grille.getStyleClass().add("grille");
 
         //Initialisation de l'état des noeuds
         anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)

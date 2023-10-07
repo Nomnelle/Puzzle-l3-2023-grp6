@@ -13,23 +13,23 @@
 }
 
 .buttonMenu {
-    -fx-background-color: #123456;
+    -fx-background-color: #C6BDAC;
 }
 .buttonMenu:hover{
-    -fx-background-color: #054279;
+    -fx-background-color: #C6BDAC;
 }
 .buttonMenu:pressed{
-    -fx-background-color: #123456;
+    -fx-background-color: #C6BDAC;
 }
 
 .buttonUndo {
-    -fx-background-color: #0056B3;
+    -fx-background-color: #C6BDAC;
 }
 .buttonUndo:hover{
-    -fx-background-color: #1c85f6;
+    -fx-background-color: #C6BDAC;
 }
 .buttonUndo:pressed{
-    -fx-background-color: #0056B3;
+    -fx-background-color: #C6BDAC;
 }
 
 .buttonPlay {
@@ -53,7 +53,7 @@
 }
 
 .buttonLoad {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #7835ff;
 }
 .buttonLoad:hover{
     -fx-background-color: #007BFF;
@@ -63,7 +63,7 @@
 }
 
 .buttonStopAI {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #2a4a6b;
 }
 .buttonStopAI:hover{
     -fx-background-color: #007BFF;
@@ -73,7 +73,7 @@
 }
 
 .buttonStats {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #9319bd;
 }
 .buttonStats:hover{
     -fx-background-color: #007BFF;
@@ -95,23 +95,33 @@
 /* Styles panes */
 
 .anchorPaneDrag {
-    -fx-opacity: 0.2;
-    -fx-background-color: #5e5e5e;
+    -fx-opacity: 0.9;
+    -fx-background-color: linear-gradient(#22333B, #22333B, #22333B);
 }
 .anchorPaneBackground {
-
     -fx-border-color: #989898;
-    -fx-background-color: linear-gradient(#a1c4fd, #c2e9fb);
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #ccc5b9, #ccc5b9);
 }
 .anchorPaneMid {
-    -fx-background-color: #F4F4F4;
-    -fx-border-color: #989898;
+    -fx-background-color: #22333B;
+    -fx-border-color: #777777;
+    -fx-effect: innershadow(gaussian, rgb(151, 155, 162), 10, 0.5, 0, 0);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
 }
 .anchorPaneMenu {
-    -fx-background-color: #F4F4F4;
-    -fx-border-color: #989898;
+    -fx-background-color: #010629;
+    -fx-border-color: #888888;
 }
 .anchorPaneStats {
-    -fx-background-color: #F4F4F4;
+    -fx-background-color: #010629;
     -fx-border-color: #989898;
+}
+
+.grille {
+    -fx-background-color: #C6BDAC;
+    -fx-border-color: #736f6b;
+    -fx-border-width: 1;
+    -fx-grid-lines-color: #736f6b;
+
 }
