@@ -64,8 +64,8 @@
                   <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="60.0" prefWidth="76.0" text="STAT" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
             <Line fx:id="line1" endX="195.0" layoutX="170.0" layoutY="170.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
             <Line fx:id="line2" endX="195.0" layoutX="120.5" layoutY="250.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
-            <Line fx:id="line3" endX="195.0" layoutX="120.5" layoutY="90.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
-            <Line fx:id="line4" endY="77.0" layoutX="170.0" layoutY="90.5" AnchorPane.leftAnchor="169.5" AnchorPane.topAnchor="90.0" />
+            <Line fx:id="line3" endX="195.0" layoutX="120.5" layoutY="90.0" startX="-100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+            <Line fx:id="line4" endY="77.0" layoutX="168.0" layoutY="90.5" AnchorPane.leftAnchor="167.5" AnchorPane.topAnchor="90.0" />
               </children>
           </AnchorPane>
       <AnchorPane fx:id="anchorPaneStats" layoutX="20.0" layoutY="160.0" prefHeight="340.0" prefWidth="340.0" visible="false">

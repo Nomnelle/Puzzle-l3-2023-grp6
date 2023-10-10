@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import logic.UndoLogic;
 import logic.Shift;
 import modele.Grille;
 
@@ -75,6 +76,8 @@ public class PuzzleController implements Initializable {
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
 
+    private final UndoLogic undoLogic = new UndoLogic();
+
     /*
     Action des boutons
      */
@@ -109,6 +112,12 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void setButtonUndo(){
+        //Désactive le bouton undo au bout de 4 appuis
+        undoLogic.setCountPlus(buttonUndo);
+
+        //Annule le dernier mouvement
+
+        //...
 
     }
     @FXML
@@ -184,7 +193,8 @@ public class PuzzleController implements Initializable {
             for (int i = 0; i < grille.getChildren().size(); i++) { //pour chaque colonne
                 for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
                 System.out.println("ok1");
-                //grille.getChildren().remove(i);
+
+                    //grille.getChildren().remove(i);
 
                 /*Node tuile = grille.getChildren().get(i);
                  if (tuile != null) {
