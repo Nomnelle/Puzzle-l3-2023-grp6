@@ -6,122 +6,124 @@
     -fx-background-radius: 0px;
 }
 .buttonClose:hover {
-    -fx-background-color: #c91212;
+    -fx-background-color: #E71D36;
 }
 .buttonClose:pressed {
-    -fx-background-color: #ff6464;
+    -fx-background-color: #ad0f23;
 }
 
 .buttonMenu {
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #CDDAFD;
+    -fx-opacity: 0.7;
 }
 .buttonMenu:hover{
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #becfff;
 }
 .buttonMenu:pressed{
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #b7c6ff;
 }
 
 .buttonUndo {
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #CDDAFD;
+    -fx-opacity: 0.7;
 }
 .buttonUndo:hover{
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #becfff;
 }
 .buttonUndo:pressed{
-    -fx-background-color: #C6BDAC;
+    -fx-background-color: #b7c6ff;
 }
 
 .buttonPlay {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #CDDAFD;
 }
 .buttonPlay:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #becfff;
 }
 .buttonPlay:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #b7c6ff;
 }
 
 .buttonSave {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #DFE7FD;
 }
 .buttonSave:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #DFE7FD;
 }
 .buttonSave:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #DFE7FD;
 }
 
 .buttonLoad {
-    -fx-background-color: #7835ff;
+    -fx-background-color: #DFE7FD;
 }
 .buttonLoad:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #DFE7FD;
 }
 .buttonLoad:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #DFE7FD;
 }
 
 .buttonStopAI {
-    -fx-background-color: #2a4a6b;
+    -fx-background-color: #FAD2E1;
 }
 .buttonStopAI:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FAD2E1;
 }
 .buttonStopAI:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FAD2E1;
 }
 
 .buttonStats {
-    -fx-background-color: #9319bd;
+    -fx-background-color: #FFF1E6;
 }
 .buttonStats:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FFF1E6;
 }
 .buttonStats:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FFF1E6;
 }
 
 .buttonBack {
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FFF1E6;
 }
 .buttonBack:hover{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FFF1E6;
 }
 .buttonBack:pressed{
-    -fx-background-color: #007BFF;
+    -fx-background-color: #FFF1E6;
 }
 
 /* Styles panes */
 
 .anchorPaneDrag {
     -fx-opacity: 0.9;
-    -fx-background-color: linear-gradient(#22333B, #22333B, #22333B);
+    -fx-background-color: #FAD2E1;
 }
 .anchorPaneBackground {
-    -fx-border-color: #989898;
-    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #ccc5b9, #ccc5b9);
+    -fx-border-color: #FAD2E1;
+    -fx-background-color: #EAE4E9;
 }
 .anchorPaneMid {
-    -fx-background-color: #22333B;
-    -fx-border-color: #777777;
-    -fx-effect: innershadow(gaussian, rgb(151, 155, 162), 10, 0.5, 0, 0);
+    -fx-background-color: #FAD2E1;
+
+    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.1, 0, 5);
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
 .anchorPaneMenu {
-    -fx-background-color: #010629;
-    -fx-border-color: #888888;
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #FAD2E1;
 }
 .anchorPaneStats {
-    -fx-background-color: #010629;
-    -fx-border-color: #989898;
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #FAD2E1;
 }
 
-.grille {
-    -fx-background-color: #C6BDAC;
-    -fx-border-color: #736f6b;
-    -fx-border-width: 1;
-    -fx-grid-lines-color: #736f6b;
+/* Styles grille */
 
+.grille {
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #EAE4E9;
+    -fx-grid-lines-color: #EAE4E9;
 }
