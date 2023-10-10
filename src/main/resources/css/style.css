@@ -1,23 +1,134 @@
-.closeButton {
+/* Styles boutons */
+
+.buttonClose {
     -fx-background-color: transparent;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
+}
+.buttonClose:hover {
+    -fx-background-color: #E71D36;
+}
+.buttonClose:pressed {
+    -fx-background-color: #ad0f23;
+}
 
+.buttonMenu {
+    -fx-background-color: #CDDAFD;
+    -fx-opacity: 0.7;
+    -fx-border-color: #FFF1E6;
 }
-.closeButton:hover {
-    -fx-background-color: #c91212;
-    -fx-cursor: hand;
+.buttonMenu:hover{
+    -fx-background-color: #becfff;
 }
-.closeButton:pressed {
-    -fx-background-color: #fd0000;
+.buttonMenu:pressed{
+    -fx-background-color: #b7c6ff;
+}
 
+.buttonUndo {
+    -fx-background-color: #CDDAFD;
+    -fx-opacity: 0.7;
+    -fx-border-color: #FFF1E6;
 }
-.menuButton {
-    -fx-background-color: #123456;
+.buttonUndo:hover{
+    -fx-background-color: #becfff;
 }
-.menuButton:hover{
-    -fx-background-color: #054279;
+.buttonUndo:pressed{
+    -fx-background-color: #b7c6ff;
 }
-.menuButton:pressed{
-    -fx-background-color: #123456;
+
+.buttonPlay {
+    -fx-background-color: #CDDAFD;
+}
+.buttonPlay:hover{
+    -fx-background-color: #becfff;
+}
+.buttonPlay:pressed{
+    -fx-background-color: #b7c6ff;
+}
+
+.buttonSave {
+    -fx-background-color: #DFE7FD;
+}
+.buttonSave:hover{
+    -fx-background-color: #DFE7FD;
+}
+.buttonSave:pressed{
+    -fx-background-color: #DFE7FD;
+}
+
+.buttonLoad {
+    -fx-background-color: #DFE7FD;
+}
+.buttonLoad:hover{
+    -fx-background-color: #DFE7FD;
+}
+.buttonLoad:pressed{
+    -fx-background-color: #DFE7FD;
+}
+
+.buttonStopAI {
+    -fx-background-color: #FAD2E1;
+}
+.buttonStopAI:hover{
+    -fx-background-color: #FAD2E1;
+}
+.buttonStopAI:pressed{
+    -fx-background-color: #FAD2E1;
+}
+
+.buttonStats {
+    -fx-background-color: #FFF1E6;
+}
+.buttonStats:hover{
+    -fx-background-color: #FFF1E6;
+}
+.buttonStats:pressed{
+    -fx-background-color: #FFF1E6;
+}
+
+.buttonBack {
+    -fx-background-color: #FFF1E6;
+}
+.buttonBack:hover{
+    -fx-background-color: #FFF1E6;
+}
+.buttonBack:pressed{
+    -fx-background-color: #FFF1E6;
+}
+
+/* Styles panes */
+
+.anchorPaneDrag {
+    -fx-background-color: #FAD2E1;
+}
+.anchorPaneBackground {
+    -fx-border-color: #FAD2E1;
+    -fx-background-color: #EAE4E9;
+}
+.anchorPaneMid {
+    -fx-background-color: #FAD2E1;
+    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.1, 0, 5);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.anchorPaneMenu {
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #FAD2E1;
+}
+.anchorPaneStats {
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #FAD2E1;
+}
+
+/* Styles grille */
+
+.grille {
+    -fx-background-color: #FDE2E4;
+    -fx-border-color: #EAE4E9;
+    -fx-grid-lines-color: #EAE4E9;
+}
+
+.lines{
+    -fx-stroke: #FAD2E1;
+
 }

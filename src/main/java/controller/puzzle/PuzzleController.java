@@ -12,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import logic.TopAnchorPaneLogic;
+import javafx.scene.shape.Line;
+import logic.UndoLogic;
+import logic.Shift;
 import modele.Grille;
 
 /**
@@ -21,20 +23,50 @@ import modele.Grille;
  */
 public class PuzzleController implements Initializable {
     @FXML
-    private Label score; // value will be injected by the FXMLLoader
+    private GridPane grille; //Grille
     @FXML
-    private GridPane grille;
+    private AnchorPane anchorPaneBackground; // panneau recouvrant toute la fenêtre
     @FXML
-    private Pane fond; // panneau recouvrant toute la fenêtre
+    private AnchorPane anchorPaneDrag; //panneau TOP
     @FXML
-    private Button closeButton;
+    private AnchorPane anchorPaneMid; //panneau contenant undo, menu et le score
     @FXML
-    private AnchorPane paneDrag;
+    private AnchorPane anchorPaneStats; //panneau contenant undo, menu et le score
     @FXML
-    private Button menuButton;
-    @FXML
-    private AnchorPane anchorPaneOfButton;
+    private AnchorPane anchorPaneMenu; //panneau du menu
 
+    @FXML
+    private Button buttonClose;
+    @FXML
+    private Button buttonMenu;
+    @FXML
+    private Button buttonUndo;
+    @FXML
+    private Button buttonPlay;
+    @FXML
+    private Button buttonSave;
+    @FXML
+    private Button buttonLoad;
+    @FXML
+    private Button buttonStopAI;
+    @FXML
+    private Button buttonStats;
+    @FXML
+    private Button buttonBack;
+
+    @FXML
+    private Label labelScore; // value will be injected by the FXMLLoader
+
+    @FXML
+    private Line line1;
+    @FXML
+    private Line line2;
+    @FXML
+    private Line line3;
+    @FXML
+    private Line line4;
+
+    private final Shift shift = new Shift();
     // variable globale pour initialiser le modèle
     private Grille grilleModele = new Grille();
 
@@ -44,29 +76,101 @@ public class PuzzleController implements Initializable {
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
 
+    private final UndoLogic undoLogic = new UndoLogic();
 
+    /*
+    Action des boutons
+     */
+    @FXML
+    protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
+    @FXML
+    protected void setButtonMenu(){
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
+        anchorPaneMid.setDisable(true);
+    }
+    @FXML
+    protected void setButtonPlay(){
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
+        shift.disabledNodeDuration(anchorPaneMid, 800);
+    }
+    @FXML
+    protected void setButtonLoad(){
+
+    }
+    @FXML
+    protected void setButtonSave(){
+
+    }
+    @FXML
+    protected void setButtonStopAI(){
+
+    }
+    @FXML
+    protected void setButtonStatsShow(){
+        shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
+        shift.disabledNodeDuration(anchorPaneStats, 800);
+    }
+    @FXML
+    protected void setButtonUndo(){
+        //Désactive le bouton undo au bout de 4 appuis
+        undoLogic.setCountPlus(buttonUndo);
+
+        //Annule le dernier mouvement
+
+        //...
+
+    }
+    @FXML
+    protected void setbuttonBack(){
+        shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
+        anchorPaneStats.setDisable(true);
+    }
+
+    /*
+    Initialisation
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            //SUPRIMME
-       anchorPaneOfButton.setVisible(false);
 
-       //ok
+        //Initialisation du style des bouttons
+        buttonClose.getStyleClass().add("buttonClose");
+        buttonMenu.getStyleClass().add("buttonMenu");
+        buttonUndo.getStyleClass().add("buttonUndo");
+        buttonPlay.getStyleClass().add("buttonPlay");
+        buttonLoad.getStyleClass().add("buttonLoad");
+        buttonSave.getStyleClass().add("buttonSave");
+        buttonStopAI.getStyleClass().add("buttonStopAI");
+        buttonStats.getStyleClass().add("buttonStats");
+        buttonBack.getStyleClass().add("buttonBack");
 
-        closeButton.getStyleClass().add("closeButton"); //Style du bouton close
-        menuButton.getStyleClass().add("menuButton");
-        TopAnchorPaneLogic topAnchorPaneLogic = new TopAnchorPaneLogic();
-        topAnchorPaneLogic.anchorPaneDrag(paneDrag); //Permet de déplacer le jeu
+        anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
+        anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
+        anchorPaneMid.getStyleClass().add("anchorPaneMid");
+        anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
+        anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
+        grille.getStyleClass().add("grille");
+
+        line1.getStyleClass().add("lines");
+        line2.getStyleClass().add("lines");
+        line3.getStyleClass().add("lines");
+        line4.getStyleClass().add("lines");
+
+        //Initialisation de l'état des noeuds
+        anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)
+        anchorPaneMid.setDisable(true);
+        anchorPaneStats.setVisible(true);
+        anchorPaneMenu.setVisible(true);
+        shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
         // TODO
 
-        System.out.println("le contrôleur initialise la vue");
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane");
         c.getStyleClass().add("tuile");
         grille.getStyleClass().add("gridpane");
         GridPane.setHalignment(c, HPos.CENTER);
-        fond.getChildren().add(p);
+        anchorPaneBackground.getChildren().add(p);
         p.getChildren().add(c);
 
         // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
@@ -87,9 +191,10 @@ public class PuzzleController implements Initializable {
         double y = event.getY();//translation en ordonnée
         if (x > y) {
             for (int i = 0; i < grille.getChildren().size(); i++) { //pour chaque colonne
-                //for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
+                for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
                 System.out.println("ok1");
-                grille.getChildren().remove(i);
+
+                    //grille.getChildren().remove(i);
 
                 /*Node tuile = grille.getChildren().get(i);
                  if (tuile != null) {
@@ -97,6 +202,7 @@ public class PuzzleController implements Initializable {
                  int rowEnd = GridPane.getRowIndex(tuile);
                  }*/
                 // }
+                }
             }
         } else if (x < y) {
             System.out.println("ok2");
@@ -112,10 +218,6 @@ public class PuzzleController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleButtonAction(MouseEvent event) {
-        System.out.println("Clic de souris sur le bouton menu");
-    }
 
     @FXML
     public void keyPressed(KeyEvent ke) {
@@ -126,14 +228,5 @@ public class PuzzleController implements Initializable {
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
 
         }
-    }
-    @FXML
-    protected void setCloseButton(){
-        System.exit(0);
-    }
-    @FXML
-    protected void setMenuButton(){
-        grille.setVisible(false);
-        anchorPaneOfButton.setVisible(true);
     }
 }
