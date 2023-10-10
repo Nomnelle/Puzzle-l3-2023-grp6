@@ -1,6 +1,7 @@
 module com.example.puzzle {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens controller.puzzle to javafx.fxml;
