@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import logic.Shift;
 import modele.Grille;
 
@@ -54,6 +55,15 @@ public class PuzzleController implements Initializable {
 
     @FXML
     private Label labelScore; // value will be injected by the FXMLLoader
+
+    @FXML
+    private Line line1;
+    @FXML
+    private Line line2;
+    @FXML
+    private Line line3;
+    @FXML
+    private Line line4;
 
     private final Shift shift = new Shift();
     // variable globale pour initialiser le modèle
@@ -131,6 +141,11 @@ public class PuzzleController implements Initializable {
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
         grille.getStyleClass().add("grille");
+
+        line1.getStyleClass().add("lines");
+        line2.getStyleClass().add("lines");
+        line3.getStyleClass().add("lines");
+        line4.getStyleClass().add("lines");
 
         //Initialisation de l'état des noeuds
         anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)

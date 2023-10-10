@@ -28,8 +28,14 @@
                           </Label>
                       </children>
                   </AnchorPane>
-                  <Button fx:id="buttonMenu" layoutX="240.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonMenu" prefHeight="64.0" prefWidth="76.0" text="MENU" textFill="#011627" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-            <Button fx:id="buttonUndo" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonUndo" prefHeight="64.0" prefWidth="76.0" text="UNDO" textFill="#011627" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <Button fx:id="buttonMenu" layoutX="240.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonMenu" prefHeight="64.0" prefWidth="76.0" text="MENU" textFill="#011627" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font></Button>
+            <Button fx:id="buttonUndo" layoutX="24.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonUndo" prefHeight="64.0" prefWidth="76.0" text="UNDO" textFill="#011627" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <font>
+                  <Font name="Candara" size="12.0" />
+               </font></Button>
               </children>
           </AnchorPane>
           <GridPane fx:id="grille" gridLinesVisible="true" onMouseDragged="#handleDragAction" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
@@ -56,10 +62,10 @@
                   <Button fx:id="buttonLoad" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonLoad" prefHeight="60.0" prefWidth="140.0" text="CHARGER" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="20.0" />
                   <Button fx:id="buttonStopAI" layoutX="143.0" layoutY="180.0" mnemonicParsing="false" onAction="#setButtonStopAI" prefHeight="60.0" prefWidth="300.0" text="IA STOP" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                   <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="60.0" prefWidth="76.0" text="STAT" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-            <Line endX="200.0" layoutX="170.0" layoutY="170.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
-            <Line endX="200.0" layoutX="120.5" layoutY="250.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
-            <Line endX="200.0" layoutX="120.5" layoutY="90.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
-            <Line endY="80.0" AnchorPane.leftAnchor="169.5" AnchorPane.topAnchor="90.0" />
+            <Line fx:id="line1" endX="195.0" layoutX="170.0" layoutY="170.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
+            <Line fx:id="line2" endX="195.0" layoutX="120.5" layoutY="250.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
+            <Line fx:id="line3" endX="195.0" layoutX="120.5" layoutY="90.0" startX="-100.0" AnchorPane.leftAnchor="20.0" />
+            <Line fx:id="line4" endY="77.0" layoutX="170.0" layoutY="90.5" AnchorPane.leftAnchor="169.5" AnchorPane.topAnchor="90.0" />
               </children>
           </AnchorPane>
       <AnchorPane fx:id="anchorPaneStats" layoutX="20.0" layoutY="160.0" prefHeight="340.0" prefWidth="340.0" visible="false">

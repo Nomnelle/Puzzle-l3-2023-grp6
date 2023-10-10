@@ -15,6 +15,7 @@
 .buttonMenu {
     -fx-background-color: #CDDAFD;
     -fx-opacity: 0.7;
+    -fx-border-color: #FFF1E6;
 }
 .buttonMenu:hover{
     -fx-background-color: #becfff;
@@ -26,6 +27,7 @@
 .buttonUndo {
     -fx-background-color: #CDDAFD;
     -fx-opacity: 0.7;
+    -fx-border-color: #FFF1E6;
 }
 .buttonUndo:hover{
     -fx-background-color: #becfff;
@@ -97,7 +99,6 @@
 /* Styles panes */
 
 .anchorPaneDrag {
-    -fx-opacity: 0.9;
     -fx-background-color: #FAD2E1;
 }
 .anchorPaneBackground {
@@ -106,7 +107,6 @@
 }
 .anchorPaneMid {
     -fx-background-color: #FAD2E1;
-
     -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.1, 0, 5);
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
@@ -126,4 +126,9 @@
     -fx-background-color: #FDE2E4;
     -fx-border-color: #EAE4E9;
     -fx-grid-lines-color: #EAE4E9;
+}
+
+.lines{
+    -fx-stroke: #FAD2E1;
+
 }
