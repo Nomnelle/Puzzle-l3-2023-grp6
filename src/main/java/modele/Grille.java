@@ -5,6 +5,22 @@ import java.util.Collections;
 import java.util.HashSet;
 public class Grille implements Parametres {
 
+    private static class Memento {
+        private final HashSet<Case> grilleSauvegarde;
+
+        public Memento(HashSet<Case> etatGrille){
+            this.grilleSauvegarde = new HashSet<>();
+
+            for(Case c : etatGrille){
+                this.grilleSauvegarde.add(new Case(c));
+            }
+        }
+
+        public HashSet<Case> getGrilleSauvegarde() {
+            return this.grilleSauvegarde;
+        }
+    }
+
     private HashSet<Case> grille;
     private final int longueur;
     private int nombreCoups;
@@ -230,7 +246,9 @@ public class Grille implements Parametres {
 
     public void undoLastMovement(){
         if(!this.pastGrid.isEmpty()){
-            this.grille = new HashSet<>(this.pastGrid.retrieveMemento().getGrilleSauvegarde());
+            if(this.pastGrid.retrieveMemento() instanceof Memento memento){
+                this.grille = new HashSet<>(memento.getGrilleSauvegarde());
+            }
         }
     }
 

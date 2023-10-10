@@ -3,7 +3,7 @@ package modele;
 public class Case {
 
     private final int x, y;
-    class Piece {
+    private class Piece {
         public String valeur;
         public int indice;
     }

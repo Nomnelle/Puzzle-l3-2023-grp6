@@ -2,7 +2,7 @@ package modele;
 import java.util.LinkedList;
 
 public class Caretaker {
-    private LinkedList<Memento> sauvegardeEtats;
+    private LinkedList<Object> sauvegardeEtats;
 
     public Caretaker(){
         sauvegardeEtats = new LinkedList<>();
@@ -12,18 +12,18 @@ public class Caretaker {
         return sauvegardeEtats.isEmpty();
     }
 
-    public void saveGrille(Memento memento){
+    public void saveGrille(Object memento){
         if(sauvegardeEtats.size()>5){
             sauvegardeEtats.removeFirst();
         }
         sauvegardeEtats.push(memento);
     }
 
-    public Memento retrieveMemento(){
+    public Object retrieveMemento(){
         return sauvegardeEtats.pop();
     }
 
-    public Memento retrieveMemento(int index){
+    public Object retrieveMemento(int index){
         return sauvegardeEtats.get(index);
     }
 
