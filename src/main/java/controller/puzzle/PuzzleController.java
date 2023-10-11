@@ -17,10 +17,6 @@ import logic.UndoLogic;
 import logic.Shift;
 import modele.Grille;
 
-/**
- *
- * @author castagno
- */
 public class PuzzleController implements Initializable {
     @FXML
     private GridPane grille; //Grille
@@ -55,7 +51,7 @@ public class PuzzleController implements Initializable {
     private Button buttonBack;
 
     @FXML
-    private Label labelScore; // value will be injected by the FXMLLoader
+    private Label labelScore;
 
     @FXML
     private Line line1;
@@ -66,7 +62,16 @@ public class PuzzleController implements Initializable {
     @FXML
     private Line line4;
 
-    private final Shift shift = new Shift();
+    /*
+    Classes Logiques
+     */
+
+    private final Shift shift = new Shift(); //Logique de déplacement
+    private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
+
+    /*
+
+     */
     // variable globale pour initialiser le modèle
     private Grille grilleModele = new Grille();
 
@@ -76,7 +81,7 @@ public class PuzzleController implements Initializable {
     private int x = 24, y = 191;
     private int objectifx = 24, objectify = 191;
 
-    private final UndoLogic undoLogic = new UndoLogic();
+
 
     /*
     Action des boutons
@@ -132,7 +137,7 @@ public class PuzzleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //Initialisation du style des bouttons
+        //Initialisation du style des Boutons
         buttonClose.getStyleClass().add("buttonClose");
         buttonMenu.getStyleClass().add("buttonMenu");
         buttonUndo.getStyleClass().add("buttonUndo");
@@ -143,14 +148,17 @@ public class PuzzleController implements Initializable {
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
 
+        //Initialisation du style des AnchorPanes
         anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
         anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
         anchorPaneMid.getStyleClass().add("anchorPaneMid");
         anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
+        //Initialisation du style de la Grille
         grille.getStyleClass().add("grille");
 
+        //Initialisation du style des Lignes
         line1.getStyleClass().add("lines");
         line2.getStyleClass().add("lines");
         line3.getStyleClass().add("lines");
@@ -163,13 +171,13 @@ public class PuzzleController implements Initializable {
         anchorPaneMenu.setVisible(true);
         shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
-        // TODO
+        /*
+        Initialisation de l'état des panneaux
+         */
 
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
         p.getStyleClass().add("pane");
         c.getStyleClass().add("tuile");
-        grille.getStyleClass().add("gridpane");
-        GridPane.setHalignment(c, HPos.CENTER);
+
         anchorPaneBackground.getChildren().add(p);
         p.getChildren().add(c);
 
@@ -227,6 +235,15 @@ public class PuzzleController implements Initializable {
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
 
+        }
+    }
+    @FXML
+    private void handleButtonAction(MouseEvent event ) {
+        System.out.println("Clic de souris");
+        try {
+            labelScore.setText(Integer.toString(Integer.parseInt(labelScore.getText()) + 1));
+        } catch (NumberFormatException nfe) {
+            System.err.println("AHHHHHRRRGGGG");
         }
     }
 }
