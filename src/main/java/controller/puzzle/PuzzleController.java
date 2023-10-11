@@ -1,13 +1,16 @@
 package controller.puzzle;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -49,6 +52,8 @@ public class PuzzleController implements Initializable {
     private Button buttonStats;
     @FXML
     private Button buttonBack;
+    @FXML
+    private Button buttonStyle;
 
     @FXML
     private Label labelScore;
@@ -131,6 +136,11 @@ public class PuzzleController implements Initializable {
         anchorPaneStats.setDisable(true);
     }
 
+    @FXML
+    protected void setButtonStyle(){
+        PuzzleApplication.styleChanger();
+    }
+
     /*
     Initialisation
      */
@@ -147,6 +157,7 @@ public class PuzzleController implements Initializable {
         buttonStopAI.getStyleClass().add("buttonStopAI");
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
+        buttonStyle.getStyleClass().add("buttonStyle");
 
         //Initialisation du style des AnchorPanes
         anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
@@ -171,6 +182,24 @@ public class PuzzleController implements Initializable {
         anchorPaneMenu.setVisible(true);
         shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
+
+/*
+
+La méthode initialize du contrôleur vérifiera l’existence du modèle
+sérialisé (i.e. du fichier modele.ser)
+
+ */
+
+
+/*
+
+Si le fichier existe, elle désérialise le modèle et elle met à jour la
+vue en fonction de ce que contient le modèle
+
+ */
+
+
+
         /*
         Initialisation de l'état des panneaux
          */
@@ -188,10 +217,16 @@ public class PuzzleController implements Initializable {
         c.setVisible(true);
     }
 
+
+
+
+
+
     /*
      * Méthodes listeners pour gérer les événements (portent les mêmes noms que
      * dans Scene Builder
      */
+
     @FXML
     private void handleDragAction(MouseEvent event) {
         System.out.println("Glisser/déposer sur la grille avec la souris");
