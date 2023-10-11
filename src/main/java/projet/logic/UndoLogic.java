@@ -1,4 +1,4 @@
-package logic;
+package projet.logic;
 
 import javafx.scene.Node;
 

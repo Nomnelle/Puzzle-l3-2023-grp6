@@ -1,24 +1,21 @@
-package controller.puzzle;
+package projet.controller;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import logic.UndoLogic;
-import logic.Shift;
-import modele.Grille;
+import projet.logic.UndoLogic;
+import projet.logic.Shift;
+import projet.modele.Grille;
+import projet.PuzzleApplication;
 
 public class PuzzleController implements Initializable {
     @FXML

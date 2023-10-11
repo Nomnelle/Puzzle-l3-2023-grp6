@@ -1,5 +1,5 @@
-import modele.Case;
-import modele.Grille;
+import projet.modele.Case;
+import projet.modele.Grille;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

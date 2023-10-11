@@ -1,4 +1,4 @@
-package controller.puzzle;
+package projet;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

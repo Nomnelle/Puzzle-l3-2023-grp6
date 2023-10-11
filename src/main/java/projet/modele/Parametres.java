@@ -1,4 +1,4 @@
-package modele;
+package projet.modele;
 
 public interface Parametres {
     static final int HAUT = 1;

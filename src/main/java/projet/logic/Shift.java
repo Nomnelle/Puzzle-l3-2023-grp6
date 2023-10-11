@@ -1,4 +1,4 @@
-package logic;
+package projet.logic;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
