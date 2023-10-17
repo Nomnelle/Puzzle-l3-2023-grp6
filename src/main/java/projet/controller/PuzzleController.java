@@ -99,6 +99,7 @@ public class PuzzleController implements Initializable {
     protected void setButtonPlay(){
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneMid, 800);
+
     }
     @FXML
     protected void setButtonLoad(){
