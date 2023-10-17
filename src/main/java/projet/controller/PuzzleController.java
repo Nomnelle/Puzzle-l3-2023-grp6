@@ -75,7 +75,6 @@ public class PuzzleController implements Initializable {
 
      */
     // variable globale pour initialiser le modèle
-    private Grille grilleModele = new Grille();
 
     // variables globales non définies dans la vue (fichier .fxml)
     private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
