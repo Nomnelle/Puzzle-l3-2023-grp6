@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import projet.logic.UndoLogic;
 import projet.logic.Shift;
-import projet.modele.Grille;
 import projet.PuzzleApplication;
 
 public class PuzzleController implements Initializable {
@@ -64,30 +63,13 @@ public class PuzzleController implements Initializable {
     @FXML
     private Line line4;
 
-    /*
-    Classes Logiques
-     */
-
     private final Shift shift = new Shift(); //Logique de déplacement
     private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
 
     /*
-
-     */
-    // variable globale pour initialiser le modèle
-    private Grille grilleModele = new Grille();
-
-    // variables globales non définies dans la vue (fichier .fxml)
-    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private final Label c = new Label("2");
-    private int x = 24, y = 191;
-    private int objectifx = 24, objectify = 191;
-
-
-
-    /*
     Action des boutons
      */
+
     @FXML
     protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
     @FXML
@@ -97,8 +79,19 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void setButtonPlay(){
+        //Disparition du menu
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneMid, 800);
+        //Définition de la taille de la grille
+        System.out.println(grille.getRowCount());
+
+
+       // GridPane.setRowIndex(button, 0);//
+        // GridPane.setColumnIndex(button, 1);
+
+
+       // grille.getChildren().add(cases[i]);
+
 
     }
     @FXML
@@ -202,17 +195,10 @@ vue en fonction de ce que contient le modèle
         Initialisation de l'état des panneaux
          */
 
-        p.getStyleClass().add("pane");
-        c.getStyleClass().add("tuile");
 
-        anchorPaneBackground.getChildren().add(p);
-        p.getChildren().add(c);
 
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p.setLayoutX(x);
-        p.setLayoutY(y);
-        p.setVisible(true);
-        c.setVisible(true);
+
+
     }
 
 
