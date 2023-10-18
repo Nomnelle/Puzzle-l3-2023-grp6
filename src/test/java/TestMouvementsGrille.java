@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TestMouvementsGrille {
 
-    private Grille grilleTest = new Grille(3);
+    private Grille grilleTest = Grille.getInstance(3);
 
     @BeforeEach
     public void initGrille(){

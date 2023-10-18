@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashSet;
 public class Grille implements Parametres {
 
+    private static Grille INSTANCE;
+
     private static class Memento {
         private final HashSet<Case> grilleSauvegarde;
 
@@ -26,18 +28,25 @@ public class Grille implements Parametres {
     private int nombreCoups;
     private Caretaker pastGrid;
 
-    public Grille() {
-        this.grille = new HashSet<>();
-        this.longueur = TAILLE;
-        this.nombreCoups = 0;
-        pastGrid = new Caretaker();
-    }
-
-    public Grille(int l) {
+    private Grille(int l) {
         this.grille = new HashSet<>();;
         this.longueur = l;
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
+    }
+
+    public static Grille getInstance(){
+        if(INSTANCE==null){
+            INSTANCE = new Grille(TAILLE);
+        }
+        return INSTANCE;
+    }
+
+    public static Grille getInstance(int longueur){
+        if(INSTANCE==null){
+            INSTANCE = new Grille(longueur);
+        }
+        return INSTANCE;
     }
 
     public HashSet<Case> getGrille() {
