@@ -72,7 +72,7 @@ public class PuzzleController implements Initializable {
 
     private final Shift shift = new Shift(); //Logique de déplacement
     private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
-
+    private final CasesCreator casesCreator = new CasesCreator();
     /*
     Action des boutons
      */
@@ -122,22 +122,25 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void buttonCase4(){
-        disableButtonCase();
+        casesCreator.taille(4);
 
+        disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
     }
     @FXML
     protected void buttonCase9(){
-        disableButtonCase();
+        casesCreator.taille(9);
 
+        disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
     }
     @FXML
     protected void buttonCase16(){
-        disableButtonCase();
+        casesCreator.taille(16);
 
+        disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
     }
