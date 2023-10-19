@@ -95,7 +95,6 @@ public class Shift {
             mouseY[0] = event.getY();
         });
 
-
         System.out.println(mouseX[0] + mouseY[0]);
 
     }
