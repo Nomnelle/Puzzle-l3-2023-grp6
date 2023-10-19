@@ -39,6 +39,13 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonPlay;
     @FXML
+    private Button buttonCase4;
+    @FXML
+    private Button buttonCase9;
+    @FXML
+    private Button buttonCase16;
+
+    @FXML
     private Button buttonSave;
     @FXML
     private Button buttonLoad;
@@ -77,23 +84,66 @@ public class PuzzleController implements Initializable {
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
     }
+
+    /*
+    BOUTON JOUER
+     */
+
+    private void translationAnimationPlay(){
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
+        shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
+        grille.setDisable(false); //Activation de la grille
+    }
+    private void disableButtonCase(){
+        buttonCase4.setVisible(false);
+        buttonCase9.setVisible(false);
+        buttonCase16.setVisible(false);
+        buttonCase4.setDisable(true);
+        buttonCase9.setDisable(true);
+        buttonCase16.setDisable(true);
+    }
     @FXML
     protected void setButtonPlay(){
-        //Disparition du menu
-        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
-        shift.disabledNodeDuration(anchorPaneMid, 800);
-        //Définition de la taille de la grille
-        System.out.println(grille.getRowCount());
+        buttonPlay.setDisable(true);
+        //Apparition du choix du nombre de cases
+        buttonCase4.setVisible(true);
+        buttonCase9.setVisible(true);
+        buttonCase16.setVisible(true);
+        buttonCase4.setDisable(false);
+        buttonCase9.setDisable(false);
+        buttonCase16.setDisable(false);
 
+        //donner de la taille de la grille           System.out.println(grille.getRowCount());
 
        // GridPane.setRowIndex(button, 0);//
-        // GridPane.setColumnIndex(button, 1);
-
-
+       // GridPane.setColumnIndex(button, 1);
        // grille.getChildren().add(cases[i]);
 
-
     }
+    @FXML
+    protected void buttonCase4(){
+        disableButtonCase();
+
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase9(){
+        disableButtonCase();
+
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase16(){
+        disableButtonCase();
+
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+
+
+
     @FXML
     protected void setButtonLoad(){
 
@@ -143,6 +193,10 @@ public class PuzzleController implements Initializable {
         buttonMenu.getStyleClass().add("buttonMenu");
         buttonUndo.getStyleClass().add("buttonUndo");
         buttonPlay.getStyleClass().add("buttonPlay");
+        buttonCase4.getStyleClass().add("buttonPlay");
+        buttonCase9.getStyleClass().add("buttonPlay");
+        buttonCase16.getStyleClass().add("buttonPlay");
+
         buttonLoad.getStyleClass().add("buttonLoad");
         buttonSave.getStyleClass().add("buttonSave");
         buttonStopAI.getStyleClass().add("buttonStopAI");
@@ -167,6 +221,9 @@ public class PuzzleController implements Initializable {
         line4.getStyleClass().add("lines");
 
         //Initialisation de l'état des noeuds
+        buttonCase4.setVisible(false);
+        buttonCase9.setVisible(false);
+        buttonCase16.setVisible(false);
         anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)
         anchorPaneMid.setDisable(true);
         anchorPaneStats.setVisible(true);
@@ -174,26 +231,20 @@ public class PuzzleController implements Initializable {
         shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
 
-/*
+    /*
+    La méthode initialize du contrôleur vérifiera l’existence du modèle
+    sérialisé (i.e. du fichier modele.ser)
+    */
 
-La méthode initialize du contrôleur vérifiera l’existence du modèle
-sérialisé (i.e. du fichier modele.ser)
-
- */
-
-
-/*
-
-Si le fichier existe, elle désérialise le modèle et elle met à jour la
-vue en fonction de ce que contient le modèle
-
- */
+    /*
+    Si le fichier existe, elle désérialise le modèle et elle met à jour la
+    vue en fonction de ce que contient le modèle
+    */
 
 
-
-        /*
-        Initialisation de l'état des panneaux
-         */
+    /*
+    Initialisation de l'état des cases
+    */
 
 
 
