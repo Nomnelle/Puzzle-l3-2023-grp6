@@ -347,6 +347,15 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     private void handleButtonAction(MouseEvent event ) {
+
+
+        grille.setOnDragDropped(MouseEvent -> {
+            if (grille.getOnDragDropped().equals("*.jpg")){
+                grilleCreator.cutPic();
+            }
+        });
+
+
         System.out.println("Clic de souris");
         try {
             labelScore.setText(Integer.toString(Integer.parseInt(labelScore.getText()) + 1));

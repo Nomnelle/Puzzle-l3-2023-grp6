@@ -1,6 +1,6 @@
 package projet.controller;
-
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 public class GrilleCreator {
@@ -10,7 +10,7 @@ public class GrilleCreator {
         this.taille = setTaille;
         this.rowAndColumn = (int) Math.sqrt(taille); //Permet de trouver le nombre de lignes à ajouter (peu importe le nombre de case)
     }
-    public void creerGrille(GridPane grille){
+    protected void creerGrille(GridPane grille){
         try {
             diviserGrille(grille);
         } catch (Exception e){
@@ -19,10 +19,13 @@ public class GrilleCreator {
         try {
             picsAdd(grille);
         } catch (Exception e){
-            System.err.println("d'ajouter la photo dans la grille");
+            System.err.println("impossible d'ajouter la photo dans la grille");
         }
+    }
+    protected void cutPic(){
 
-        System.out.println(grille.getRowCount());
+
+
     }
     private void diviserGrille(GridPane grille){
         //Reset de l'ancienne grille
@@ -47,9 +50,10 @@ public class GrilleCreator {
             for (int j=0; j<rowAndColumn; j++){
                 if (i == rowAndColumn - 1 && j == rowAndColumn - 1) continue;
                 VBox vbox = new VBox();
-                vbox.setAlignment(Pos.TOP_CENTER); // Centre le bouton horizontalement et le place en haut verticalement
                 grille.add(vbox, i, j);
                 vbox.getStyleClass().add("cell");
+                vbox.setId("l" + (i+1) + "c" + (j+1));
+                System.out.println(vbox.getId());
             }
         }
     }
