@@ -17,16 +17,23 @@ import projet.logic.Shift;
 import projet.PuzzleApplication;
 
 public class PuzzleController implements Initializable {
+
+    /*
+    ######################
+    Déclaration des noeuds
+    ######################
+     */
+
     @FXML
-    private GridPane grille; //Grille
+    private GridPane grille;
     @FXML
     private AnchorPane anchorPaneBackground; // panneau recouvrant toute la fenêtre
     @FXML
     private AnchorPane anchorPaneDrag; //panneau TOP
     @FXML
-    private AnchorPane anchorPaneMid; //panneau contenant undo, menu et le score
+    private AnchorPane anchorPaneMid; //panneau contenant undo, menu, le score et le chrono
     @FXML
-    private AnchorPane anchorPaneStats; //panneau contenant undo, menu et le score
+    private AnchorPane anchorPaneStats; //panneau contenant les informations statistiques
     @FXML
     private AnchorPane anchorPaneMenu; //panneau du menu
 
@@ -70,11 +77,20 @@ public class PuzzleController implements Initializable {
     @FXML
     private Line line4;
 
+    /*
+    ######################
+    Déclarations des classes
+    ######################
+     */
+
     private final Shift shift = new Shift(); //Logique de déplacement
     private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
-    private final CasesCreator casesCreator = new CasesCreator();
+    private final GrilleCreator grilleCreator = new GrilleCreator(); //Création de la grille
+
     /*
+    ######################
     Action des boutons
+    ######################
      */
 
     @FXML
@@ -84,15 +100,53 @@ public class PuzzleController implements Initializable {
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
     }
-
     /*
+    ............
     BOUTON JOUER
+    ............
      */
-
     private void translationAnimationPlay(){
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
         shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
         grille.setDisable(false); //Activation de la grille
+    }
+    @FXML
+    protected void setButtonPlay(){
+        //Apparition du choix du nombre de cases
+        buttonPlay.setDisable(true);
+        buttonCase4.setVisible(true);
+        buttonCase9.setVisible(true);
+        buttonCase16.setVisible(true);
+        buttonCase4.setDisable(false);
+        buttonCase9.setDisable(false);
+        buttonCase16.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase4(){
+        grilleCreator.setTaille(4);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase9(){
+        grilleCreator.setTaille(9);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase16(){
+        grilleCreator.setTaille(16);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
     }
     private void disableButtonCase(){
         buttonCase4.setVisible(false);
@@ -102,51 +156,11 @@ public class PuzzleController implements Initializable {
         buttonCase9.setDisable(true);
         buttonCase16.setDisable(true);
     }
-    @FXML
-    protected void setButtonPlay(){
-        buttonPlay.setDisable(true);
-        //Apparition du choix du nombre de cases
-        buttonCase4.setVisible(true);
-        buttonCase9.setVisible(true);
-        buttonCase16.setVisible(true);
-        buttonCase4.setDisable(false);
-        buttonCase9.setDisable(false);
-        buttonCase16.setDisable(false);
-
-        //donner de la taille de la grille           System.out.println(grille.getRowCount());
-
-       // GridPane.setRowIndex(button, 0);//
-       // GridPane.setColumnIndex(button, 1);
-       // grille.getChildren().add(cases[i]);
-
-    }
-    @FXML
-    protected void buttonCase4(){
-        casesCreator.taille(4);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-    }
-    @FXML
-    protected void buttonCase9(){
-        casesCreator.taille(9);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-    }
-    @FXML
-    protected void buttonCase16(){
-        casesCreator.taille(16);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-    }
-
-
-
+    /*
+    ............
+    BOUTON Load et Save
+    ............
+     */
     @FXML
     protected void setButtonLoad(){
 
@@ -155,15 +169,30 @@ public class PuzzleController implements Initializable {
     protected void setButtonSave(){
 
     }
+    /*
+    ............
+    BOUTON Stop AI
+    ............
+     */
     @FXML
     protected void setButtonStopAI(){
 
     }
+    /*
+    ............
+    BOUTON Stats
+    ............
+     */
     @FXML
     protected void setButtonStatsShow(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneStats, 800);
     }
+    /*
+    ............
+    BOUTON Undo
+    ............
+     */
     @FXML
     protected void setButtonUndo(){
         //Désactive le bouton undo au bout de 4 appuis
@@ -174,20 +203,32 @@ public class PuzzleController implements Initializable {
         //...
 
     }
+    /*
+    ............
+    BOUTON Back
+    ............
+     */
     @FXML
     protected void setbuttonBack(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
         anchorPaneStats.setDisable(true);
     }
-
+    /*
+    ............
+    BOUTON Style
+    ............
+     */
     @FXML
     protected void setButtonStyle(){
         PuzzleApplication.styleChanger();
     }
 
     /*
+    ######################
     Initialisation
+    ######################
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -250,13 +291,7 @@ public class PuzzleController implements Initializable {
     */
 
 
-
-
-
     }
-
-
-
 
 
 

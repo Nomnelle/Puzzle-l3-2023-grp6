@@ -143,7 +143,12 @@
     -fx-background-color: #FDE2E4;
     -fx-border-color: #EAE4E9;
 }
+.cell {
+    -fx-border-color: #EAE4E9;
+    -fx-border-width: 0 0.3 0.3 0;
+}
 
+/* Styles ligne menu */
 .lines{
     -fx-stroke: #FAD2E1;
 }

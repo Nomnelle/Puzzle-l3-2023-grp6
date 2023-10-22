@@ -3,14 +3,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class Shift {
     private final TranslateTransition translateTransition = new TranslateTransition();
     /*
+    ######################
     Déplacements du logiciel avec un AnchorPane
+    ######################
      */
     public void anchorPaneShift(AnchorPane paneDrag){
         //initialisation des variables
@@ -96,6 +97,5 @@ public class Shift {
         });
 
         System.out.println(mouseX[0] + mouseY[0]);
-
     }
 }
