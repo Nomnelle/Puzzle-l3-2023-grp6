@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 public class GrilleCreator {
     private int taille;
     private int rowAndColumn;
-    public void setTaille(int setTaille){
+    protected void setTaille(int setTaille){
         this.taille = setTaille;
         this.rowAndColumn = (int) Math.sqrt(taille); //Permet de trouver le nombre de lignes à ajouter (peu importe le nombre de case)
     }
@@ -17,16 +17,25 @@ public class GrilleCreator {
             System.err.println("Impossible de creer la grille");
         }
         try {
-            picsAdd(grille);
+            paneAdd(grille);
         } catch (Exception e){
             System.err.println("impossible d'ajouter la photo dans la grille");
         }
     }
-    protected void cutPic(){
+    protected void getPic(){
 
+//bufferedimage
+        //sourceimage
 
 
     }
+    protected void cutPic(){
+
+        //croppedimage
+
+    }
+
+
     private void diviserGrille(GridPane grille){
         //Reset de l'ancienne grille
         grille.getChildren().clear();
@@ -45,7 +54,7 @@ public class GrilleCreator {
            grille.getColumnConstraints().add(columnConstraints);
         }
     }
-    private void picsAdd(GridPane grille){
+    private void paneAdd(GridPane grille){
         for (int i = 0; i<rowAndColumn; i++) {
             for (int j=0; j<rowAndColumn; j++){
                 if (i == rowAndColumn - 1 && j == rowAndColumn - 1) continue;
