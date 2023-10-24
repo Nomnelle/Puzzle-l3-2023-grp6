@@ -137,46 +137,64 @@ public class Grille implements Parametres {
         return null;
     }
 
-    public void deplacerCase(String input) {
+    public int[] deplacerCase(String input) {
         Case vide = retournerCaseVide();
         Case mouvante;
+        boolean mouvement = false;
+        int[] coordinates = new int[2];
         switch (input) {
             case "haut":
                 if (longueur > vide.getX() + 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY();
+                    coordinates[1] = vide.getX() + 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY();
+                    coordinates[1] = vide.getX() - 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY() + 1;
+                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY() - 1;
+                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "undo":
                     undoLastMovement();
                 break;
         }
+        if(mouvement){
+            return coordinates;
+        }
+        return null;
     }
 
     public boolean verifierVictoire() {
