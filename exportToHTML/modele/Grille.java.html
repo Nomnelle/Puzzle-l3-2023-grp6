@@ -1,0 +1,276 @@
+<html>
+<head>
+<title>Grille.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Grille.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">modele</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Collections</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">HashSet</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">Grille </span><span class="s0">implements </span><span class="s1">Parametres </span><span class="s2">{</span>
+
+    <span class="s0">private static class </span><span class="s1">Memento </span><span class="s2">{</span>
+        <span class="s0">private final </span><span class="s1">HashSet</span><span class="s2">&lt;</span><span class="s1">Case</span><span class="s2">&gt; </span><span class="s1">grilleSauvegarde</span><span class="s2">;</span>
+
+        <span class="s0">public </span><span class="s1">Memento</span><span class="s2">(</span><span class="s1">HashSet</span><span class="s2">&lt;</span><span class="s1">Case</span><span class="s2">&gt; </span><span class="s1">etatGrille</span><span class="s2">){</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">grilleSauvegarde </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashSet</span><span class="s2">&lt;&gt;();</span>
+
+            <span class="s0">for</span><span class="s2">(</span><span class="s1">Case c </span><span class="s2">: </span><span class="s1">etatGrille</span><span class="s2">){</span>
+                <span class="s0">this</span><span class="s2">.</span><span class="s1">grilleSauvegarde</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Case</span><span class="s2">(</span><span class="s1">c</span><span class="s2">));</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public </span><span class="s1">HashSet</span><span class="s2">&lt;</span><span class="s1">Case</span><span class="s2">&gt; </span><span class="s1">getGrilleSauvegarde</span><span class="s2">() {</span>
+            <span class="s0">return this</span><span class="s2">.</span><span class="s1">grilleSauvegarde</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">HashSet</span><span class="s2">&lt;</span><span class="s1">Case</span><span class="s2">&gt; </span><span class="s1">grille</span><span class="s2">;</span>
+    <span class="s0">private final int </span><span class="s1">longueur</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">nombreCoups</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Caretaker pastGrid</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Grille</span><span class="s2">() {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">grille </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashSet</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">= </span><span class="s1">TAILLE</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s1">pastGrid </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Caretaker</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Grille</span><span class="s2">(</span><span class="s0">int </span><span class="s1">l</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">grille </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashSet</span><span class="s2">&lt;&gt;();;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">= </span><span class="s1">l</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s1">pastGrid </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Caretaker</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">HashSet</span><span class="s2">&lt;</span><span class="s1">Case</span><span class="s2">&gt; </span><span class="s1">getGrille</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">grille</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getLongueur</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">longueur</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">getNombreCoups</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">nombreCoups</span><span class="s2">; }</span>
+
+    <span class="s0">public void </span><span class="s1">remplirGrille</span><span class="s2">(){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">grille </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashSet</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">listIndex </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span><span class="s1">i</span><span class="s2">&lt;</span><span class="s1">longueur</span><span class="s2">*</span><span class="s1">longueur</span><span class="s2">;</span><span class="s1">i</span><span class="s2">++){</span>
+            <span class="s1">listIndex</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">Collections</span><span class="s2">.</span><span class="s1">shuffle</span><span class="s2">(</span><span class="s1">listIndex</span><span class="s2">);</span>
+
+        <span class="s0">if</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">&lt;</span><span class="s3">6</span><span class="s2">){</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i</span><span class="s2">&lt;</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++){</span>
+                <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">j</span><span class="s2">&lt;</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">j</span><span class="s2">++){</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Case</span><span class="s2">(</span><span class="s1">i</span><span class="s2">, </span><span class="s1">j</span><span class="s2">, </span><span class="s1">VALEUR</span><span class="s2">[</span><span class="s1">listIndex</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i </span><span class="s2">* </span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">+ </span><span class="s1">j</span><span class="s2">)], </span><span class="s1">listIndex</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i </span><span class="s2">* </span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">+ </span><span class="s1">j</span><span class="s2">), </span><span class="s0">this</span><span class="s2">));</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span><span class="s0">else</span><span class="s2">{</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i</span><span class="s2">&lt;</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++){</span>
+                <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">j</span><span class="s2">&lt;</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">j</span><span class="s2">++){</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Case</span><span class="s2">(</span><span class="s1">i</span><span class="s2">, </span><span class="s1">j</span><span class="s2">, </span><span class="s1">listIndex</span><span class="s2">.</span><span class="s1">get</span><span class="s2">(</span><span class="s1">i </span><span class="s2">* </span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">+ </span><span class="s1">j</span><span class="s2">), </span><span class="s0">this</span><span class="s2">));</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public int</span><span class="s2">[] </span><span class="s1">transformerGrilleArray1D</span><span class="s2">() {</span>
+        <span class="s1">Case</span><span class="s2">[][] </span><span class="s1">tableau2D </span><span class="s2">= </span><span class="s1">transformerGrilleArray2D</span><span class="s2">();</span>
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">resultat </span><span class="s2">= </span><span class="s0">new int</span><span class="s2">[</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">*</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">];</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">j </span><span class="s2">&lt; </span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">j</span><span class="s2">++) {</span>
+                <span class="s1">resultat</span><span class="s2">[</span><span class="s1">i </span><span class="s2">* </span><span class="s1">longueur </span><span class="s2">+ </span><span class="s1">j</span><span class="s2">] = </span><span class="s1">tableau2D</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s1">j</span><span class="s2">].</span><span class="s1">getIndice</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">resultat</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Case</span><span class="s2">[][] </span><span class="s1">transformerGrilleArray2D</span><span class="s2">() {</span>
+        <span class="s1">Case</span><span class="s2">[][] </span><span class="s1">tableau </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Case</span><span class="s2">[</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">][</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">];</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Case c </span><span class="s2">: </span><span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">) {</span>
+            <span class="s1">tableau</span><span class="s2">[</span><span class="s1">c</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">()][</span><span class="s1">c</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">()] = </span><span class="s1">c</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">tableau</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s1">Case</span><span class="s2">[][] </span><span class="s1">tableau </span><span class="s2">= </span><span class="s1">transformerGrilleArray2D</span><span class="s2">();</span>
+        <span class="s1">String result </span><span class="s2">= </span><span class="s4">&quot;&quot;</span><span class="s2">;</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s1">result </span><span class="s2">+= </span><span class="s4">&quot;[&quot;</span><span class="s2">;</span>
+            <span class="s1">String subResult </span><span class="s2">= </span><span class="s4">&quot;&quot;</span><span class="s2">;</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">j</span><span class="s2">&lt;</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">; </span><span class="s1">j</span><span class="s2">++){</span>
+                <span class="s1">subResult </span><span class="s2">+= </span><span class="s1">tableau</span><span class="s2">[</span><span class="s1">i</span><span class="s2">][</span><span class="s1">j</span><span class="s2">].</span><span class="s1">getValeur</span><span class="s2">()+</span><span class="s4">&quot;,&quot;</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s1">result </span><span class="s2">+= </span><span class="s1">subResult</span><span class="s2">.</span><span class="s1">substring</span><span class="s2">(</span><span class="s3">0</span><span class="s2">, </span><span class="s1">subResult</span><span class="s2">.</span><span class="s1">length</span><span class="s2">() - </span><span class="s3">1</span><span class="s2">);</span>
+            <span class="s1">result </span><span class="s2">+= </span><span class="s4">&quot;]</span><span class="s0">\n</span><span class="s4">&quot;</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Case retrouverCase</span><span class="s2">(</span><span class="s0">int </span><span class="s1">y</span><span class="s2">, </span><span class="s0">int </span><span class="s1">x</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Case c </span><span class="s2">: </span><span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">y </span><span class="s2">== </span><span class="s1">c</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() &amp;&amp; </span><span class="s1">x </span><span class="s2">== </span><span class="s1">c</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">()) {</span>
+                <span class="s0">return </span><span class="s1">c</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Case retournerCaseVide</span><span class="s2">() {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Case c </span><span class="s2">: </span><span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">c</span><span class="s2">.</span><span class="s1">getIndice</span><span class="s2">() == </span><span class="s3">0</span><span class="s2">) {</span>
+                <span class="s0">return </span><span class="s1">c</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">deplacerCase</span><span class="s2">(</span><span class="s1">String input</span><span class="s2">) {</span>
+        <span class="s1">Case vide </span><span class="s2">= </span><span class="s1">retournerCaseVide</span><span class="s2">();</span>
+        <span class="s1">Case mouvante</span><span class="s2">;</span>
+        <span class="s0">switch </span><span class="s2">(</span><span class="s1">input</span><span class="s2">) {</span>
+            <span class="s0">case </span><span class="s4">&quot;haut&quot;</span><span class="s2">:</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">longueur </span><span class="s2">&gt; </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() + </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">saveToMemento</span><span class="s2">();</span>
+                    <span class="s1">mouvante </span><span class="s2">= </span><span class="s1">retrouverCase</span><span class="s2">(</span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">(), </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() + </span><span class="s3">1</span><span class="s2">);</span>
+                    <span class="s1">vide</span><span class="s2">.</span><span class="s1">echangerValeursCases</span><span class="s2">(</span><span class="s1">mouvante</span><span class="s2">);</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;bas&quot;</span><span class="s2">:</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s3">0 </span><span class="s2">&lt;= </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() - </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">saveToMemento</span><span class="s2">();</span>
+                    <span class="s1">mouvante </span><span class="s2">= </span><span class="s1">retrouverCase</span><span class="s2">(</span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">(), </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">() - </span><span class="s3">1</span><span class="s2">);</span>
+                    <span class="s1">vide</span><span class="s2">.</span><span class="s1">echangerValeursCases</span><span class="s2">(</span><span class="s1">mouvante</span><span class="s2">);</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;gauche&quot;</span><span class="s2">:</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">longueur </span><span class="s2">&gt; </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() + </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">saveToMemento</span><span class="s2">();</span>
+                    <span class="s1">mouvante </span><span class="s2">= </span><span class="s1">retrouverCase</span><span class="s2">((</span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() + </span><span class="s3">1</span><span class="s2">), </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">());</span>
+                    <span class="s1">vide</span><span class="s2">.</span><span class="s1">echangerValeursCases</span><span class="s2">(</span><span class="s1">mouvante</span><span class="s2">);</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;droite&quot;</span><span class="s2">:</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s3">0 </span><span class="s2">&lt;= </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() - </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">saveToMemento</span><span class="s2">();</span>
+                    <span class="s1">mouvante </span><span class="s2">= </span><span class="s1">retrouverCase</span><span class="s2">((</span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getY</span><span class="s2">() - </span><span class="s3">1</span><span class="s2">), </span><span class="s1">vide</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">());</span>
+                    <span class="s1">vide</span><span class="s2">.</span><span class="s1">echangerValeursCases</span><span class="s2">(</span><span class="s1">mouvante</span><span class="s2">);</span>
+                    <span class="s0">this</span><span class="s2">.</span><span class="s1">nombreCoups</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;undo&quot;</span><span class="s2">:</span>
+                    <span class="s1">undoLastMovement</span><span class="s2">();</span>
+                <span class="s0">break</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">verifierVictoire</span><span class="s2">() {</span>
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">etatActuel </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">transformerGrilleArray1D</span><span class="s2">();</span>
+        <span class="s0">if</span><span class="s2">(</span><span class="s1">etatActuel</span><span class="s2">[</span><span class="s1">etatActuel</span><span class="s2">.</span><span class="s1">length </span><span class="s2">-</span><span class="s3">1</span><span class="s2">]==</span><span class="s3">0</span><span class="s2">){</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; (</span><span class="s1">longueur</span><span class="s2">*</span><span class="s1">longueur</span><span class="s2">) - </span><span class="s3">1</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">etatActuel</span><span class="s2">[</span><span class="s1">i</span><span class="s2">-</span><span class="s3">1</span><span class="s2">] &gt; </span><span class="s1">etatActuel</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]) {</span>
+                    <span class="s0">return false</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">return true</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">compterInversions</span><span class="s2">(){</span>
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">grilleTest </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">transformerGrilleArray1D</span><span class="s2">();</span>
+        <span class="s0">int </span><span class="s1">compteur </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s0">boolean </span><span class="s1">finTri</span><span class="s2">;</span>
+
+        <span class="s1">grilleTest </span><span class="s2">= </span><span class="s1">retirerCaseVideTableau</span><span class="s2">(</span><span class="s1">grilleTest</span><span class="s2">);</span>
+
+        <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= (</span><span class="s1">longueur</span><span class="s2">*</span><span class="s1">longueur</span><span class="s2">)-</span><span class="s3">1</span><span class="s2">; </span><span class="s1">i</span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">; </span><span class="s1">i</span><span class="s2">--){</span>
+            <span class="s1">finTri </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">j </span><span class="s2">= </span><span class="s3">0</span><span class="s2">; </span><span class="s1">j</span><span class="s2">&lt;(</span><span class="s1">i</span><span class="s2">-</span><span class="s3">1</span><span class="s2">);</span><span class="s1">j</span><span class="s2">++){</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">]&gt;</span><span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">+</span><span class="s3">1</span><span class="s2">]){</span>
+                    <span class="s0">int </span><span class="s1">tmp </span><span class="s2">= </span><span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">];</span>
+                    <span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">] = </span><span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">+</span><span class="s3">1</span><span class="s2">];</span>
+                    <span class="s1">grilleTest</span><span class="s2">[</span><span class="s1">j</span><span class="s2">+</span><span class="s3">1</span><span class="s2">] = </span><span class="s1">tmp</span><span class="s2">;</span>
+                    <span class="s1">finTri </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                    <span class="s1">compteur </span><span class="s2">++;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">finTri</span><span class="s2">){</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+        <span class="s2">}</span>
+
+        <span class="s0">return </span><span class="s1">compteur</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public static int</span><span class="s2">[] </span><span class="s1">retirerCaseVideTableau</span><span class="s2">(</span><span class="s0">int</span><span class="s2">[] </span><span class="s1">tabGrille</span><span class="s2">){</span>
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">newTabGrille </span><span class="s2">= </span><span class="s0">new int</span><span class="s2">[</span><span class="s1">tabGrille</span><span class="s2">.</span><span class="s1">length </span><span class="s2">- </span><span class="s3">1</span><span class="s2">];</span>
+        <span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">indice </span><span class="s2">: </span><span class="s1">tabGrille</span><span class="s2">){</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">indice </span><span class="s2">!=</span><span class="s3">0</span><span class="s2">){</span>
+                <span class="s1">newTabGrille</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">indice</span><span class="s2">;</span>
+                <span class="s1">i</span><span class="s2">++;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">newTabGrille</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public int </span><span class="s1">compterColonne</span><span class="s2">(){</span>
+        <span class="s1">Case c </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">retournerCaseVide</span><span class="s2">();</span>
+        <span class="s0">return this</span><span class="s2">.</span><span class="s1">longueur </span><span class="s2">- </span><span class="s1">c</span><span class="s2">.</span><span class="s1">getX</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">testerSiGrilleSoluble</span><span class="s2">(){</span>
+        <span class="s0">if</span><span class="s2">((</span><span class="s0">this</span><span class="s2">.</span><span class="s1">longueur</span><span class="s2">%</span><span class="s3">2</span><span class="s2">) != </span><span class="s3">0</span><span class="s2">){</span>
+            <span class="s0">if</span><span class="s2">((</span><span class="s0">this</span><span class="s2">.</span><span class="s1">compterInversions</span><span class="s2">()%</span><span class="s3">2</span><span class="s2">)==</span><span class="s3">0</span><span class="s2">){</span>
+                <span class="s0">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span><span class="s0">else</span><span class="s2">{</span>
+            <span class="s0">if</span><span class="s2">((</span><span class="s0">this</span><span class="s2">.</span><span class="s1">compterColonne</span><span class="s2">() % </span><span class="s3">2</span><span class="s2">) != (</span><span class="s0">this</span><span class="s2">.</span><span class="s1">compterInversions</span><span class="s2">() % </span><span class="s3">2</span><span class="s2">)){</span>
+                <span class="s0">return true</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return false</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveToMemento</span><span class="s2">(){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">pastGrid</span><span class="s2">.</span><span class="s1">saveGrille</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Memento</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">grille</span><span class="s2">));</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">undoLastMovement</span><span class="s2">(){</span>
+        <span class="s0">if</span><span class="s2">(!</span><span class="s0">this</span><span class="s2">.</span><span class="s1">pastGrid</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">()){</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">pastGrid</span><span class="s2">.</span><span class="s1">retrieveMemento</span><span class="s2">() </span><span class="s0">instanceof </span><span class="s1">Memento memento</span><span class="s2">){</span>
+                <span class="s0">this</span><span class="s2">.</span><span class="s1">grille </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashSet</span><span class="s2">&lt;&gt;(</span><span class="s1">memento</span><span class="s2">.</span><span class="s1">getGrilleSauvegarde</span><span class="s2">());</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

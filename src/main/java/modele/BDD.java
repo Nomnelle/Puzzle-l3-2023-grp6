@@ -91,7 +91,11 @@ public class BDD {
      * Insère un ou plusieurs tuples dans la base à partir de la requête passée en paramètre
      * Pour cela, il faut utiliser la méthode executeUpdate dans la classe Statement
      */
+    //créer fonction qui permet d'ajouter les données du jeu dans la BDD
 
+    public Boolean addData(String nom_Joueur,String temps_Partie, int taille_Puzzle) {
+        return false;
+    }
 }
 
 

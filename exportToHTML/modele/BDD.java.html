@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>BDD.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #67a37c; font-style: italic;}
+.s5 { color: #7a7e85;}
+.s6 { color: #6aab73;}
+.s7 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BDD.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">modele</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">sql</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalTime</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+
+<span class="s3">/**</span>
+ <span class="s3">* </span><span class="s4">@author </span><span class="s3">npnoi</span>
+ <span class="s3">*/</span>
+<span class="s0">public class </span><span class="s1">BDD </span><span class="s2">{</span>
+
+    <span class="s1">Connection con</span><span class="s2">;</span>
+    <span class="s1">String host</span><span class="s2">;</span>
+    <span class="s1">String dbName</span><span class="s2">;</span>
+    <span class="s1">String port</span><span class="s2">;</span>
+    <span class="s1">String username</span><span class="s2">;</span>
+    <span class="s1">String password</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">BDD</span><span class="s2">() {</span>
+        <span class="s5">// avant de se connecter sur la BDD, allez sur ce lien: https://phpmyadmin.alwaysdata.com/</span>
+        <span class="s1">con </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s1">host </span><span class="s2">= </span><span class="s6">&quot;mysql-puzzle-mick-purson-palich-watrin-mysql.alwaysdata.net&quot;</span><span class="s2">;</span>
+        <span class="s1">dbName </span><span class="s2">= </span><span class="s6">&quot;puzzle-mick-purson-palich-watrin-mysql_Puzzle&quot;</span><span class="s2">;</span>
+        <span class="s1">port </span><span class="s2">= </span><span class="s6">&quot;3306&quot;</span><span class="s2">;</span>
+        <span class="s1">username </span><span class="s2">= </span><span class="s6">&quot;329728&quot;</span><span class="s2">;</span>
+        <span class="s1">password </span><span class="s2">= </span><span class="s6">&quot;Puzzle.2023&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">openConnexion</span><span class="s2">() {</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">con </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">closeConnexion</span><span class="s2">();</span>
+        <span class="s2">}</span>
+
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">String connectUrl </span><span class="s2">= </span><span class="s6">&quot;jdbc:mysql://&quot; </span><span class="s2">+ </span><span class="s1">host </span><span class="s2">+ </span><span class="s6">&quot;:&quot; </span><span class="s2">+ </span><span class="s1">port </span><span class="s2">+ </span><span class="s6">&quot;/&quot; </span><span class="s2">+ </span><span class="s1">dbName</span><span class="s2">;</span>
+            <span class="s1">Class</span><span class="s2">.</span><span class="s1">forName</span><span class="s2">(</span><span class="s6">&quot;com.mysql.cj.jdbc.Driver&quot;</span><span class="s2">).</span><span class="s1">getDeclaredConstructor</span><span class="s2">().</span><span class="s1">newInstance</span><span class="s2">();</span>
+            <span class="s1">con </span><span class="s2">= </span><span class="s1">DriverManager</span><span class="s2">.</span><span class="s1">getConnection</span><span class="s2">(</span><span class="s1">connectUrl</span><span class="s2">, </span><span class="s1">username</span><span class="s2">, </span><span class="s1">password</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;Database connection established.&quot;</span><span class="s2">);</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">ClassNotFoundException cnfe</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;Cannot load db driver: com.mysql.jdbc.Driver&quot;</span><span class="s2">);</span>
+            <span class="s1">cnfe</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;Erreur inattendue&quot;</span><span class="s2">);</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">closeConnexion</span><span class="s2">() {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">con </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s0">this</span><span class="s2">.</span><span class="s1">con</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+                <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;Database connection terminated.&quot;</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                <span class="s5">/* ignore close errors */</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">getTuples</span><span class="s2">() {</span>
+        <span class="s1">ArrayList</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">res </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s1">String query </span><span class="s2">= </span><span class="s6">&quot;&quot;</span><span class="s2">;</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">openConnexion</span><span class="s2">();</span>
+            <span class="s1">Statement stmt </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">con</span><span class="s2">.</span><span class="s1">createStatement</span><span class="s2">();</span>
+            <span class="s1">ResultSet rs </span><span class="s2">= </span><span class="s1">stmt</span><span class="s2">.</span><span class="s1">executeQuery</span><span class="s2">(</span><span class="s1">query</span><span class="s2">);</span>
+            <span class="s1">ResultSetMetaData metadata </span><span class="s2">= </span><span class="s1">rs</span><span class="s2">.</span><span class="s1">getMetaData</span><span class="s2">(); </span><span class="s5">// permet de récupérer les noms des colonnes des tuples en sortie de la requête</span>
+            <span class="s1">String tuple</span><span class="s2">;</span>
+            <span class="s1">res </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+            <span class="s0">while </span><span class="s2">(</span><span class="s1">rs</span><span class="s2">.</span><span class="s1">next</span><span class="s2">()) {</span>
+                <span class="s1">tuple </span><span class="s2">= </span><span class="s6">&quot;&quot;</span><span class="s2">;</span>
+                <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s7">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">metadata</span><span class="s2">.</span><span class="s1">getColumnCount</span><span class="s2">(); </span><span class="s1">i</span><span class="s2">++) {</span>
+                    <span class="s1">tuple </span><span class="s2">+= </span><span class="s1">rs</span><span class="s2">.</span><span class="s1">getString</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">metadata</span><span class="s2">.</span><span class="s1">getColumnCount</span><span class="s2">()) {</span>
+                        <span class="s1">tuple </span><span class="s2">+= </span><span class="s6">&quot;:&quot;</span><span class="s2">;</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+                <span class="s1">res</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">tuple</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s1">stmt</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">SQLException e</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s6">&quot;Probleme avec la requete&quot;</span><span class="s2">);</span>
+        <span class="s2">} </span><span class="s0">finally </span><span class="s2">{</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">closeConnexion</span><span class="s2">();</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">res</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s5">/* 
+     * Insère un ou plusieurs tuples dans la base à partir de la requête passée en paramètre 
+     * Pour cela, il faut utiliser la méthode executeUpdate dans la classe Statement 
+     */</span>
+    <span class="s5">//créer fonction qui permet d'ajouter les données du jeu dans la BDD</span>
+
+    <span class="s0">public </span><span class="s1">BDD addData</span><span class="s2">(</span><span class="s1">String nom_Joueur</span><span class="s2">,</span><span class="s1">String temps_Partie</span><span class="s2">, </span><span class="s0">int </span><span class="s1">taille_Puzzle</span><span class="s2">, ) {</span>
+
+    <span class="s2">}</span>
+
+<span class="s2">}</span>
+
+
+</pre>
+</body>
+</html>
