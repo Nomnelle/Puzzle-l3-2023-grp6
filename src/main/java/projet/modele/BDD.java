@@ -60,7 +60,7 @@ public class BDD {
 
     public ArrayList<String> getTuples() {
         ArrayList<String> res = null;
-        String query = "";
+        String query = "SELECT * FROM Joueur";
         try {
             this.openConnexion();
             Statement stmt = this.con.createStatement();
@@ -93,7 +93,8 @@ public class BDD {
      */
     //créer fonction qui permet d'ajouter les données du jeu dans la BDD
 
-    public Boolean addData(String nom_Joueur,String temps_Partie, int taille_Puzzle) {
+    public Boolean addData(String nom_Joueur,String temps_Partie, int taille_Puzzle, int nbCoup) {
+
         return false;
     }
 }
