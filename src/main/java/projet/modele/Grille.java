@@ -1,9 +1,11 @@
-package modele;
+package projet.modele;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 public class Grille implements Parametres {
+
+    private static Grille INSTANCE;
 
     private static class Memento {
         private final HashSet<Case> grilleSauvegarde;
@@ -26,18 +28,25 @@ public class Grille implements Parametres {
     private int nombreCoups;
     private Caretaker pastGrid;
 
-    public Grille() {
-        this.grille = new HashSet<>();
-        this.longueur = TAILLE;
-        this.nombreCoups = 0;
-        pastGrid = new Caretaker();
-    }
-
-    public Grille(int l) {
+    private Grille(int l) {
         this.grille = new HashSet<>();;
         this.longueur = l;
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
+    }
+
+    public static Grille getInstance(){
+        if(INSTANCE==null){
+            INSTANCE = new Grille(TAILLE);
+        }
+        return INSTANCE;
+    }
+
+    public static Grille getInstance(int longueur){
+        if(INSTANCE==null){
+            INSTANCE = new Grille(longueur);
+        }
+        return INSTANCE;
     }
 
     public HashSet<Case> getGrille() {
@@ -128,46 +137,64 @@ public class Grille implements Parametres {
         return null;
     }
 
-    public void deplacerCase(String input) {
+    public int[] deplacerCase(String input) {
         Case vide = retournerCaseVide();
         Case mouvante;
+        boolean mouvement = false;
+        int[] coordinates = new int[2];
         switch (input) {
             case "haut":
                 if (longueur > vide.getX() + 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY();
+                    coordinates[1] = vide.getX() + 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY();
+                    coordinates[1] = vide.getX() - 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY() + 1;
+                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     saveToMemento();
+                    coordinates[0] = vide.getY() - 1;
+                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
+                    mouvement = true;
                 }
                 break;
             case "undo":
                     undoLastMovement();
                 break;
         }
+        if(mouvement){
+            return coordinates;
+        }
+        return null;
     }
 
     public boolean verifierVictoire() {

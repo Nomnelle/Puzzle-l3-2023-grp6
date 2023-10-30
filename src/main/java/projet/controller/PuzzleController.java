@@ -1,10 +1,9 @@
-package controller.puzzle;
+package projet.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -13,25 +12,28 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import logic.UndoLogic;
-import logic.Shift;
-import modele.Grille;
+import projet.logic.UndoLogic;
+import projet.logic.Shift;
+import projet.PuzzleApplication;
 
-/**
- *
- * @author castagno
- */
 public class PuzzleController implements Initializable {
+
+    /*
+    ######################
+    Déclaration des noeuds
+    ######################
+     */
+
     @FXML
-    private GridPane grille; //Grille
+    private GridPane grille;
     @FXML
     private AnchorPane anchorPaneBackground; // panneau recouvrant toute la fenêtre
     @FXML
     private AnchorPane anchorPaneDrag; //panneau TOP
     @FXML
-    private AnchorPane anchorPaneMid; //panneau contenant undo, menu et le score
+    private AnchorPane anchorPaneMid; //panneau contenant undo, menu, le score et le chrono
     @FXML
-    private AnchorPane anchorPaneStats; //panneau contenant undo, menu et le score
+    private AnchorPane anchorPaneStats; //panneau contenant les informations statistiques
     @FXML
     private AnchorPane anchorPaneMenu; //panneau du menu
 
@@ -44,6 +46,13 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonPlay;
     @FXML
+    private Button buttonCase4;
+    @FXML
+    private Button buttonCase9;
+    @FXML
+    private Button buttonCase16;
+
+    @FXML
     private Button buttonSave;
     @FXML
     private Button buttonLoad;
@@ -53,9 +62,11 @@ public class PuzzleController implements Initializable {
     private Button buttonStats;
     @FXML
     private Button buttonBack;
+    @FXML
+    private Button buttonStyle;
 
     @FXML
-    private Label labelScore; // value will be injected by the FXMLLoader
+    private Label labelScore;
 
     @FXML
     private Line line1;
@@ -66,21 +77,22 @@ public class PuzzleController implements Initializable {
     @FXML
     private Line line4;
 
-    private final Shift shift = new Shift();
-    // variable globale pour initialiser le modèle
-    private Grille grilleModele = new Grille();
+    /*
+    ######################
+    Déclarations des classes
+    ######################
+     */
 
-    // variables globales non définies dans la vue (fichier .fxml)
-    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
-    private final Label c = new Label("2");
-    private int x = 24, y = 191;
-    private int objectifx = 24, objectify = 191;
-
-    private final UndoLogic undoLogic = new UndoLogic();
+    private final Shift shift = new Shift(); //Logique de déplacement
+    private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
+    private final GrilleCreator grilleCreator = new GrilleCreator(); //Création de la grille
 
     /*
+    ######################
     Action des boutons
+    ######################
      */
+
     @FXML
     protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
     @FXML
@@ -88,11 +100,67 @@ public class PuzzleController implements Initializable {
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
     }
+    /*
+    ............
+    BOUTON JOUER
+    ............
+     */
+    private void translationAnimationPlay(){
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
+        shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
+        grille.setDisable(false); //Activation de la grille
+    }
     @FXML
     protected void setButtonPlay(){
-        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut");
-        shift.disabledNodeDuration(anchorPaneMid, 800);
+        //Apparition du choix du nombre de cases
+        buttonPlay.setDisable(true);
+        buttonCase4.setVisible(true);
+        buttonCase9.setVisible(true);
+        buttonCase16.setVisible(true);
+        buttonCase4.setDisable(false);
+        buttonCase9.setDisable(false);
+        buttonCase16.setDisable(false);
     }
+    @FXML
+    protected void buttonCase4(){
+        grilleCreator.setTaille(4);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase9(){
+        grilleCreator.setTaille(9);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    @FXML
+    protected void buttonCase16(){
+        grilleCreator.setTaille(16);
+        grilleCreator.creerGrille(grille);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        buttonPlay.setDisable(false);
+    }
+    private void disableButtonCase(){
+        buttonCase4.setVisible(false);
+        buttonCase9.setVisible(false);
+        buttonCase16.setVisible(false);
+        buttonCase4.setDisable(true);
+        buttonCase9.setDisable(true);
+        buttonCase16.setDisable(true);
+    }
+    /*
+    ............
+    BOUTON Load et Save
+    ............
+     */
     @FXML
     protected void setButtonLoad(){
 
@@ -101,15 +169,30 @@ public class PuzzleController implements Initializable {
     protected void setButtonSave(){
 
     }
+    /*
+    ............
+    BOUTON Stop AI
+    ............
+     */
     @FXML
     protected void setButtonStopAI(){
 
     }
+    /*
+    ............
+    BOUTON Stats
+    ............
+     */
     @FXML
     protected void setButtonStatsShow(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneStats, 800);
     }
+    /*
+    ............
+    BOUTON Undo
+    ............
+     */
     @FXML
     protected void setButtonUndo(){
         //Désactive le bouton undo au bout de 4 appuis
@@ -120,70 +203,103 @@ public class PuzzleController implements Initializable {
         //...
 
     }
+    /*
+    ............
+    BOUTON Back
+    ............
+     */
     @FXML
     protected void setbuttonBack(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
         anchorPaneStats.setDisable(true);
     }
+    /*
+    ............
+    BOUTON Style
+    ............
+     */
+    @FXML
+    protected void setButtonStyle(){
+        PuzzleApplication.styleChanger();
+    }
 
     /*
+    ######################
     Initialisation
+    ######################
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //Initialisation du style des bouttons
+        //Initialisation du style des Boutons
         buttonClose.getStyleClass().add("buttonClose");
         buttonMenu.getStyleClass().add("buttonMenu");
         buttonUndo.getStyleClass().add("buttonUndo");
         buttonPlay.getStyleClass().add("buttonPlay");
+        buttonCase4.getStyleClass().add("buttonPlay");
+        buttonCase9.getStyleClass().add("buttonPlay");
+        buttonCase16.getStyleClass().add("buttonPlay");
+
         buttonLoad.getStyleClass().add("buttonLoad");
         buttonSave.getStyleClass().add("buttonSave");
         buttonStopAI.getStyleClass().add("buttonStopAI");
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
+        buttonStyle.getStyleClass().add("buttonStyle");
 
+        //Initialisation du style des AnchorPanes
         anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
         anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
         anchorPaneMid.getStyleClass().add("anchorPaneMid");
         anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
 
+        //Initialisation du style de la Grille
         grille.getStyleClass().add("grille");
 
+        //Initialisation du style des Lignes
         line1.getStyleClass().add("lines");
         line2.getStyleClass().add("lines");
         line3.getStyleClass().add("lines");
         line4.getStyleClass().add("lines");
 
         //Initialisation de l'état des noeuds
+        buttonCase4.setVisible(false);
+        buttonCase9.setVisible(false);
+        buttonCase16.setVisible(false);
         anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)
         anchorPaneMid.setDisable(true);
         anchorPaneStats.setVisible(true);
         anchorPaneMenu.setVisible(true);
         shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
 
-        // TODO
 
-        // utilisation de styles pour la grille et la tuile (voir styles.css)
-        p.getStyleClass().add("pane");
-        c.getStyleClass().add("tuile");
-        grille.getStyleClass().add("gridpane");
-        GridPane.setHalignment(c, HPos.CENTER);
-        anchorPaneBackground.getChildren().add(p);
-        p.getChildren().add(c);
+    /*
+    La méthode initialize du contrôleur vérifiera l’existence du modèle
+    sérialisé (i.e. du fichier modele.ser)
+    */
 
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
-        p.setLayoutX(x);
-        p.setLayoutY(y);
-        p.setVisible(true);
-        c.setVisible(true);
+    /*
+    Si le fichier existe, elle désérialise le modèle et elle met à jour la
+    vue en fonction de ce que contient le modèle
+    */
+
+
+    /*
+    Initialisation de l'état des cases
+    */
+
+
     }
+
+
 
     /*
      * Méthodes listeners pour gérer les événements (portent les mêmes noms que
      * dans Scene Builder
      */
+
     @FXML
     private void handleDragAction(MouseEvent event) {
         System.out.println("Glisser/déposer sur la grille avec la souris");
@@ -227,6 +343,24 @@ public class PuzzleController implements Initializable {
 
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
 
+        }
+    }
+    @FXML
+    private void handleButtonAction(MouseEvent event ) {
+
+
+        grille.setOnDragDropped(MouseEvent -> {
+            if (grille.getOnDragDropped().equals("*.jpg")){
+                grilleCreator.cutPic();
+            }
+        });
+
+
+        System.out.println("Clic de souris");
+        try {
+            labelScore.setText(Integer.toString(Integer.parseInt(labelScore.getText()) + 1));
+        } catch (NumberFormatException nfe) {
+            System.err.println("AHHHHHRRRGGGG");
         }
     }
 }

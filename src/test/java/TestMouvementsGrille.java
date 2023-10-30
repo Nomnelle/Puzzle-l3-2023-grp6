@@ -1,12 +1,12 @@
-import modele.Grille;
-import modele.Case;
+import projet.modele.Grille;
+import projet.modele.Case;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TestMouvementsGrille {
 
-    private Grille grilleTest = new Grille(3);
+    private Grille grilleTest = Grille.getInstance(3);
 
     @BeforeEach
     public void initGrille(){

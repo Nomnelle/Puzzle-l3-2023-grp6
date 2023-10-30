@@ -1,28 +1,21 @@
-package logic;
-
+package projet.logic;
 import javafx.scene.Node;
 
 /*
-Calculs et securité
+######################
+Logique du bouton Undo
+######################
  */
 
 public class UndoLogic {
     private static int COUNT;
 
-    /*
-    Usable methods
-     */
-
     public void setCountPlus(Node node){ //Rajoute 1 à count et vérifie le nombre de coups
         grisState(increment(), node);
     }
-    public void setCountReset(Node node){ //Reset le bouton undo
+    public void setCountReset(Node node){ //Reset le bouton undo (NOUVELLE PARTIE)
         grisState(reset(), node);
     }
-
-    /*
-    Private methods
-     */
 
     private int increment(){
         return COUNT +=1;

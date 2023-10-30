@@ -1,4 +1,4 @@
-package modele;
+package projet.modele;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
                 System.out.println("Veuillez rentrer un chiffre d'une valeur de 5 ou moins.\n");
             }else{
                 System.out.printf("La grille sera de longueur %d.\n", longueur);
-                g = new Grille(longueur);
+                g = Grille.getInstance(longueur);
             }
         }catch(java.util.InputMismatchException e){
             System.out.println("Veuillez rentrer un nombre entier.\n");

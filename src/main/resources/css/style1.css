@@ -16,6 +16,7 @@
     -fx-background-color: #CDDAFD;
     -fx-opacity: 0.7;
     -fx-border-color: #FFF1E6;
+    -fx-text-fill: #011627;
 }
 .buttonMenu:hover{
     -fx-background-color: #becfff;
@@ -28,6 +29,7 @@
     -fx-background-color: #CDDAFD;
     -fx-opacity: 0.7;
     -fx-border-color: #FFF1E6;
+    -fx-text-fill: #011627;
 }
 .buttonUndo:hover{
     -fx-background-color: #becfff;
@@ -50,51 +52,65 @@
     -fx-background-color: #DFE7FD;
 }
 .buttonSave:hover{
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #E3EBFF;
 }
 .buttonSave:pressed{
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #D9E4FA;
 }
 
 .buttonLoad {
     -fx-background-color: #DFE7FD;
 }
 .buttonLoad:hover{
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #E3EBFF;
 }
 .buttonLoad:pressed{
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #D9E4FA;
 }
 
 .buttonStopAI {
     -fx-background-color: #FAD2E1;
 }
 .buttonStopAI:hover{
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #FCE5E9;
 }
 .buttonStopAI:pressed{
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #F7C8D5;
 }
 
 .buttonStats {
     -fx-background-color: #FFF1E6;
 }
 .buttonStats:hover{
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #FFF5E9;
 }
 .buttonStats:pressed{
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #FFEDDC;
 }
 
 .buttonBack {
     -fx-background-color: #FFF1E6;
 }
 .buttonBack:hover{
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #FFF5E9;
 }
 .buttonBack:pressed{
+    -fx-background-color: #FFEDDC;
+}
+
+.buttonStyle{
+    -fx-background-color: transparent;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+}
+.buttonStyle:hover{
     -fx-background-color: #FFF1E6;
 }
+.buttonStyle:pressed{
+    -fx-background-color: #CDDAFD;
+}
+
+
 
 /* Styles panes */
 
@@ -102,12 +118,13 @@
     -fx-background-color: #FAD2E1;
 }
 .anchorPaneBackground {
+    -fx-background-color: linear-gradient(#EAE4E9 65%, #FAD2E1 75%);
+
     -fx-border-color: #FAD2E1;
-    -fx-background-color: #EAE4E9;
 }
 .anchorPaneMid {
     -fx-background-color: #FAD2E1;
-    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.1, 0, 5);
+    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.05, 0, 5);
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
@@ -125,10 +142,13 @@
 .grille {
     -fx-background-color: #FDE2E4;
     -fx-border-color: #EAE4E9;
-    -fx-grid-lines-color: #EAE4E9;
+}
+.cell {
+    -fx-border-color: #EAE4E9;
+    -fx-border-width: 0 0.6 0.6 0;
 }
 
+/* Styles ligne menu */
 .lines{
     -fx-stroke: #FAD2E1;
-
 }

@@ -1,4 +1,4 @@
-package modele;
+package projet.modele;
 
 import java.sql.*;
 import java.time.LocalTime;

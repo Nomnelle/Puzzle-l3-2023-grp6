@@ -1,6 +1,5 @@
-package logic;
+package projet.logic;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -10,7 +9,9 @@ import javafx.util.Duration;
 public class Shift {
     private final TranslateTransition translateTransition = new TranslateTransition();
     /*
+    ######################
     Déplacements du logiciel avec un AnchorPane
+    ######################
      */
     public void anchorPaneShift(AnchorPane paneDrag){
         //initialisation des variables
@@ -38,16 +39,16 @@ public class Shift {
      *
      * @param cible Noeud ciblé par la méthode
      *
-     * @param executeur Noeud permettant l'éxécution du déplacement.
-     *                  Ce parametre est facultatif en fonction du contexte, il permet
-     *                  d'empecher les interactions avec un composant durant l'animation.
+     * @param conflit Noeud à désactiver temporairement.
+     *                Ce parametre est facultatif en fonction du contexte,
+     *                il permet d'empecher les interactions avec un composant durant l'animation.
      *
      * @param px Déplacement quantifié en pixel
      * @param duration Durée de l'animation en ms. (entier)
      * @param direction Direction du déplacement
      */
 
-    public void nodeShift(Node cible, Node executeur, int px, int duration, String direction) {
+    public void nodeShift(Node cible, Node conflit, int px, int duration, String direction) {
         translateTransition.setDuration(Duration.millis(duration)); //duration
         translateTransition.setNode(cible); //node
 
@@ -68,21 +69,33 @@ public class Shift {
 
         translateTransition.play();
 
-        if (executeur != null){
-            disabledNodeDuration(executeur, duration);
+        if (conflit != null){
+            disabledNodeDuration(conflit, duration);
         }
 
     }
     public void nodeShift(Node cible, int px, int duration, String direction){
         nodeShift(cible, null, px, duration, direction);
     }
-    public void disabledNodeDuration(Node executeur, int duration){
-        executeur.setDisable(true); //désactive le noeud d'execution
+    public void disabledNodeDuration(Node conflit, int duration){
+        conflit.setDisable(true); //désactive le noeud conflictuel
 
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(duration), e -> executeur.setDisable(false));
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(duration), e -> conflit.setDisable(false));
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);
 
         timeline.play();
+    }
+    
+    public void getCases(Node grille){
+        final double[] mouseX = {0};
+        final double[] mouseY = {0};
+
+        grille.setOnMouseClicked(event -> {
+            mouseX[0] = event.getX();
+            mouseY[0] = event.getY();
+        });
+
+        System.out.println(mouseX[0] + mouseY[0]);
     }
 }
