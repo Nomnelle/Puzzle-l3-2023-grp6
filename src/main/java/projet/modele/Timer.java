@@ -14,7 +14,6 @@ public class Timer extends Thread {
         this.minute = 0;
         this.seconde = 0;
         this.decompte = true;
-
     }
 
     public int getHeure() {
@@ -64,13 +63,12 @@ public class Timer extends Thread {
             stringSeconde = String.valueOf(seconde);
         }
 
-        return "Le décompte est : " + stringHeure + " : " + stringMinute + " : " + stringSeconde;
+        return stringHeure + ":" + stringMinute + ":" + stringSeconde;
 
     }
 
     @Override
     public void run() {
-
         while(true) {
             if(decompte) {
                 try {
@@ -84,18 +82,10 @@ public class Timer extends Thread {
                         minute = 0;
                         heure ++;
                     }
-
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
-
                 }
-
             }
-
-
-
         }
-
     }
-
 }
