@@ -17,11 +17,6 @@ import projet.logic.Shift;
 import projet.PuzzleApplication;
 
 public class PuzzleController implements Initializable {
-    /*
-    ######################
-    Déclaration des noeuds
-    ######################
-     */
     @FXML
     private GridPane grille;
     @FXML
@@ -70,20 +65,15 @@ public class PuzzleController implements Initializable {
     private Line line3;
     @FXML
     private Line line4;
-    private int increment = 0;
-    /*
-    ######################
-    Déclarations des classes
-    ######################
-     */
     private final Shift shift = new Shift(); //Logique de déplacement
     private final Undo undoLogic = new Undo(); //Logique de Undo
     GrilleController grilleController;
-
+    private int increment = 0;
+    public int getIncrement(){
+        return increment;
+    }
     /*
-    ######################
     Action des boutons
-    ######################
      */
     @FXML
     protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
@@ -93,15 +83,8 @@ public class PuzzleController implements Initializable {
         anchorPaneMid.setDisable(true);
     }
     /*
-    ............
     BOUTON JOUER
-    ............
      */
-    private void translationAnimationPlay(){
-        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
-        shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
-        grille.setDisable(false); //Activation de la grille
-    }
     @FXML
     protected void setButtonPlay(){
         //Apparition du choix du nombre de cases
@@ -140,17 +123,6 @@ public class PuzzleController implements Initializable {
         buttonPlay.setDisable(false);
         increment++;
     }
-    private void disableButtonCase(){
-        buttonCase4.setVisible(false);
-        buttonCase9.setVisible(false);
-        buttonCase16.setVisible(false);
-        buttonCase4.setDisable(true);
-        buttonCase9.setDisable(true);
-        buttonCase16.setDisable(true);
-    }
-    public int getIncrement(){
-        return increment;
-    }
     /*
     ............
     BOUTON Load et Save
@@ -158,25 +130,22 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonLoad(){
-
+    //La méthode initialize du contrôleur vérifiera l’existence du modèle sérialisé (i.e. du fichier modele.ser)
+    //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
     }
     @FXML
     protected void setButtonSave(){
 
     }
     /*
-    ............
     BOUTON Stop AI
-    ............
      */
     @FXML
     protected void setButtonStopAI(){
 
     }
     /*
-    ............
     BOUTON Stats
-    ............
      */
     @FXML
     protected void setButtonStatsShow(){
@@ -184,9 +153,7 @@ public class PuzzleController implements Initializable {
         shift.disabledNodeDuration(anchorPaneStats, 800);
     }
     /*
-    ............
     BOUTON Undo
-    ............
      */
     @FXML
     protected void setButtonUndo(){
@@ -268,27 +235,7 @@ public class PuzzleController implements Initializable {
         anchorPaneStats.setVisible(true);
         anchorPaneMenu.setVisible(true);
         shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
-
-
-    /*
-    La méthode initialize du contrôleur vérifiera l’existence du modèle
-    sérialisé (i.e. du fichier modele.ser)
-    */
-
-    /*
-    Si le fichier existe, elle désérialise le modèle et elle met à jour la
-    vue en fonction de ce que contient le modèle
-    */
-
-
-    /*
-    Initialisation de l'état des cases
-    */
-
-
     }
-
-
 
     /*
      * Méthodes listeners pour gérer les événements (portent les mêmes noms que
@@ -342,7 +289,6 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     private void handleButtonAction(MouseEvent event ) {
-
 /*
         grille.setOnDragDropped(MouseEvent -> {
             GrilleController grille16 = new GrilleController(); //Création de la grille
@@ -350,15 +296,26 @@ public class PuzzleController implements Initializable {
                 grille16.cutPic();
             }
         });
-
-
  */
-
         System.out.println("Clic de souris");
         try {
             labelScore.setText(Integer.toString(Integer.parseInt(labelScore.getText()) + 1));
         } catch (NumberFormatException nfe) {
             System.err.println("AHHHHHRRRGGGG");
         }
+    }
+
+    private void disableButtonCase(){
+        buttonCase4.setVisible(false);
+        buttonCase9.setVisible(false);
+        buttonCase16.setVisible(false);
+        buttonCase4.setDisable(true);
+        buttonCase9.setDisable(true);
+        buttonCase16.setDisable(true);
+    }
+    private void translationAnimationPlay(){
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
+        shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
+        grille.setDisable(false); //Activation de la grille
     }
 }
