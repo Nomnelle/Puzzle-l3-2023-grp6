@@ -49,16 +49,16 @@ public class Grille implements Parametres {
         instanceGUI = c.getIncrement();
     }
 
-    public static Grille getInstance(){
+    public static Grille getInstance(int longueur){
         if(INSTANCE==null){
-            INSTANCE = new Grille(TAILLE);
+            INSTANCE = new Grille(longueur);
         }
         return INSTANCE;
     }
 
-    public static Grille getInstance(int longueur){
-        if((INSTANCE==null)||(INSTANCE.instanceGUI!=INSTANCE.controller.getIncrement())){
-            INSTANCE = new Grille(longueur);
+    public static Grille getInstance(int longueur, PuzzleController controller){
+        if((INSTANCE==null)||(INSTANCE.instanceGUI!=controller.getIncrement())){
+            INSTANCE = new Grille(longueur, controller);
         }
         return INSTANCE;
     }
