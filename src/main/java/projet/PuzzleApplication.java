@@ -27,11 +27,12 @@ public class PuzzleApplication extends Application {
 
         stage.show();
     }
-
+    public static Scene getScene(){
+        return SCENE;
+    }
     /*
     Au lancement, le style est la feuille n°1, si la méthode est appelé ultérieurement, le style change.
-     */
-
+    */
     public static void styleChanger(){
         SCENE.getStylesheets().clear();
         try {

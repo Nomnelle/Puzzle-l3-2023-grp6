@@ -142,7 +142,7 @@
 }
 .cell {
     -fx-border-color: #5390D9;
-    -fx-border-width: 0 0.6 0.6 0;
+    -fx-border-width: 0.6 0.6 0.6 0.6;
 }
 
 /* Styles ligne menu */

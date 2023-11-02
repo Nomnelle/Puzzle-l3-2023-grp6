@@ -15,7 +15,6 @@ import projet.PuzzleApplication;
 import projet.modele.Grille;
 
 public class PuzzleController implements Initializable {
-    private Grille grille;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -66,6 +65,7 @@ public class PuzzleController implements Initializable {
     private Line line4;
     private final Shift shift = new Shift(); //Logique de déplacement
     private final Undo undoLogic = new Undo(); //Logique de Undo
+    private boolean pause = false;
     GrilleController grilleController;
     private int increment = 0;
     public int getIncrement(){
@@ -80,6 +80,7 @@ public class PuzzleController implements Initializable {
     protected void setButtonMenu(){
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
+        pause = true;
     }
     /*
     BOUTON JOUER
@@ -94,40 +95,48 @@ public class PuzzleController implements Initializable {
         buttonCase4.setDisable(false);
         buttonCase9.setDisable(false);
         buttonCase16.setDisable(false);
+        initializeGetPressed();
+        pause = false;
     }
     @FXML
     protected void buttonCase4(){
+        pause = false;
         increment++;
-
-        grilleController = new GrilleController(4, Grille.getInstance(4, this));
+        grilleController = new GrilleController(4, Grille.getInstance(2, this));
         grilleController.initJeu(gridPane);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
-
-        System.out.println(increment);
+        initializeGetPressed();
     }
     @FXML
     protected void buttonCase9(){
+        pause = false;
         increment++;
-        grilleController = new GrilleController(9, Grille.getInstance(4, this));
+        grilleController = new GrilleController(9, Grille.getInstance(3, this));
         grilleController.initJeu(gridPane);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
-
-        System.out.println(increment);
+        initializeGetPressed();
     }
     @FXML
     protected void buttonCase16(){
+        pause = false;
         increment++;
         grilleController = new GrilleController(16, Grille.getInstance(4, this));
         grilleController.initJeu(gridPane);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
-
-        System.out.println(increment);
+        initializeGetPressed();
+    }
+    private void initializeGetPressed(){
+        try {
+            grilleController.vboxDeplacer(PuzzleApplication.getScene(), gridPane, pause);
+        } catch (Exception e){
+            System.err.println("oui");
+        }
     }
     /*
     BOUTON Load et Save
