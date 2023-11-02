@@ -12,18 +12,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import projet.logic.UndoLogic;
+import projet.logic.Undo;
 import projet.logic.Shift;
 import projet.PuzzleApplication;
 
 public class PuzzleController implements Initializable {
-
     /*
     ######################
     Déclaration des noeuds
     ######################
      */
-
     @FXML
     private GridPane grille;
     @FXML
@@ -36,7 +34,6 @@ public class PuzzleController implements Initializable {
     private AnchorPane anchorPaneStats; //panneau contenant les informations statistiques
     @FXML
     private AnchorPane anchorPaneMenu; //panneau du menu
-
     @FXML
     private Button buttonClose;
     @FXML
@@ -51,7 +48,6 @@ public class PuzzleController implements Initializable {
     private Button buttonCase9;
     @FXML
     private Button buttonCase16;
-
     @FXML
     private Button buttonSave;
     @FXML
@@ -64,10 +60,8 @@ public class PuzzleController implements Initializable {
     private Button buttonBack;
     @FXML
     private Button buttonStyle;
-
     @FXML
     private Label labelScore;
-
     @FXML
     private Line line1;
     @FXML
@@ -76,23 +70,21 @@ public class PuzzleController implements Initializable {
     private Line line3;
     @FXML
     private Line line4;
-
+    private int increment = 0;
     /*
     ######################
     Déclarations des classes
     ######################
      */
-
     private final Shift shift = new Shift(); //Logique de déplacement
-    private final UndoLogic undoLogic = new UndoLogic(); //Logique de Undo
-    private final GrilleCreator grilleCreator = new GrilleCreator(); //Création de la grille
+    private final Undo undoLogic = new Undo(); //Logique de Undo
+    GrilleController grilleController;
 
     /*
     ######################
     Action des boutons
     ######################
      */
-
     @FXML
     protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
     @FXML
@@ -123,30 +115,30 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void buttonCase4(){
-        grilleCreator.setTaille(4);
-        grilleCreator.creerGrille(grille);
-
+        grilleController = new GrilleController(4);
+        grilleController.initJeu(grille);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
+        increment++;
     }
     @FXML
     protected void buttonCase9(){
-        grilleCreator.setTaille(9);
-        grilleCreator.creerGrille(grille);
-
+        grilleController = new GrilleController(9);
+        grilleController.initJeu(grille);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
+        increment++;
     }
     @FXML
     protected void buttonCase16(){
-        grilleCreator.setTaille(16);
-        grilleCreator.creerGrille(grille);
-
+        grilleController = new GrilleController(16);
+        grilleController.initJeu(grille);
         disableButtonCase();
         translationAnimationPlay();
         buttonPlay.setDisable(false);
+        increment++;
     }
     private void disableButtonCase(){
         buttonCase4.setVisible(false);
@@ -155,6 +147,9 @@ public class PuzzleController implements Initializable {
         buttonCase4.setDisable(true);
         buttonCase9.setDisable(true);
         buttonCase16.setDisable(true);
+    }
+    public int getIncrement(){
+        return increment;
     }
     /*
     ............
@@ -348,13 +343,16 @@ public class PuzzleController implements Initializable {
     @FXML
     private void handleButtonAction(MouseEvent event ) {
 
-
+/*
         grille.setOnDragDropped(MouseEvent -> {
+            GrilleController grille16 = new GrilleController(); //Création de la grille
             if (grille.getOnDragDropped().equals("*.jpg")){
-                grilleCreator.cutPic();
+                grille16.cutPic();
             }
         });
 
+
+ */
 
         System.out.println("Clic de souris");
         try {

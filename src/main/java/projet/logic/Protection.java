@@ -8,4 +8,8 @@ public class Protection {
     public boolean state(boolean firstGame){
         return firstGame;
     }
+
+
+
+
 }

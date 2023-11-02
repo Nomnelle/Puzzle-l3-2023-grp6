@@ -7,7 +7,7 @@ Logique du bouton Undo
 ######################
  */
 
-public class UndoLogic {
+public class Undo {
     private static int COUNT;
 
     public void setCountPlus(Node node){ //Rajoute 1 à count et vérifie le nombre de coups
