@@ -161,7 +161,7 @@ public class Grille implements Parametres {
                 if (longueur > vide.getX() + 1) {
                     saveToMemento();
                     coordinates[0] = vide.getY();
-                    coordinates[1] = vide.getX() + 1;
+                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -172,7 +172,7 @@ public class Grille implements Parametres {
                 if (0 <= vide.getX() - 1) {
                     saveToMemento();
                     coordinates[0] = vide.getY();
-                    coordinates[1] = vide.getX() - 1;
+                    coordinates[1] = vide.getX() ;
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -182,7 +182,7 @@ public class Grille implements Parametres {
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY() + 1;
+                    coordinates[0] = vide.getY();
                     coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
@@ -193,7 +193,7 @@ public class Grille implements Parametres {
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY() - 1;
+                    coordinates[0] = vide.getY();
                     coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);

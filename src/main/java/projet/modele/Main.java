@@ -40,6 +40,11 @@ public class Main {
         }
 
         System.out.println("Génération de la grille...\n");
+
+        g = null;
+
+        g = Grille.getInstance(4);
+        System.out.println(g.getGrille());
         correcte = false;
 
         while(!correcte){
