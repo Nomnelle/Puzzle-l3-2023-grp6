@@ -35,15 +35,15 @@ public class Grille implements Parametres {
         pastGrid = new Caretaker();
     }
 
-    public static Grille getInstance(){
-        if(INSTANCE==null){
+    public static Grille getInstance(boolean reset){
+        if((INSTANCE==null)||(reset)){
             INSTANCE = new Grille(TAILLE);
         }
         return INSTANCE;
     }
 
-    public static Grille getInstance(int longueur){
-        if(INSTANCE==null){
+    public static Grille getInstance(int longueur, boolean reset){
+        if((INSTANCE==null)||(reset)){
             INSTANCE = new Grille(longueur);
         }
         return INSTANCE;
