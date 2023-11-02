@@ -1,5 +1,7 @@
 package projet.modele;
 
+import projet.controller.PuzzleController;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,6 +29,9 @@ public class Grille implements Parametres {
     private final int longueur;
     private int nombreCoups;
     private Caretaker pastGrid;
+    private PuzzleController controller = null;
+    private int instanceGUI = 0;
+
 
     private Grille(int l) {
         this.grille = new HashSet<>();;
@@ -35,15 +40,24 @@ public class Grille implements Parametres {
         pastGrid = new Caretaker();
     }
 
-    public static Grille getInstance(boolean reset){
-        if((INSTANCE==null)||(reset)){
+    private Grille(int l, PuzzleController c) {
+        this.grille = new HashSet<>();;
+        this.longueur = l;
+        this.nombreCoups = 0;
+        pastGrid = new Caretaker();
+        this.controller = c;
+        instanceGUI = c.getIncrement();
+    }
+
+    public static Grille getInstance(){
+        if(INSTANCE==null){
             INSTANCE = new Grille(TAILLE);
         }
         return INSTANCE;
     }
 
-    public static Grille getInstance(int longueur, boolean reset){
-        if((INSTANCE==null)||(reset)){
+    public static Grille getInstance(int longueur){
+        if((INSTANCE==null)||(INSTANCE.instanceGUI!=INSTANCE.controller.getIncrement())){
             INSTANCE = new Grille(longueur);
         }
         return INSTANCE;
