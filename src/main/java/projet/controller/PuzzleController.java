@@ -9,12 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
-import projet.logic.Undo;
 import projet.logic.Shift;
 import projet.PuzzleApplication;
 import projet.modele.Grille;
 
 public class PuzzleController implements Initializable {
+    /*
+    ====================
+    Nodes
+    ====================
+     */
     @FXML
     private GridPane gridPane;
     @FXML
@@ -64,87 +68,95 @@ public class PuzzleController implements Initializable {
     @FXML
     private Line line4;
     private final Shift shift = new Shift(); //Logique de déplacement
-    private final Undo undoLogic = new Undo(); //Logique de Undo
-    private boolean pause = false;
     GrilleController grilleController;
     private int increment = 0;
     public int getIncrement(){
         return increment;
     }
     /*
-    Action des boutons
+    ====================
+    Button action
+    ====================
      */
     @FXML
-    protected void setButtonClose(){System.exit(0);} //Fermer la fenetre
+    protected void setButtonClose(){System.exit(0);}
+    /*
+    Play and Menu buttons
+     */
     @FXML
     protected void setButtonMenu(){
+        grilleController.isPaused(true);
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
-        pause = true;
+        buttonPlay.setDisable(false);
     }
-    /*
-    BOUTON JOUER
-     */
     @FXML
     protected void setButtonPlay(){
-        //Apparition du choix du nombre de cases
-        buttonPlay.setDisable(true);
-        buttonCase4.setVisible(true);
-        buttonCase9.setVisible(true);
-        buttonCase16.setVisible(true);
-        buttonCase4.setDisable(false);
-        buttonCase9.setDisable(false);
-        buttonCase16.setDisable(false);
-        initializeGetPressed();
-        pause = false;
-    }
-    @FXML
-    protected void buttonCase4(){
-        pause = false;
-        increment++;
-        grilleController = new GrilleController(4, Grille.getInstance(2, this));
-        grilleController.initJeu(gridPane);
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-        initializeGetPressed();
-    }
-    @FXML
-    protected void buttonCase9(){
-        pause = false;
-        increment++;
-        grilleController = new GrilleController(9, Grille.getInstance(3, this));
-        grilleController.initJeu(gridPane);
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-        initializeGetPressed();
-    }
-    @FXML
-    protected void buttonCase16(){
-        pause = false;
-        increment++;
-        grilleController = new GrilleController(16, Grille.getInstance(4, this));
-        grilleController.initJeu(gridPane);
-        disableButtonCase();
-        translationAnimationPlay();
-        buttonPlay.setDisable(false);
-        initializeGetPressed();
-    }
-    private void initializeGetPressed(){
-        try {
-            grilleController.vboxDeplacer(PuzzleApplication.getScene(), gridPane, pause);
-        } catch (Exception e){
-            System.err.println("oui");
+        if (grilleController !=null && grilleController.gameExist()){
+            //Return to the game
+            translationAnimationPlay();
+            grilleController.isPaused(false);
+        } else {
+            //Show the choice of the number of cases
+            buttonPlay.setDisable(true);
+            buttonCase4.setVisible(true);
+            buttonCase9.setVisible(true);
+            buttonCase16.setVisible(true);
+            buttonCase4.setDisable(false);
+            buttonCase9.setDisable(false);
+            buttonCase16.setDisable(false);
         }
     }
     /*
-    BOUTON Load et Save
+    Cases choice buttons
+     */
+    @FXML
+    protected void buttonCase4(){
+        increment++;
+
+        grilleController = new GrilleController(4, Grille.getInstance(2, this), gridPane);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        initializeKeyListener();
+
+        grilleController.isPaused(false);
+    }
+    @FXML
+    protected void buttonCase9(){
+        increment++;
+
+        grilleController = new GrilleController(9, Grille.getInstance(3, this), gridPane);
+
+        disableButtonCase();
+        translationAnimationPlay();
+
+
+        grilleController.isPaused(false);
+    }
+    @FXML
+    protected void buttonCase16(){
+        increment++;
+
+        grilleController = new GrilleController(16, Grille.getInstance(4, this), gridPane);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        initializeKeyListener();
+
+        grilleController.isPaused(false);
+    }
+    /*
+    Load et Save buttons
      */
     @FXML
     protected void setButtonLoad(){
     //La méthode initialize du contrôleur vérifiera l’existence du modèle sérialisé (i.e. du fichier modele.ser)
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
+
+
+        translationAnimationPlay();
+        initializeKeyListener();
     }
     @FXML
     protected void setButtonSave(){
@@ -170,33 +182,45 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonUndo(){
-        //Désactive le bouton undo au bout de 4 appuis
-        undoLogic.setCountPlus(buttonUndo);
-        //Annule le dernier mouvement
-        //...
+        //Deactivates the undo button after 4 uses
+        switch (grilleController.getUndoCount()){
+            case 0 :
+                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (3)");}
+                break;
+            case 1 :
+                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (2)");}
+                break;
+            case 2 :
+                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (1)");}
+                break;
+            case 3 :
+                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (0)");buttonUndo.setDisable(true);}
+                break;
+        }
     }
     /*
-    BOUTON Back
+    Back button
      */
     @FXML
-    protected void setbuttonBack(){
+    protected void setButtonBack(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
         anchorPaneStats.setDisable(true);
     }
     /*
-    BOUTON Style
+    Style button
      */
     @FXML
     protected void setButtonStyle(){
         PuzzleApplication.styleChanger();
     }
     /*
+    ====================
     Initialisation
+    ====================
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        //Initialisation du style des Boutons
+        //Initializing the Button Style
         buttonClose.getStyleClass().add("buttonClose");
         buttonMenu.getStyleClass().add("buttonMenu");
         buttonUndo.getStyleClass().add("buttonUndo");
@@ -204,40 +228,40 @@ public class PuzzleController implements Initializable {
         buttonCase4.getStyleClass().add("buttonPlay");
         buttonCase9.getStyleClass().add("buttonPlay");
         buttonCase16.getStyleClass().add("buttonPlay");
-
         buttonLoad.getStyleClass().add("buttonLoad");
         buttonSave.getStyleClass().add("buttonSave");
         buttonStopAI.getStyleClass().add("buttonStopAI");
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
         buttonStyle.getStyleClass().add("buttonStyle");
-
-        //Initialisation du style des AnchorPanes
+        //Initializing the style of AnchorPanes
         anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
         anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
         anchorPaneMid.getStyleClass().add("anchorPaneMid");
         anchorPaneMenu.getStyleClass().add("anchorPaneMenu");
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
-
-        //Initialisation du style de la gridPane
-        gridPane.getStyleClass().add("grille");
-
-        //Initialisation du style des Lignes
+        //Initializing the style of the grid
+        gridPane.getStyleClass().add("grid");
+        //Initializing the style of Lines
         line1.getStyleClass().add("lines");
         line2.getStyleClass().add("lines");
         line3.getStyleClass().add("lines");
         line4.getStyleClass().add("lines");
-
-        //Initialisation de l'état des noeuds
+        //Initializing the state of nodes
         buttonCase4.setVisible(false);
         buttonCase9.setVisible(false);
         buttonCase16.setVisible(false);
-        anchorPaneStats.setLayoutY(160 + 600); //Position du panneau stats à l'ouverture (160 est l'état normal)
+        anchorPaneStats.setLayoutY(160 + 600); //Position of the stats panel at opening (160 is the normal state)
         anchorPaneMid.setDisable(true);
         anchorPaneStats.setVisible(true);
         anchorPaneMenu.setVisible(true);
-        shift.anchorPaneShift(anchorPaneDrag); //Permet le déplacement de la fenetre
+        shift.anchorPaneShift(anchorPaneDrag); //Allows the movement of the window
     }
+    /*
+    ====================
+    Private methods
+    ====================
+     */
     private void disableButtonCase(){
         buttonCase4.setVisible(false);
         buttonCase9.setVisible(false);
@@ -247,8 +271,15 @@ public class PuzzleController implements Initializable {
         buttonCase16.setDisable(true);
     }
     private void translationAnimationPlay(){
-        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Disparition du menu
-        shift.disabledNodeDuration(anchorPaneMid, 800); //Desactivation du pane contenant le bouton "menu" durant 800ms
-        gridPane.setDisable(false); //Activation de la gridPane
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "haut"); //Menu disappearance
+        shift.disabledNodeDuration(anchorPaneMid, 800); //Disable pane containing "menu" button during 800ms
+        gridPane.setDisable(false); //Activating the GridPane
+    }
+    private void initializeKeyListener(){
+        try {
+            grilleController.casesMove(PuzzleApplication.getScene(), gridPane, labelScore);
+        } catch (Exception e){
+            System.err.println("Impossible");
+        }
     }
 }

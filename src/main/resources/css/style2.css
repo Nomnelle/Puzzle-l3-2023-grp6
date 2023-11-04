@@ -133,9 +133,9 @@
     -fx-border-color: #5390D9;
 }
 
-/* Styles grille */
+/* Styles grid */
 
-.grille {
+.grid {
     -fx-background-color: #4EA8DE;
     -fx-border-color: #5390D9;
     -fx-opacity: 0.8;
