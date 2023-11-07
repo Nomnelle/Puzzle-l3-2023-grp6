@@ -130,7 +130,7 @@ public class PuzzleController implements Initializable {
 
         disableButtonCase();
         translationAnimationPlay();
-
+        initializeKeyListener();
 
         grilleController.isPaused(false);
     }

@@ -2,6 +2,7 @@ package projet.controller;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import projet.modele.Case;
 import projet.modele.Grille;
@@ -164,16 +165,22 @@ public class GrilleController {
         }
     }
     private void associateGrilleVBox(GridPane gridPane){
+        Pics pics = new Pics();
+        int i=0;
         for (Case c : grille.getGrille()){
             if (c.getIndice()==0) continue; //Skip case with the indices 0
 
             int[] indexes = convertIndexes(c.getIndice()-1);
             VBox vBox = vBoxes[indexes[0]][indexes[1]];
 
+            ImageView imageView = new ImageView();
+            imageView.setImage(pics.cutedPic(size, i)); // Use the original image as the "base."
+
             Label label = new Label(c.getValeur());
-            vBox.getChildren().add(label);
+            vBox.getChildren().add(imageView);
             gridPane.add(vBox, c.getY(), c.getX());
             vBox.getStyleClass().add("cell");
+            i++;
         }
         gameExist = true; //A game exists from that moment
     }
