@@ -13,89 +13,85 @@
 }
 
 .buttonMenu {
-    -fx-background-color: #CDDAFD;
-    -fx-opacity: 0.7;
-    -fx-border-color: #FFF1E6;
-    -fx-text-fill: #011627;
+    -fx-background-color: #1C60A7;
+    -fx-text-fill: #FFFFFF;
 }
 .buttonMenu:hover{
-    -fx-background-color: #becfff;
+    -fx-background-color: #337ab7;
 }
 .buttonMenu:pressed{
-    -fx-background-color: #b7c6ff;
+    -fx-background-color: #154a6f;
 }
 
 .buttonUndo {
-    -fx-background-color: #CDDAFD;
-    -fx-opacity: 0.7;
-    -fx-border-color: #FFF1E6;
-    -fx-text-fill: #011627;
+    -fx-background-color: #1C60A7;
+    -fx-text-fill: #FFFFFF;
 }
 .buttonUndo:hover{
-    -fx-background-color: #becfff;
+    -fx-background-color: #337ab7;
 }
 .buttonUndo:pressed{
-    -fx-background-color: #b7c6ff;
+    -fx-background-color: #154a6f;
 }
 
 .buttonPlay {
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #7BE8E4;
 }
 .buttonPlay:hover{
-    -fx-background-color: #becfff;
+    -fx-background-color: #8EEFF0;
 }
 .buttonPlay:pressed{
-    -fx-background-color: #b7c6ff;
+    -fx-background-color: #72E0DD;
 }
 
 .buttonSave {
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #AEF1EF;
 }
 .buttonSave:hover{
-    -fx-background-color: #E3EBFF;
+    -fx-background-color: #BFF5F3;
 }
 .buttonSave:pressed{
-    -fx-background-color: #D9E4FA;
+    -fx-background-color: #9DCDCB;
 }
 
 .buttonLoad {
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #AEF1EF;
 }
 .buttonLoad:hover{
-    -fx-background-color: #E3EBFF;
+    -fx-background-color: #BFF5F3;
 }
 .buttonLoad:pressed{
-    -fx-background-color: #D9E4FA;
+    -fx-background-color: #9DCDCB;
 }
 
 .buttonStopAI {
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #EDE1F2;
 }
 .buttonStopAI:hover{
-    -fx-background-color: #FCE5E9;
+    -fx-background-color: #F0E6F5;
 }
 .buttonStopAI:pressed{
-    -fx-background-color: #F7C8D5;
+    -fx-background-color: #DBCCDF;
 }
 
 .buttonStats {
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #E2CFEA;
 }
 .buttonStats:hover{
-    -fx-background-color: #FFF5E9;
+    -fx-background-color: #E7D4F0;
 }
 .buttonStats:pressed{
-    -fx-background-color: #FFEDDC;
+    -fx-background-color: #D0C1E1;
 }
 
 .buttonBack {
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #E2CFEA;
 }
 .buttonBack:hover{
-    -fx-background-color: #FFF5E9;
+    -fx-background-color: #E7D4F0;
 }
 .buttonBack:pressed{
-    -fx-background-color: #FFEDDC;
+    -fx-background-color: #D0C1E1;
 }
 
 .buttonStyle{
@@ -104,49 +100,52 @@
     -fx-background-radius: 0px;
 }
 .buttonStyle:hover{
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #4EA8DE;
 }
 .buttonStyle:pressed{
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #1C60A7;
 }
 
 /* Styles panes */
 
 .anchorPaneDrag {
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #5390D9;
 }
 .anchorPaneBackground {
-    -fx-background-color: linear-gradient(#EAE4E9 65%, #FAD2E1 75%);
-
-    -fx-border-color: #FAD2E1;
+    -fx-background-color: linear-gradient(#5390D9 60%, #4EA8DE 99%);
+    -fx-border-color: #4EA8DE;
 }
 .anchorPaneMid {
-    -fx-background-color: #FAD2E1;
-    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.05, 0, 5);
+    -fx-background-color: #4EA8DE;
+    -fx-effect: innershadow(gaussian, rgb(83, 144, 217), 10, 0.05, 0, 5);
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
+    -fx-opacity: 0.6;
 }
 .anchorPaneMenu {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #FAD2E1;
+    -fx-background-color: #4EA8DE;
+    -fx-border-color: #5390D9;
+    -fx-border-radius: 1px;
+    -fx-background-radius: 1px;
 }
 .anchorPaneStats {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #FAD2E1;
+    -fx-background-color: #4EA8DE;
+    -fx-border-color: #5390D9;
 }
 
 /* Styles grid */
 
 .grid {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #EAE4E9;
+    -fx-background-color: #4EA8DE;
+    -fx-border-color: #5390D9;
+    -fx-opacity: 0.8;
 }
 .cell {
-    -fx-border-color: #EAE4E9;
-    -fx-border-width: 0 0.6 0.6 0;
+    -fx-border-color: #5390D9;
+    -fx-border-width: 0.6 0.6 0.6 0.6;
 }
 
 /* Styles ligne menu */
 .lines{
-    -fx-stroke: #FAD2E1;
+    -fx-stroke: #5390D9;
 }
