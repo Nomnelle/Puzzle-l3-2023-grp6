@@ -2,10 +2,11 @@ package projet.modele;
 
 import projet.controller.PuzzleController;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-public class Grille implements Parametres {
+public class Grille implements Parametres, Serializable {
 
     private static Grille INSTANCE;
 
@@ -29,7 +30,6 @@ public class Grille implements Parametres {
     private final int longueur;
     private int nombreCoups;
     private Caretaker pastGrid;
-    private PuzzleController controller = null;
     private int instanceGUI = 0;
 
 
@@ -45,7 +45,6 @@ public class Grille implements Parametres {
         this.longueur = l;
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
-        this.controller = c;
         instanceGUI = c.getIncrement();
     }
 
@@ -53,6 +52,11 @@ public class Grille implements Parametres {
         if(INSTANCE==null){
             INSTANCE = new Grille(longueur);
         }
+        return INSTANCE;
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
         return INSTANCE;
     }
 
@@ -116,9 +120,9 @@ public class Grille implements Parametres {
         }
         return tableau;
     }
-
     @Override
     public String toString() {
+
         Case[][] tableau = transformerGrilleArray2D();
         String result = "";
         for (int i = 0; i < this.longueur; i++) {

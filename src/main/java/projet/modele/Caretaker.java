@@ -1,7 +1,8 @@
 package projet.modele;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Caretaker {
+public class Caretaker implements Serializable {
     private LinkedList<Object> sauvegardeEtats;
 
     public Caretaker(){
