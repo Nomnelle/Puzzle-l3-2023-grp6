@@ -11,6 +11,21 @@ public abstract class ParcoursGraph implements IA {
 
     protected abstract void execute(Grille g) throws CloneNotSupportedException;
 
+    protected void init(Grille g){
+        visited = new ArrayList<>();
+        this.graph = new LinkedList<>();
+        this.etatBut = new int[g.getLongueur()][g.getLongueur()];
+        int ind = 1;
+
+        for(int i=0;i<g.getLongueur();i++){
+            for(int j=0;j<g.getLongueur();j++){
+                this.etatBut[i][j] = ind;
+                ind++;
+            }
+        }
+        this.etatBut[g.getLongueur()-1][g.getLongueur()-1] = 0;
+    }
+
     protected boolean estVisite(Etat etatTest) {
         for(Etat e : visited){
             if(e.estComparable(etatTest.getEtatGrille())){
@@ -26,7 +41,6 @@ public abstract class ParcoursGraph implements IA {
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
         for(DEPLACEMENT d : DEPLACEMENT.values()){
             Etat e = etatTest.simulerDeplacement(d);
-            System.out.println(e+"-->"+d);
             if(e!=null){
                 graph.add(e);
             }

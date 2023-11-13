@@ -7,19 +7,7 @@ import java.util.LinkedList;
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
-        visited = new ArrayList<>();
-        this.graph = new LinkedList<>();
-        this.etatBut = new int[g.getLongueur()][g.getLongueur()];
-        int ind = 1;
-
-        for(int i=0;i<g.getLongueur();i++){
-            for(int j=0;j<g.getLongueur();j++){
-                this.etatBut[i][j] = ind;
-                ind++;
-            }
-        }
-        this.etatBut[g.getLongueur()-1][g.getLongueur()-1] = 0;
-
+        this.init(g);
         this.execute(g);
     }
 

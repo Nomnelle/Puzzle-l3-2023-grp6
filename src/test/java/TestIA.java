@@ -38,8 +38,6 @@ public class TestIA {
     public void testParcoursLargeur() throws CloneNotSupportedException {
         ia = new ParcoursLargeur(grilleTest);
 
-        System.out.println(ia);
-
         int nbMouvements = ia.getLongueurMouvements();
 
         for(int i = 0;i<nbMouvements;i++){
