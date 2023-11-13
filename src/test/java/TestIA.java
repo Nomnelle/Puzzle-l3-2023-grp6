@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Case;
-import projet.modele.Etat;
-import projet.modele.Grille;
-import projet.modele.ParcoursLargeur;
+import projet.modele.*;
 
 public class TestIA {
 
     Grille grilleTest = Grille.getInstance(2);
     ParcoursLargeur ia;
+    ParcoursProfondeur ia2;
 
     @BeforeEach
     public void initGrille(){
@@ -42,6 +40,19 @@ public class TestIA {
 
         for(int i = 0;i<nbMouvements;i++){
             grilleTest.deplacerCase(ia.next());
+        }
+
+        assert grilleTest.verifierVictoire();
+    }
+
+    @Test
+    public void testParcoursProfondeur() throws CloneNotSupportedException {
+        ia2 = new ParcoursProfondeur(grilleTest);
+
+        int nbMouvements = ia2.getLongueurMouvements();
+
+        for(int i = 0;i<nbMouvements;i++){
+            grilleTest.deplacerCase(ia2.next());
         }
 
         assert grilleTest.verifierVictoire();

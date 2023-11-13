@@ -1,33 +1,26 @@
 package projet.modele;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
-public class ParcoursLargeur extends ParcoursGraph implements IA{
+public class ParcoursProfondeur extends ParcoursGraph implements IA {
 
-    public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
+    public ParcoursProfondeur(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
     }
-
-    protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
-        for(DEPLACEMENT d : DEPLACEMENT.values()){
-            Etat e = etatTest.simulerDeplacement(d);
-            if(e!=null){
-                graph.add(e);
-            }
-        }
-    }
-
     @Override
     public String next() {
         return mouvements.removeFirst();
     }
 
     @Override
-    public  String toString(){
-        return mouvements.toString();
+    protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
+        for(DEPLACEMENT d : DEPLACEMENT.values()){
+            Etat e = etatTest.simulerDeplacement(d);
+            if(e!=null){
+                graph.addFirst(e);
+            }
+        }
     }
-
 }
