@@ -9,6 +9,36 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
         this.init(g);
         this.execute(g);
     }
+
+    @Override
+    protected void execute(Grille g) throws CloneNotSupportedException {
+        ArrayList<String> result = new ArrayList<>();
+        graph.add(new Etat(g));
+        boolean trouve = false;
+        while((!graph.isEmpty())&&(!trouve)){
+            Etat e = graph.removeFirst();
+            if(e.getProfondeur()<30){
+                if(e.estComparable(this.etatBut))
+                    if(!e.estIdentique(this.etatBut)){
+                        if(!this.estVisite(e)){
+                            this.appliquerAction(e);
+                        }
+                    }else{
+                        trouve = true;
+                        result = e.getMouvements();
+                    }
+                else{
+                    mouvements = new LinkedList<>();
+                    return;
+                }
+            }
+            }
+        if(trouve){
+            mouvements = new LinkedList<>(result);
+        }else{
+            mouvements = new LinkedList<>();
+        }
+    }
     @Override
     public String next() {
         return mouvements.removeFirst();

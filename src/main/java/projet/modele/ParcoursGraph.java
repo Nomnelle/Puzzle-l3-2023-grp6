@@ -12,14 +12,13 @@ public abstract class ParcoursGraph implements IA {
     protected void execute(Grille g) throws CloneNotSupportedException{
         ArrayList<String> result = new ArrayList<>();
         graph.add(new Etat(g));
+        visited.add(new Etat(g));
         boolean trouve = false;
         while((!graph.isEmpty())&&(!trouve)){
             Etat e = graph.removeFirst();
             if(e.estComparable(this.etatBut))
                 if(!e.estIdentique(this.etatBut)){
-                    if(!this.estVisite(e)){
-                        this.appliquerAction(e);
-                    }
+                    this.appliquerAction(e);
                 }else{
                     trouve = true;
                     result = e.getMouvements();

@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Etat implements Cloneable{
-    public int[][] etatGrille;
-    public int xVide, yVide;
-    public int longueur;
-    public ArrayList<String> mouvements;
+    private int[][] etatGrille;
+    private int xVide, yVide;
+    private int longueur;
+    private ArrayList<String> mouvements;
+    private int profondeur;
+
 
     private Etat(){}
 
     public Etat(Grille g){
-        mouvements = new ArrayList<>();
+        this.profondeur = 0;
+        this.mouvements = new ArrayList<>();
         this.longueur = g.getLongueur();
         this.etatGrille = new int[longueur][longueur];
         this.xVide = g.retournerCaseVide().getX();
@@ -25,8 +28,8 @@ public class Etat implements Cloneable{
         }
     }
 
-    public int getLongueur(){
-        return this.longueur;
+    public int getProfondeur(){
+        return this.profondeur;
     }
 
     protected Etat clone() throws CloneNotSupportedException{
@@ -37,6 +40,7 @@ public class Etat implements Cloneable{
         e3.xVide = e2.xVide;
         e3.yVide = e2.yVide;
         e3.longueur = e2.longueur;
+        e3.profondeur = e2.profondeur;
         e3.mouvements = new ArrayList<>(e2.mouvements);
         e3.etatGrille = new int[e3.longueur][e3.longueur];
         for(int i = 0;i<e3.longueur;i++){
@@ -65,6 +69,7 @@ public class Etat implements Cloneable{
                     e.etatGrille[e.xVide+1][e.yVide] = tmp;
                     e.xVide++;
                     e.mouvements.add("haut");
+                    e.profondeur ++;
                 }
                 break;
             case bas:
@@ -75,6 +80,7 @@ public class Etat implements Cloneable{
                     e.etatGrille[e.xVide-1][e.yVide] = tmp;
                     e.xVide--;
                     e.mouvements.add("bas");
+                    e.profondeur ++;
                 }
                 break;
             case gauche:
@@ -85,6 +91,7 @@ public class Etat implements Cloneable{
                     e.etatGrille[e.xVide][e.yVide+1] = tmp;
                     e.yVide++;
                     e.mouvements.add("gauche");
+                    e.profondeur ++;
                 }
                 break;
             case droite:
@@ -95,6 +102,7 @@ public class Etat implements Cloneable{
                     e.etatGrille[e.xVide][e.yVide - 1] = tmp;
                     e.yVide--;
                     e.mouvements.add("droite");
+                    e.profondeur ++;
                 }
                 break;
         }
