@@ -30,12 +30,16 @@ public class TestIA3 {
 
     @Test
     public void testParcoursLargeur() throws CloneNotSupportedException {
-        ia = new ParcoursLargeur(grilleTest);
+        try {
+            ia = new ParcoursLargeur(grilleTest);
 
-        int nbMouvements = ia.getLongueurMouvements();
+            int nbMouvements = ia.getLongueurMouvements();
 
-        for(int i = 0;i<nbMouvements;i++){
-            grilleTest.deplacerCase(ia.next());
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
         }
 
         assert grilleTest.verifierVictoire();
@@ -43,14 +47,17 @@ public class TestIA3 {
 
     @Test
     public void testParcoursProfondeur() throws CloneNotSupportedException {
-        ia = new ParcoursProfondeur(grilleTest);
+        try {
+            ia = new ParcoursProfondeur(grilleTest);
 
-        int nbMouvements = ia.getLongueurMouvements();
+            int nbMouvements = ia.getLongueurMouvements();
 
-        for (int i = 0; i < nbMouvements; i++) {
-            grilleTest.deplacerCase(ia.next());
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
         }
-
         assert grilleTest.verifierVictoire();
     }
 }

@@ -15,25 +15,25 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
         ArrayList<String> result = new ArrayList<>();
         graph.add(new Etat(g));
         boolean trouve = false;
-        while((!graph.isEmpty())&&(!trouve)){
+        while ((!graph.isEmpty()) && (!trouve)) {
             Etat e = graph.pop();
-            if(e.getProfondeur()<30){
-                if(e.estComparable(this.etatBut))
-                    if(!e.equals(etatBut)){
+            if (e.getProfondeur() < 30) {
+                if (e.estComparable(this.etatBut))
+                    if (!e.equals(etatBut)) {
                         this.appliquerAction(e);
-                    }else{
+                    } else {
                         trouve = true;
                         result = e.getMouvements();
                     }
-                else{
+                else {
                     mouvements = new LinkedList<>();
                     return;
                 }
             }
-            }
-        if(trouve){
+        }
+        if (trouve) {
             mouvements = new LinkedList<>(result);
-        }else{
+        } else {
             mouvements = new LinkedList<>();
         }
     }
@@ -44,13 +44,14 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
 
     @Override
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
-        for(DEPLACEMENT d : DEPLACEMENT.values()){
-            Etat e = etatTest.simulerDeplacement(d);
-            if(e!=null){
-                if(this.estVisite(e)){
-                    graph.push(e);
+            for(DEPLACEMENT d : DEPLACEMENT.values()){
+                Etat e = etatTest.simulerDeplacement(d);
+                if(e!=null){
+                    if(this.estVisite(e)){
+                        graph.push(e);
+                    }
                 }
             }
-        }
+
     }
 }
