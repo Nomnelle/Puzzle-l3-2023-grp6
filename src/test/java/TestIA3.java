@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.*;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
+import projet.modele.ia.ParcoursGraph;
+import projet.modele.ia.ParcoursLargeur;
+import projet.modele.ia.ParcoursProfondeur;
 
 public class TestIA3 {
 

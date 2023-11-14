@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.game;
 import java.util.Scanner;
 
 public class Main {

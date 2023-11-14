@@ -1,8 +1,5 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Case;
-import projet.modele.Chrono;
-import projet.modele.Grille;
+import projet.modele.game.Chrono;
 
 public class TestChrono {
 

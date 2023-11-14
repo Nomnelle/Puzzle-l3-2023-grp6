@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Grille;
+import projet.modele.game.Grille;
 
 import java.io.*;
 

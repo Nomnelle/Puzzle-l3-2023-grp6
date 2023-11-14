@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.ia;
 
 public interface IA {
 

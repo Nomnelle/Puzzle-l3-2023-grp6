@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.game;
 
 
 public class Chrono extends Thread {

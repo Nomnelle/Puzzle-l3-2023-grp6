@@ -1,4 +1,6 @@
-package projet.modele;
+package projet.modele.ia;
+
+import projet.modele.game.Grille;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

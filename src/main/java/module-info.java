@@ -10,4 +10,8 @@ module com.example.puzzle {
     opens projet.modele to javafx.fxml;
     exports projet.controller;
     opens projet.controller to javafx.fxml;
+    exports projet.modele.ia;
+    opens projet.modele.ia to javafx.fxml;
+    exports projet.modele.game;
+    opens projet.modele.game to javafx.fxml;
 }

@@ -1,4 +1,7 @@
-package projet.modele;
+package projet.modele.ia;
+
+import projet.modele.game.Grille;
+
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
