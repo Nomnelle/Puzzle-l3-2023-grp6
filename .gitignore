@@ -116,4 +116,7 @@ fabric.properties
 # prevent strange html files
 .html
 
+# prevent stange zip files from appearing
+.zip
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij
