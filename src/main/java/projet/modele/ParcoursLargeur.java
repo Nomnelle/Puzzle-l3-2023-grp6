@@ -1,15 +1,10 @@
 package projet.modele;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
-        System.out.println("fini");
     }
 
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {

@@ -16,7 +16,7 @@ public abstract class ParcoursGraph implements IA {
         visited.add(new Etat(g));
         boolean trouve = false;
         while((!graph.isEmpty())&&(!trouve)){
-            Etat e = graph.removeFirst();
+            Etat e = graph.pop();
             if(e.estComparable(this.etatBut))
                 if(!e.equals(etatBut)){
                     this.appliquerAction(e);
