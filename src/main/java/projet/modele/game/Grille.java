@@ -1,9 +1,12 @@
-package projet.modele;
+package projet.modele.game;
 
+import projet.controller.PuzzleController;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-public class Grille implements Parametres {
+public class Grille implements Parametres, Serializable {
 
     private static Grille INSTANCE;
 
@@ -27,6 +30,8 @@ public class Grille implements Parametres {
     private final int longueur;
     private int nombreCoups;
     private Caretaker pastGrid;
+    private int instanceGUI = 0;
+
 
     private Grille(int l) {
         this.grille = new HashSet<>();;
@@ -35,16 +40,29 @@ public class Grille implements Parametres {
         pastGrid = new Caretaker();
     }
 
-    public static Grille getInstance(){
-        if(INSTANCE==null){
-            INSTANCE = new Grille(TAILLE);
-        }
-        return INSTANCE;
+    private Grille(int l, PuzzleController c) {
+        this.grille = new HashSet<>();;
+        this.longueur = l;
+        this.nombreCoups = 0;
+        pastGrid = new Caretaker();
+        instanceGUI = c.getIncrement();
     }
 
     public static Grille getInstance(int longueur){
         if(INSTANCE==null){
             INSTANCE = new Grille(longueur);
+        }
+        return INSTANCE;
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
+        return INSTANCE;
+    }
+
+    public static Grille getInstance(int longueur, PuzzleController controller){
+        if((INSTANCE==null)||(INSTANCE.instanceGUI!=controller.getIncrement())){
+            INSTANCE = new Grille(longueur, controller);
         }
         return INSTANCE;
     }
@@ -102,9 +120,9 @@ public class Grille implements Parametres {
         }
         return tableau;
     }
-
     @Override
     public String toString() {
+
         Case[][] tableau = transformerGrilleArray2D();
         String result = "";
         for (int i = 0; i < this.longueur; i++) {
@@ -139,15 +157,13 @@ public class Grille implements Parametres {
 
     public int[] deplacerCase(String input) {
         Case vide = retournerCaseVide();
-        Case mouvante;
+        Case mouvante = null;
         boolean mouvement = false;
         int[] coordinates = new int[2];
         switch (input) {
             case "haut":
                 if (longueur > vide.getX() + 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY();
-                    coordinates[1] = vide.getX() + 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -157,8 +173,6 @@ public class Grille implements Parametres {
             case "bas":
                 if (0 <= vide.getX() - 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY();
-                    coordinates[1] = vide.getX() - 1;
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -168,8 +182,6 @@ public class Grille implements Parametres {
             case "gauche":
                 if (longueur > vide.getY() + 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY() + 1;
-                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -179,8 +191,6 @@ public class Grille implements Parametres {
             case "droite":
                 if (0 <= vide.getY() - 1) {
                     saveToMemento();
-                    coordinates[0] = vide.getY() - 1;
-                    coordinates[1] = vide.getX();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -192,6 +202,8 @@ public class Grille implements Parametres {
                 break;
         }
         if(mouvement){
+            coordinates[0] = mouvante.getY();
+            coordinates[1] = mouvante.getX();
             return coordinates;
         }
         return null;

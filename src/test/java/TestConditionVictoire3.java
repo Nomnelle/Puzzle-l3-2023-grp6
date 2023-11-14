@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Case;
-import projet.modele.Grille;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
 
 public class TestConditionVictoire3 {
 
@@ -9,7 +9,7 @@ public class TestConditionVictoire3 {
 
     @BeforeEach
     public void initGrille(){
-        grilleTest = Grille.getInstance();
+        grilleTest = Grille.getInstance(4);
         grilleTest.getGrille().add(new Case(0,0,"A",1,grilleTest));
         grilleTest.getGrille().add(new Case(0,1,"B",2,grilleTest));
         grilleTest.getGrille().add(new Case(0,2,"C",3,grilleTest));

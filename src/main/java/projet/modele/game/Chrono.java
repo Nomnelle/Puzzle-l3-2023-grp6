@@ -1,20 +1,23 @@
-package projet.modele;
+package projet.modele.game;
 
 
-public class Timer extends Thread {
+public class Chrono extends Thread {
 
     private int heure;
     private int minute;
     private int seconde;
-    private boolean decompte;
+    private long startingTime;
+    private volatile boolean decompte;
 
-    public Timer() {
+    public Chrono() {
 
         this.heure = 0;
         this.minute = 0;
         this.seconde = 0;
         this.decompte = true;
-
+        this.setDaemon(true);
+        startingTime = System.currentTimeMillis();
+        this.start();
     }
 
     public int getHeure() {
@@ -35,8 +38,12 @@ public class Timer extends Thread {
         return decompte;
     }
 
-    public void setDecompte(boolean decompte) {
-        this.decompte = decompte;
+    public void pauseTime(){
+        this.decompte = false;
+    }
+
+    public void goTime(){
+        this.decompte = true;
     }
 
     @Override
@@ -64,38 +71,29 @@ public class Timer extends Thread {
             stringSeconde = String.valueOf(seconde);
         }
 
-        return "Le décompte est : " + stringHeure + " : " + stringMinute + " : " + stringSeconde;
+        return stringHeure + ":" + stringMinute + ":" + stringSeconde;
 
     }
 
     @Override
     public void run() {
-
         while(true) {
-            if(decompte) {
-                try {
-                    Thread.sleep(1000);
-                    seconde ++;
-                    if(seconde >= 60) {
+            if(decompte){
+                if ((System.currentTimeMillis()- startingTime) >= 1000) {
+                    startingTime = System.currentTimeMillis();
+                    seconde++;
+                    if (seconde >= 60) {
                         seconde = 0;
-                        minute ++;
+                        minute++;
                     }
-                    if(minute >= 60) {
+                    if (minute >= 60) {
                         minute = 0;
-                        heure ++;
+                        heure++;
                     }
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-
                 }
-
+            }else{
+                startingTime = System.currentTimeMillis();
             }
-
-
-
         }
-
     }
-
 }

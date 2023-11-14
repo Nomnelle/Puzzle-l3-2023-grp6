@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.game;
 
 public interface Parametres {
     static final int HAUT = 1;

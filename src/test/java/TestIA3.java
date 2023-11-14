@@ -1,15 +1,19 @@
-import projet.modele.game.Case;
-import projet.modele.game.Grille;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
+import projet.modele.ia.ParcoursGraph;
+import projet.modele.ia.ParcoursLargeur;
+import projet.modele.ia.ParcoursProfondeur;
 
-public class TestSiGrilleSoluble6 {
+public class TestIA3 {
 
-    Grille grilleTest;
+    Grille grilleTest = Grille.getInstance(4);
+
+    ParcoursGraph ia;
 
     @BeforeEach
     public void initGrille(){
-        grilleTest = Grille.getInstance(4);
         grilleTest.getGrille().add(new Case(0,0,"F",6,grilleTest));
         grilleTest.getGrille().add(new Case(0,1,"M",13,grilleTest));
         grilleTest.getGrille().add(new Case(0,2,"G",7,grilleTest));
@@ -29,10 +33,35 @@ public class TestSiGrilleSoluble6 {
     }
 
     @Test
-    public void testGrille6Soluble(){
-        boolean soluble6 = grilleTest.testerSiGrilleSoluble();
-        assert grilleTest.compterInversions() == 62;
-        assert grilleTest.compterColonne() == 3;
-        assert soluble6;
+    public void testParcoursLargeur() throws CloneNotSupportedException {
+        try {
+            ia = new ParcoursLargeur(grilleTest);
+
+            int nbMouvements = ia.getLongueurMouvements();
+
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
+        }
+
+        assert grilleTest.verifierVictoire();
+    }
+
+    @Test
+    public void testParcoursProfondeur() throws CloneNotSupportedException {
+        try {
+            ia = new ParcoursProfondeur(grilleTest);
+
+            int nbMouvements = ia.getLongueurMouvements();
+
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
+        }
+        assert grilleTest.verifierVictoire();
     }
 }

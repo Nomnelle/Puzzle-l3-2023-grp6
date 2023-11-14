@@ -1,5 +1,5 @@
-import projet.modele.Case;
-import projet.modele.Grille;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ public class TestSiGrilleSoluble4 {
 
     @BeforeEach
     public void initGrille(){
-        grilleTest = Grille.getInstance();
+        grilleTest = Grille.getInstance(4);
         grilleTest.getGrille().add(new Case(0,0,"M",13,grilleTest));
         grilleTest.getGrille().add(new Case(0,1,"B",2,grilleTest));
         grilleTest.getGrille().add(new Case(0,2,"J",10,grilleTest));

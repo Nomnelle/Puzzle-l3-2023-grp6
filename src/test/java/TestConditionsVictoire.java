@@ -1,10 +1,7 @@
-import projet.modele.Caretaker;
-import projet.modele.Case;
+import projet.modele.game.Case;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Grille;
-
-import java.util.HashSet;
+import projet.modele.game.Grille;
 
 public class TestConditionsVictoire {
 

@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.game;
 import java.util.Scanner;
 
 public class Main {
@@ -27,7 +27,7 @@ public class Main {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
 
         System.out.println("Bonjour !");
         boolean correcte = false;
@@ -40,6 +40,11 @@ public class Main {
         }
 
         System.out.println("Génération de la grille...\n");
+
+        g = null;
+
+        g = Grille.getInstance(4);
+        System.out.println(g.getGrille());
         correcte = false;
 
         while(!correcte){
