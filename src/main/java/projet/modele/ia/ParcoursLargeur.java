@@ -1,4 +1,6 @@
-package projet.modele;
+package projet.modele.ia;
+
+import projet.modele.game.Grille;
 
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
@@ -8,10 +10,10 @@ public class ParcoursLargeur extends ParcoursGraph implements IA{
     }
 
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
-        for(DEPLACEMENT d : DEPLACEMENT.values()){
+        for (DEPLACEMENT d : DEPLACEMENT.values()) {
             Etat e = etatTest.simulerDeplacement(d);
-            if(e!=null){
-                if(this.estVisite(e)){
+            if (e != null) {
+                if (this.estVisite(e)) {
                     graph.add(e);
                 }
             }

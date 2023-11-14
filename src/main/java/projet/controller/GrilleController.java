@@ -4,8 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import projet.modele.Case;
-import projet.modele.Grille;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
 
 public class GrilleController {
     private final int size; private final int rowAndColumn;

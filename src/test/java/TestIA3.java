@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.*;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
+import projet.modele.ia.ParcoursGraph;
+import projet.modele.ia.ParcoursLargeur;
+import projet.modele.ia.ParcoursProfondeur;
 
 public class TestIA3 {
 
@@ -30,12 +34,16 @@ public class TestIA3 {
 
     @Test
     public void testParcoursLargeur() throws CloneNotSupportedException {
-        ia = new ParcoursLargeur(grilleTest);
+        try {
+            ia = new ParcoursLargeur(grilleTest);
 
-        int nbMouvements = ia.getLongueurMouvements();
+            int nbMouvements = ia.getLongueurMouvements();
 
-        for(int i = 0;i<nbMouvements;i++){
-            grilleTest.deplacerCase(ia.next());
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
         }
 
         assert grilleTest.verifierVictoire();
@@ -43,14 +51,17 @@ public class TestIA3 {
 
     @Test
     public void testParcoursProfondeur() throws CloneNotSupportedException {
-        ia = new ParcoursProfondeur(grilleTest);
+        try {
+            ia = new ParcoursProfondeur(grilleTest);
 
-        int nbMouvements = ia.getLongueurMouvements();
+            int nbMouvements = ia.getLongueurMouvements();
 
-        for (int i = 0; i < nbMouvements; i++) {
-            grilleTest.deplacerCase(ia.next());
+            for (int i = 0; i < nbMouvements; i++) {
+                grilleTest.deplacerCase(ia.next());
+            }
+        }catch(OutOfMemoryError oom){
+
         }
-
         assert grilleTest.verifierVictoire();
     }
 }

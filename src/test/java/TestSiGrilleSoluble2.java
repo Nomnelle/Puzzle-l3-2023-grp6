@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projet.modele.Case;
-import projet.modele.Grille;
+import projet.modele.game.Case;
+import projet.modele.game.Grille;
 
 public class TestSiGrilleSoluble2 {
 

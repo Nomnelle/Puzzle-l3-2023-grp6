@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import projet.logic.Shift;
 import projet.PuzzleApplication;
-import projet.modele.Grille;
+import projet.modele.game.Grille;
 
 public class PuzzleController implements Initializable {
     /*

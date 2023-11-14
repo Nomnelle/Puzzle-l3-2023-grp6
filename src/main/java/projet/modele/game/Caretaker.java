@@ -1,4 +1,4 @@
-package projet.modele;
+package projet.modele.game;
 import java.io.Serializable;
 import java.util.LinkedList;
 

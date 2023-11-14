@@ -1,5 +1,5 @@
-import projet.modele.Grille;
-import projet.modele.Case;
+import projet.modele.game.Grille;
+import projet.modele.game.Case;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
