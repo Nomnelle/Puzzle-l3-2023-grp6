@@ -9,13 +9,16 @@ public class ParcoursLargeur extends ParcoursGraph implements IA{
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
+        System.out.println("fini");
     }
 
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
         for(DEPLACEMENT d : DEPLACEMENT.values()){
             Etat e = etatTest.simulerDeplacement(d);
             if(e!=null){
-                graph.add(e);
+                if(this.estVisite(e)){
+                    graph.add(e);
+                }
             }
         }
     }

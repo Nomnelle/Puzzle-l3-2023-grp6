@@ -28,7 +28,6 @@ public class TestIA {
         }
 
         assert e.estComparable(grilleTab2D);
-        assert e.estIdentique(grilleTab2D);
     }
 
 

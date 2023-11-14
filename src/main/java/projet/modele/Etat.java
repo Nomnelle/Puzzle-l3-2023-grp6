@@ -116,16 +116,27 @@ public class Etat implements Cloneable{
         return false;
     }
 
-    public boolean estIdentique(int[][] etatBut){
-        boolean but = true;
-        for(int i =0;i<longueur;i++) {
-            for (int j = 0; j < longueur; j++) {
-                if (etatGrille[i][j] != etatBut[i][j]) {
-                    return false;
-                }
+    @Override
+    public int hashCode(){
+        StringBuilder sb = new StringBuilder();
+        for(int[] row : this.etatGrille){
+            for(int i : row){
+                sb.append(i);
             }
         }
-        return but;
+        return sb.toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Etat etat = (Etat) o;
+        return Arrays.deepEquals(etatGrille, etat.etatGrille);
+    }
+
+    public boolean equals(int[][] state) {
+        return Arrays.deepEquals(etatGrille, state);
     }
 
     @Override

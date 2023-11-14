@@ -1,13 +1,14 @@
 package projet.modele;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public abstract class ParcoursGraph implements IA {
     protected int[][] etatBut;
     protected LinkedList<String> mouvements;
     protected LinkedList<Etat> graph;
-    protected  ArrayList<Etat> visited;
+    protected HashSet<Etat> visited;
 
     protected void execute(Grille g) throws CloneNotSupportedException{
         ArrayList<String> result = new ArrayList<>();
@@ -17,7 +18,7 @@ public abstract class ParcoursGraph implements IA {
         while((!graph.isEmpty())&&(!trouve)){
             Etat e = graph.removeFirst();
             if(e.estComparable(this.etatBut))
-                if(!e.estIdentique(this.etatBut)){
+                if(!e.equals(etatBut)){
                     this.appliquerAction(e);
                 }else{
                     trouve = true;
@@ -36,7 +37,7 @@ public abstract class ParcoursGraph implements IA {
     }
 
     protected void init(Grille g){
-        visited = new ArrayList<>();
+        visited = new HashSet<>();
         this.graph = new LinkedList<>();
         this.etatBut = new int[g.getLongueur()][g.getLongueur()];
         int ind = 1;
@@ -51,15 +52,7 @@ public abstract class ParcoursGraph implements IA {
     }
 
     protected boolean estVisite(Etat etatTest) {
-        for(Etat e : visited){
-            if(e.estComparable(etatTest.getEtatGrille())){
-                if(e.estIdentique(etatTest.getEtatGrille())){
-                    return true;
-                }
-            }
-        }
-        visited.add(etatTest);
-        return false;
+        return visited.add(etatTest);
     }
 
     public int getLongueurMouvements(){

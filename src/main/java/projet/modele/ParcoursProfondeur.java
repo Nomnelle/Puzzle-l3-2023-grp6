@@ -19,10 +19,8 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
             Etat e = graph.removeFirst();
             if(e.getProfondeur()<30){
                 if(e.estComparable(this.etatBut))
-                    if(!e.estIdentique(this.etatBut)){
-                        if(!this.estVisite(e)){
-                            this.appliquerAction(e);
-                        }
+                    if(!e.equals(etatBut)){
+                        this.appliquerAction(e);
                     }else{
                         trouve = true;
                         result = e.getMouvements();
@@ -49,7 +47,9 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
         for(DEPLACEMENT d : DEPLACEMENT.values()){
             Etat e = etatTest.simulerDeplacement(d);
             if(e!=null){
-                graph.addFirst(e);
+                if(this.estVisite(e)){
+                    graph.addFirst(e);
+                }
             }
         }
     }
