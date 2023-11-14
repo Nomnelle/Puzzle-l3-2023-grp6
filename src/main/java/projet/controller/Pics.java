@@ -6,21 +6,31 @@ import javafx.scene.image.WritableImage;
 
 public class Pics {
     Image imageDefault;
-    public Pics() {
+    int size;
+    int dividedHeight; int dividedWidth;
+    public Pics(int size) {
+        this.size = size;
         initializeDefaultPicture();
+        dividedHeight = (int) imageDefault.getHeight() / size;
+        dividedWidth = (int) imageDefault.getWidth() / size;
     }
-
-    public Image cutedPic(int size, int i) {
-
+    public Image cutedPic(int i, int j) {
         PixelReader reader = imageDefault.getPixelReader();
 
-        System.out.println((int) ((imageDefault.getWidth()/size)+(imageDefault.getWidth()/size)*i));
+        int dividedHeight = (int) imageDefault.getHeight() / size;
+        int dividedWidth = (int) imageDefault.getWidth() / size;
 
-        return new WritableImage(reader, (int) (imageDefault.getWidth()/size*i)
-                ,(int) (imageDefault.getHeight()/size*i)
-                ,(int) imageDefault.getWidth()/size, (int) imageDefault.getHeight()/size);
+        System.out.println("site : "+ size);
+        System.out.println("width / size *i : " + dividedHeight *i);
+        System.out.println("width / size * j : " + dividedWidth * j);
+        System.out.println("height / size : " + dividedHeight);
+        System.out.println("width / size : " + dividedWidth);
+
+        if (i==size || j==size-1){
+            return null;
+        }
+        return new WritableImage(reader, dividedWidth*i,dividedHeight*j, dividedWidth, dividedHeight);
     }
-
     private void initializeDefaultPicture() {
         imageDefault = new Image("/doc-files/image2.jpg");
     }

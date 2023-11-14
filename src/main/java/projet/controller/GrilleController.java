@@ -137,9 +137,13 @@ public class GrilleController {
         gridPane.getRowConstraints().clear();
         //Constraints of lines + columns
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setVgrow(Priority.SOMETIMES);
+        rowConstraints.setPercentHeight((double) 100 /rowAndColumn);
+        rowConstraints.setFillHeight(true);
+
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.SOMETIMES);
+        columnConstraints.setPercentWidth((double) 100 /rowAndColumn);
+        columnConstraints.setFillWidth(true);
+
         //Addition of lines + columns
         for (int i=0; i<rowAndColumn; i++){
             gridPane.getRowConstraints().add(rowConstraints);
@@ -165,22 +169,24 @@ public class GrilleController {
         }
     }
     private void associateGrilleVBox(GridPane gridPane){
-        Pics pics = new Pics();
-        int i=0;
+        Pics pics = new Pics(rowAndColumn);
+        ImageView imageView;
+        int i=0; int j=0;
+
         for (Case c : grille.getGrille()){
             if (c.getIndice()==0) continue; //Skip case with the indices 0
 
             int[] indexes = convertIndexes(c.getIndice()-1);
             VBox vBox = vBoxes[indexes[0]][indexes[1]];
 
-            ImageView imageView = new ImageView();
-            imageView.setImage(pics.cutedPic(size, i)); // Use the original image as the "base."
+            imageView = new ImageView();
+            imageView.setImage(pics.cutedPic(i, j));
 
-            Label label = new Label(c.getValeur());
             vBox.getChildren().add(imageView);
             gridPane.add(vBox, c.getY(), c.getX());
             vBox.getStyleClass().add("cell");
-            i++;
+            if (i!=rowAndColumn) {i++;}
+            else i=0; j++;
         }
         gameExist = true; //A game exists from that moment
     }
