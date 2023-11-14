@@ -112,7 +112,7 @@
     -fx-background-color: #5390D9;
 }
 .anchorPaneBackground {
-    -fx-background-color: linear-gradient(#5390D9 60%, #4EA8DE 99%);
+    -fx-background-color: linear-gradient(#5390d9 60%, #4EA8DE 99%);
     -fx-border-color: #4EA8DE;
 }
 .anchorPaneMid {

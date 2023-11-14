@@ -89,43 +89,47 @@ public class GrilleController {
         scene.setOnKeyPressed(event -> {
             if (!paused){
                 int[] avant;
-                switch (event.getCode()){
-                    case Z :
+                switch (event.getCode()) {
+                    case Z -> {
                         avant = grille.deplacerCase("haut");
-                        if (avant!=null) {
+                        if (avant != null) {
                             Node node = recupererVbox(avant, gridPane);
-                            GridPane.setRowIndex(node, GridPane.getRowIndex(node) - 1);
+                            System.out.println(gridPane.getWidth());
+                            ThreadShift th = new ThreadShift(node, rowAndColumn, -1); // on crée un contrôleur de Thread
+                            th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
+                            th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)
+
                             moveCount++;
                             score.setText(String.valueOf(getMoveCount()));
                         }
-                        break;
-                    case S :
+                    }
+                    case S -> {
                         avant = grille.deplacerCase("bas");
-                        if (avant!=null) {
+                        if (avant != null) {
                             Node node = recupererVbox(avant, gridPane);
                             GridPane.setRowIndex(node, GridPane.getRowIndex(node) + 1);
                             moveCount++;
                             score.setText(String.valueOf(getMoveCount()));
                         }
-                        break;
-                    case Q :
+                    }
+                    case Q -> {
                         avant = grille.deplacerCase("gauche");
-                        if (avant!=null) {
+                        if (avant != null) {
                             Node node = recupererVbox(avant, gridPane);
                             GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) - 1);
                             moveCount++;
                             score.setText(String.valueOf(getMoveCount()));
                         }
-                        break;
-                    case D :
+                    }
+                    case D -> {
                         avant = grille.deplacerCase("droite");
-                        if (avant!=null) {
+                        if (avant != null) {
                             Node node = recupererVbox(avant, gridPane);
                             GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + 1);
                             moveCount++;
                             score.setText(String.valueOf(getMoveCount()));
                         }
-                        break;
+                    }
                 }
             }
         });
@@ -139,10 +143,12 @@ public class GrilleController {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight((double) 100 /rowAndColumn);
         rowConstraints.setFillHeight(true);
+        rowConstraints.setVgrow(Priority.ALWAYS);
 
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth((double) 100 /rowAndColumn);
         columnConstraints.setFillWidth(true);
+        columnConstraints.setHgrow(Priority.ALWAYS);
 
         //Addition of lines + columns
         for (int i=0; i<rowAndColumn; i++){
@@ -170,7 +176,9 @@ public class GrilleController {
     }
     private void associateGrilleVBox(GridPane gridPane){
         Pics pics = new Pics(rowAndColumn);
+        System.err.println(rowAndColumn);
         ImageView imageView;
+
         int i=0; int j=0;
 
         for (Case c : grille.getGrille()){
@@ -181,12 +189,24 @@ public class GrilleController {
 
             imageView = new ImageView();
             imageView.setImage(pics.cutedPic(i, j));
+            System.out.println("i : " + i + " ; j : " + j);
+
+            imageView.setFitWidth(vBox.getWidth());
+            imageView.setFitHeight(vBox.getHeight());
+            imageView.setPreserveRatio(false);
 
             vBox.getChildren().add(imageView);
             gridPane.add(vBox, c.getY(), c.getX());
             vBox.getStyleClass().add("cell");
-            if (i!=rowAndColumn) {i++;}
-            else i=0; j++;
+            if (i==rowAndColumn-1) {
+                i=0;
+                j++;
+            } else {
+                i++;
+            }
+            if (j==rowAndColumn) {
+                j=0;
+            }
         }
         gameExist = true; //A game exists from that moment
     }

@@ -7,31 +7,24 @@ import javafx.scene.image.WritableImage;
 public class Pics {
     Image imageDefault;
     int size;
-    int dividedHeight; int dividedWidth;
+    int dividedSize;
     public Pics(int size) {
         this.size = size;
+        this.dividedSize = 340/size;
         initializeDefaultPicture();
-        dividedHeight = (int) imageDefault.getHeight() / size;
-        dividedWidth = (int) imageDefault.getWidth() / size;
     }
     public Image cutedPic(int i, int j) {
         PixelReader reader = imageDefault.getPixelReader();
-
-        int dividedHeight = (int) imageDefault.getHeight() / size;
-        int dividedWidth = (int) imageDefault.getWidth() / size;
-
-        System.out.println("site : "+ size);
-        System.out.println("width / size *i : " + dividedHeight *i);
-        System.out.println("width / size * j : " + dividedWidth * j);
-        System.out.println("height / size : " + dividedHeight);
-        System.out.println("width / size : " + dividedWidth);
-
-        if (i==size || j==size-1){
+        if (imageDefault.getHeight()>340 || imageDefault.getWidth()>340){
+            WritableImage resized = new WritableImage(reader, 0, 0, 340, 340);
+            return new WritableImage(resized.getPixelReader(), dividedSize*i,dividedSize*j, dividedSize, dividedSize);
+        } else if (imageDefault.getHeight()<340 || imageDefault.getWidth()<340){
+            System.err.println("image trop petite");
             return null;
         }
-        return new WritableImage(reader, dividedWidth*i,dividedHeight*j, dividedWidth, dividedHeight);
+        return new WritableImage(reader, dividedSize*i,dividedSize*j, dividedSize, dividedSize);
     }
     private void initializeDefaultPicture() {
-        imageDefault = new Image("/doc-files/image2.jpg");
+        imageDefault = new Image("/doc-files/image1.jpg");
     }
 }

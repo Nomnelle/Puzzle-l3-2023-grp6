@@ -37,7 +37,7 @@
             </font>
         </Button>
     </AnchorPane>
-    <GridPane fx:id="gridPane" gridLinesVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0" />
+    <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="157.0" />
     <AnchorPane fx:id="anchorPaneMenu" layoutX="61.0" layoutY="-4.0" prefHeight="202.0" prefWidth="244.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0">
         <Button fx:id="buttonPlay" layoutX="136.0" layoutY="20.0" mnemonicParsing="false" onAction="#setButtonPlay" prefHeight="60.0" prefWidth="300.0" text="JOUER" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
         <Button fx:id="buttonSave" layoutX="188.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonSave" prefHeight="60.0" prefWidth="140.0" text="SAUVEGARDER" AnchorPane.bottomAnchor="180.0" AnchorPane.rightAnchor="20.0" />
