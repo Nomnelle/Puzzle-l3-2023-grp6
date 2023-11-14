@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>.gitignore</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+.gitignore</font>
+</center></td></tr></table>
+<pre><span class="s0">target/</span>
+<span class="s0">!.mvn/wrapper/maven-wrapper.jar</span>
+<span class="s0">!**/src/main/**/target/</span>
+<span class="s0">!**/src/test/**/target/</span>
+
+<span class="s1">### IntelliJ IDEA ###</span>
+<span class="s0">.idea/modules.xml</span>
+<span class="s0">.idea/jarRepositories.xml</span>
+<span class="s0">.idea/compiler.xml</span>
+<span class="s0">.idea/libraries/</span>
+<span class="s0">*.iws</span>
+<span class="s0">*.iml</span>
+<span class="s0">*.ipr</span>
+
+<span class="s1"># User-specific stuff</span>
+<span class="s0">.idea/**/workspace.xml</span>
+<span class="s0">.idea/**/tasks.xml</span>
+<span class="s0">.idea/**/usage.statistics.xml</span>
+<span class="s0">.idea/**/dictionaries</span>
+<span class="s0">.idea/**/shelf</span>
+
+<span class="s1"># AWS User-specific</span>
+<span class="s0">.idea/**/aws.xml</span>
+
+<span class="s1"># Generated files</span>
+<span class="s0">.idea/**/contentModel.xml</span>
+
+<span class="s1"># Sensitive or high-churn files</span>
+<span class="s0">.idea/**/dataSources/</span>
+<span class="s0">.idea/**/dataSources.ids</span>
+<span class="s0">.idea/**/dataSources.local.xml</span>
+<span class="s0">.idea/**/sqlDataSources.xml</span>
+<span class="s0">.idea/**/dynamic.xml</span>
+<span class="s0">.idea/**/uiDesigner.xml</span>
+<span class="s0">.idea/**/dbnavigator.xml</span>
+
+<span class="s1"># Gradle</span>
+<span class="s0">.idea/**/gradle.xml</span>
+<span class="s0">.idea/**/libraries</span>
+
+<span class="s1"># Gradle and Maven with auto-import</span>
+<span class="s1"># When using Gradle or Maven with auto-import, you should exclude module files,</span>
+<span class="s1"># since they will be recreated, and may cause churn.  Uncomment if using</span>
+<span class="s1"># auto-import.</span>
+<span class="s0">.idea/artifacts</span>
+<span class="s0">.idea/*.iml</span>
+<span class="s0">.idea/modules</span>
+
+<span class="s1"># CMake</span>
+<span class="s0">cmake-build-*/</span>
+
+<span class="s1"># Mongo Explorer plugin</span>
+<span class="s0">.idea/**/mongoSettings.xml</span>
+
+<span class="s1"># IntelliJ</span>
+<span class="s0">out/</span>
+
+<span class="s1"># mpeltonen/sbt-idea plugin</span>
+<span class="s0">.idea_modules/</span>
+
+<span class="s1"># JIRA plugin</span>
+<span class="s0">atlassian-ide-plugin.xml</span>
+
+<span class="s1"># Cursive Clojure plugin</span>
+<span class="s0">.idea/replstate.xml</span>
+
+<span class="s1"># SonarLint plugin</span>
+<span class="s0">.idea/sonarlint/</span>
+
+<span class="s1"># Crashlytics plugin (for Android Studio and IntelliJ)</span>
+<span class="s0">com_crashlytics_export_strings.xml</span>
+<span class="s0">crashlytics.properties</span>
+<span class="s0">crashlytics-build.properties</span>
+<span class="s0">fabric.properties</span>
+
+<span class="s1"># Editor-based Rest Client</span>
+<span class="s0">.idea/httpRequests</span>
+
+<span class="s1"># Android studio 3.1+ serialized cache file</span>
+<span class="s0">.idea/caches/build_file_checksums.ser</span>
+
+<span class="s1">### Intellij Patch ###</span>
+<span class="s1"># Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721</span>
+
+<span class="s1"># *.iml</span>
+<span class="s1"># modules.xml</span>
+<span class="s0">.idea/misc.xml</span>
+<span class="s1"># *.ipr</span>
+
+<span class="s1"># Sonarlint plugin</span>
+<span class="s1"># https://plugins.jetbrains.com/plugin/7973-sonarlint</span>
+<span class="s0">.idea/**/sonarlint/</span>
+
+<span class="s1"># SonarQube Plugin</span>
+<span class="s1"># https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin</span>
+<span class="s0">.idea/**/sonarIssues.xml</span>
+
+<span class="s1"># Markdown Navigator plugin</span>
+<span class="s1"># https://plugins.jetbrains.com/plugin/7896-markdown-navigator-enhanced</span>
+<span class="s0">.idea/**/markdown-navigator.xml</span>
+<span class="s0">.idea/**/markdown-navigator-enh.xml</span>
+<span class="s0">.idea/**/markdown-navigator/</span>
+
+<span class="s1"># Cache file creation bug</span>
+<span class="s1"># See https://youtrack.jetbrains.com/issue/JBR-2257</span>
+<span class="s0">.idea/$CACHE_FILE$</span>
+
+<span class="s1"># CodeStream plugin</span>
+<span class="s1"># https://plugins.jetbrains.com/plugin/12206-codestream</span>
+<span class="s0">.idea/codestream.xml</span>
+
+<span class="s1"># Azure Toolkit for IntelliJ plugin</span>
+<span class="s1"># https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij</span>
+<span class="s0">.idea/**/azureSettings.xml</span>
+
+<span class="s1"># End of https://www.toptal.com/developers/gitignore/api/intellij</span></pre>
+</body>
+</html>

@@ -48,7 +48,7 @@ public class BDD {
     }
 
     private void closeConnexion() {
-        if (this.con != null) {
+            if (this.con != null) {
             try {
                 this.con.close();
                 System.out.println("Database connection terminated.");
