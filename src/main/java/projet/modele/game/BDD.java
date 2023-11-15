@@ -94,7 +94,6 @@ public class BDD {
     //créer fonction qui permet d'ajouter les données du jeu dans la BDD
 
     public Boolean addData(String nom_Joueur,String temps_Partie, int taille_Puzzle, int nbCoup) {
-
         return false;
     }
 }

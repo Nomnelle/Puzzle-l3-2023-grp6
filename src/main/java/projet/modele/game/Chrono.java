@@ -1,6 +1,5 @@
 package projet.modele.game;
 
-
 public class Chrono extends Thread {
 
     private int heure;
