@@ -274,6 +274,10 @@ public class Grille implements Parametres, Serializable {
     }
 
     public boolean verifierVictoire() {
+        /**
+         * check if the player has won
+         * @return true if the grid is in the expected state to declare the player as winner
+         */
         int[] etatActuel = this.transformerGrilleArray1D();
         if(etatActuel[etatActuel.length -1]==0){
             for(int i = 1; i < (longueur*longueur) - 1; i++) {
