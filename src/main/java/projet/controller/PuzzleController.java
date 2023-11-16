@@ -41,6 +41,8 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonPlay;
     @FXML
+    private Button buttonRestart;
+    @FXML
     private Button buttonCase4;
     @FXML
     private Button buttonCase9;
@@ -60,14 +62,6 @@ public class PuzzleController implements Initializable {
     private Button buttonStyle;
     @FXML
     private Label labelScore;
-    @FXML
-    private Line line1;
-    @FXML
-    private Line line2;
-    @FXML
-    private Line line3;
-    @FXML
-    private Line line4;
     @FXML
     private Label labelChrono;
 
@@ -94,6 +88,9 @@ public class PuzzleController implements Initializable {
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
         buttonPlay.setDisable(false);
+        buttonRestart.setDisable(false);
+        buttonPlay.setText("RESUME");
+        chrono.pauseTime();
     }
     @FXML
     protected void setButtonPlay(){
@@ -101,61 +98,30 @@ public class PuzzleController implements Initializable {
             //Return to the game
             translationAnimationPlay();
             grilleController.isPaused(false);
+            chrono.goTime();
         } else {
-            //Show the choice of the number of cases
-            buttonPlay.setDisable(true);
-            buttonCase4.setVisible(true);
-            buttonCase9.setVisible(true);
-            buttonCase16.setVisible(true);
-            buttonCase4.setDisable(false);
-            buttonCase9.setDisable(false);
-            buttonCase16.setDisable(false);
+            setChoiceShow();
         }
+    }
+    @FXML
+    protected void setButtonRestart(){
+        setChoiceShow();
+
     }
     /*
     Cases choice buttons
      */
     @FXML
     protected void buttonCase4(){
-        increment++;
-
-        grilleController = new GrilleController(4, Grille.getInstance(2, this), gridPane);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        initializeKeyListener();
-
-        grilleController.isPaused(false);
-
-        chrono = new Chrono(labelChrono);
+        buttonCaseLogic(4, 2);
     }
     @FXML
     protected void buttonCase9(){
-        increment++;
-
-        grilleController = new GrilleController(9, Grille.getInstance(3, this), gridPane);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        initializeKeyListener();
-
-        grilleController.isPaused(false);
-
-        chrono = new Chrono(labelChrono);
+        buttonCaseLogic(9, 3);
     }
     @FXML
     protected void buttonCase16(){
-        increment++;
-
-        grilleController = new GrilleController(16, Grille.getInstance(4, this), gridPane);
-
-        disableButtonCase();
-        translationAnimationPlay();
-        initializeKeyListener();
-
-        grilleController.isPaused(false);
-
-        chrono = new Chrono(labelChrono);
+        buttonCaseLogic(16, 4);
     }
     /*
     Load et Save buttons
@@ -236,11 +202,12 @@ public class PuzzleController implements Initializable {
         buttonMenu.getStyleClass().add("buttonMenu");
         buttonUndo.getStyleClass().add("buttonUndo");
         buttonPlay.getStyleClass().add("buttonPlay");
+        buttonRestart.getStyleClass().add("buttonPlay");
         buttonCase4.getStyleClass().add("buttonPlay");
         buttonCase9.getStyleClass().add("buttonPlay");
         buttonCase16.getStyleClass().add("buttonPlay");
-        buttonLoad.getStyleClass().add("buttonLoad");
-        buttonSave.getStyleClass().add("buttonSave");
+        buttonLoad.getStyleClass().add("buttonLoadSave");
+        buttonSave.getStyleClass().add("buttonLoadSave");
         buttonStopAI.getStyleClass().add("buttonStopAI");
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
@@ -253,20 +220,18 @@ public class PuzzleController implements Initializable {
         anchorPaneStats.getStyleClass().add("anchorPaneStats");
         //Initializing the style of the grid
         gridPane.getStyleClass().add("grid");
-        //Initializing the style of Lines
-        line1.getStyleClass().add("lines");
-        line2.getStyleClass().add("lines");
-        line3.getStyleClass().add("lines");
-        line4.getStyleClass().add("lines");
         //Initializing the state of nodes
         buttonCase4.setVisible(false);
         buttonCase9.setVisible(false);
         buttonCase16.setVisible(false);
+        buttonRestart.setDisable(true);
         anchorPaneStats.setLayoutY(160 + 600); //Position of the stats panel at opening (160 is the normal state)
         anchorPaneMid.setDisable(true);
         anchorPaneStats.setVisible(true);
         anchorPaneMenu.setVisible(true);
         shift.anchorPaneShift(anchorPaneDrag); //Allows the movement of the window
+
+        chrono = new Chrono(labelChrono); //Chrono creation
     }
     /*
     ====================
@@ -292,5 +257,29 @@ public class PuzzleController implements Initializable {
         } catch (Exception e){
             System.err.println("Impossible");
         }
+    }
+    private void setChoiceShow(){
+        //Show the choice of the number of cases
+        buttonPlay.setDisable(true);
+        buttonCase4.setVisible(true);
+        buttonCase9.setVisible(true);
+        buttonCase16.setVisible(true);
+        buttonCase4.setDisable(false);
+        buttonCase9.setDisable(false);
+        buttonCase16.setDisable(false);
+    }
+    private void buttonCaseLogic(int gridPaneSize, int gridSize){
+        increment++;
+
+        grilleController = new GrilleController(gridPaneSize, Grille.getInstance(gridSize, this), gridPane);
+
+        disableButtonCase();
+        translationAnimationPlay();
+        initializeKeyListener();
+
+        grilleController.isPaused(false);
+
+        chrono.reset();
+        chrono.goTime();
     }
 }

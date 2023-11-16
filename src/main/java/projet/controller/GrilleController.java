@@ -200,7 +200,6 @@ public class GrilleController {
             VBox vBox = vBoxes[indexes[0]][indexes[1]];
 
             gridPane.add(vBox, c.getY(), c.getX());
-            vBox.getStyleClass().add("cell");
         }
         gameExist = true; //A game exists from that moment
     }

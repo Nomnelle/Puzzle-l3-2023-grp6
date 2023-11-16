@@ -29,11 +29,10 @@ public class Chrono extends Thread {
         this.heure = 0;
         this.minute = 0;
         this.seconde = 0;
-        this.decompte = true;
+        this.decompte = false;
         this.setDaemon(true);
         startingTime = System.currentTimeMillis();
         this.start();
-        goTime();
     }
 
     public int getHeure() {
@@ -112,6 +111,11 @@ public class Chrono extends Thread {
             }
         }
 
+    }
+    public void reset(){
+        this.heure = 0;
+        this.minute = 0;
+        this.seconde = 0;
     }
     private void labelUI(){
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> Platform.runLater(() -> timeUI.setText(toString()))));

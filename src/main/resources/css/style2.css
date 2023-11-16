@@ -48,23 +48,13 @@
     -fx-background-color: #b7c6ff;
 }
 
-.buttonSave {
+.buttonLoadSave {
     -fx-background-color: #DFE7FD;
 }
 .buttonSave:hover{
     -fx-background-color: #E3EBFF;
 }
 .buttonSave:pressed{
-    -fx-background-color: #D9E4FA;
-}
-
-.buttonLoad {
-    -fx-background-color: #DFE7FD;
-}
-.buttonLoad:hover{
-    -fx-background-color: #E3EBFF;
-}
-.buttonLoad:pressed{
     -fx-background-color: #D9E4FA;
 }
 
@@ -140,13 +130,4 @@
 .grid {
     -fx-background-color: #FDE2E4;
     -fx-border-color: #EAE4E9;
-}
-.cell {
-    -fx-border-color: #EAE4E9;
-    -fx-border-width: 0 0.6 0.6 0;
-}
-
-/* Styles ligne menu */
-.lines{
-    -fx-stroke: #FAD2E1;
 }
