@@ -72,6 +72,7 @@ public class PuzzleController implements Initializable {
     private Label labelChrono;
 
     private final Shift shift = new Shift(); //Logique de déplacement
+    private Chrono chrono;
     GrilleController grilleController;
     private int increment = 0;
     public int getIncrement(){
@@ -126,11 +127,7 @@ public class PuzzleController implements Initializable {
 
         grilleController.isPaused(false);
 
-        Chrono chrono = new Chrono();
-        while (true){
-            labelChrono.setText(chrono.toString());
-        }
-
+        chrono = new Chrono(labelChrono);
     }
     @FXML
     protected void buttonCase9(){
@@ -143,6 +140,8 @@ public class PuzzleController implements Initializable {
         initializeKeyListener();
 
         grilleController.isPaused(false);
+
+        chrono = new Chrono(labelChrono);
     }
     @FXML
     protected void buttonCase16(){
@@ -155,6 +154,8 @@ public class PuzzleController implements Initializable {
         initializeKeyListener();
 
         grilleController.isPaused(false);
+
+        chrono = new Chrono(labelChrono);
     }
     /*
     Load et Save buttons

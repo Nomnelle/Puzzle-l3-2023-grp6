@@ -1,5 +1,11 @@
 package projet.modele.game;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.util.Duration;
+
 public class Chrono extends Thread {
 
     private int heure;
@@ -7,9 +13,9 @@ public class Chrono extends Thread {
     private int seconde;
     private long startingTime;
     private volatile boolean decompte;
+    private Label timeUI;
 
     public Chrono() {
-
         this.heure = 0;
         this.minute = 0;
         this.seconde = 0;
@@ -17,6 +23,17 @@ public class Chrono extends Thread {
         this.setDaemon(true);
         startingTime = System.currentTimeMillis();
         this.start();
+    }
+    public Chrono(Label label){ //Controller UI
+        this.timeUI = label;
+        this.heure = 0;
+        this.minute = 0;
+        this.seconde = 0;
+        this.decompte = true;
+        this.setDaemon(true);
+        startingTime = System.currentTimeMillis();
+        this.start();
+        goTime();
     }
 
     public int getHeure() {
@@ -69,13 +86,13 @@ public class Chrono extends Thread {
         }else{
             stringSeconde = String.valueOf(seconde);
         }
-
         return stringHeure + ":" + stringMinute + ":" + stringSeconde;
 
     }
 
     @Override
     public void run() {
+        labelUI();
         while(true) {
             if(decompte){
                 if ((System.currentTimeMillis()- startingTime) >= 1000) {
@@ -94,5 +111,11 @@ public class Chrono extends Thread {
                 startingTime = System.currentTimeMillis();
             }
         }
+
+    }
+    private void labelUI(){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> Platform.runLater(() -> timeUI.setText(toString()))));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 }

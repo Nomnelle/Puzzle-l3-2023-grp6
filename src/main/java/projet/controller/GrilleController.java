@@ -133,7 +133,7 @@ public class GrilleController {
         }
     }
     private void timerMove(GridPane gridPane){ //Empeche l'utilisateur de spam les touches et de faire tout buger
-        KeyFrame keyFrame = new KeyFrame(Duration.millis((gridPane.getHeight()/gridPane.getRowCount())/1.5), e -> isMoving = false);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis((gridPane.getHeight()/gridPane.getRowCount())), e -> isMoving = false);
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);
 
