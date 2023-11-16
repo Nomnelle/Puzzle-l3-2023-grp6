@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import projet.logic.Shift;
 import projet.PuzzleApplication;
+import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
 
 public class PuzzleController implements Initializable {
@@ -67,6 +68,9 @@ public class PuzzleController implements Initializable {
     private Line line3;
     @FXML
     private Line line4;
+    @FXML
+    private Label labelChrono;
+
     private final Shift shift = new Shift(); //Logique de déplacement
     GrilleController grilleController;
     private int increment = 0;
@@ -121,6 +125,12 @@ public class PuzzleController implements Initializable {
         initializeKeyListener();
 
         grilleController.isPaused(false);
+
+        Chrono chrono = new Chrono();
+        while (true){
+            labelChrono.setText(chrono.toString());
+        }
+
     }
     @FXML
     protected void buttonCase9(){

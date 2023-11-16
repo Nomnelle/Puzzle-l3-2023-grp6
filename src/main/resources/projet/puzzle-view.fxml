@@ -19,8 +19,13 @@
       </Button>
     </AnchorPane>
     <AnchorPane fx:id="anchorPaneMid" prefHeight="104.0" prefWidth="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
-        <AnchorPane layoutX="150.0" layoutY="8.0" prefHeight="64.0" prefWidth="80.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0">
-            <Label fx:id="labelScore" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="40.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <AnchorPane layoutX="150.0" layoutY="6.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0">
+            <Label fx:id="labelScore" alignment="CENTER" contentDisplay="CENTER" layoutY="42.0" prefHeight="42.0" prefWidth="140.0" text="0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelChrono" alignment="CENTER" contentDisplay="CENTER" layoutY="42.0" prefHeight="42.0" prefWidth="140.0" text="0" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                 <font>
                     <Font name="System Bold" size="24.0" />
                 </font>
