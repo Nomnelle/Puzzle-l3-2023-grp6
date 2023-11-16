@@ -6,8 +6,6 @@ module com.example.puzzle {
 
     opens projet to javafx.fxml;
     exports projet;
-    exports projet.modele;
-    opens projet.modele to javafx.fxml;
     exports projet.controller;
     opens projet.controller to javafx.fxml;
     exports projet.modele.ia;

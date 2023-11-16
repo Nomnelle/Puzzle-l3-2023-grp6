@@ -1,40 +1,43 @@
 package projet.controller;
 
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class ThreadShift extends java.lang.Thread {
-    Node node;
-    double goal;
-    int where;
-    public ThreadShift(Node node, int rowAndCol, int where){
+    final Node node;
+    final int direction;
+    final double cellSize;
+    final char xy;
+    public ThreadShift(Node node, int direction, GridPane gridPane, char xy){
+        setDaemon(true);
+
         this.node = node;
-        this.goal = 5.0;//(344/rowAndCol)/2;
-        this.where = where;
+        this.direction = direction;
+        this.cellSize = gridPane.getHeight()/gridPane.getRowCount();
+        this.xy = xy;
     }
-
-    Task<Void>task = new Task<Void>() {
-        @Override
-        protected Void call() throws Exception {
-
-
-            final int[] i = {0};
-            while (i[0]<goal){
-                System.out.println(i + " ---> " + goal);
-
-                i[0] = i[0] + 1;
-                Platform.runLater(() -> node.setTranslateY(node.getTranslateY() - i[0]));
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    @Override
+    public void run(){
+        for (int i=0; i<cellSize/2.5; i++){
+            final double way = (direction*i)*2.5;
+            Platform.runLater(() -> {
+                if (xy=='x'){node.setTranslateX(way);} else {node.setTranslateY(way);}
+            });
+            try {
+                sleep(1);
+            } catch (InterruptedException e) {
+                System.err.println("InterruptedException");
             }
-            GridPane.setRowIndex(node, GridPane.getRowIndex(node) + (where));
-
-            return null;
         }
-    };
+        Platform.runLater(() -> {
+            if (xy=='x'){
+                GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + direction);
+                node.setTranslateX(0);
+            } else {
+                GridPane.setRowIndex(node, GridPane.getRowIndex(node) + direction);
+                node.setTranslateY(0);
+            }
+        });
+    }
 }

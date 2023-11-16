@@ -6,19 +6,20 @@ import javafx.scene.image.WritableImage;
 
 public class Pics {
     Image imageDefault;
-    int size;
+    int rowAndColumn;
+    final int ORIGINALSIZE = 340;
     int dividedSize;
-    public Pics(int size) {
-        this.size = size;
-        this.dividedSize = 340/size;
+    public Pics(int rowAndColumn) {
+        this.rowAndColumn = rowAndColumn;
+        this.dividedSize = 340/rowAndColumn;
         initializeDefaultPicture();
     }
     public Image cutedPic(int i, int j) {
         PixelReader reader = imageDefault.getPixelReader();
-        if (imageDefault.getHeight()>340 || imageDefault.getWidth()>340){
-            WritableImage resized = new WritableImage(reader, 0, 0, 340, 340);
+        if (imageDefault.getHeight()>ORIGINALSIZE || imageDefault.getWidth()>ORIGINALSIZE){
+            WritableImage resized = new WritableImage(reader, 0, 0, ORIGINALSIZE, ORIGINALSIZE);
             return new WritableImage(resized.getPixelReader(), dividedSize*i,dividedSize*j, dividedSize, dividedSize);
-        } else if (imageDefault.getHeight()<340 || imageDefault.getWidth()<340){
+        } else if (imageDefault.getHeight()<ORIGINALSIZE || imageDefault.getWidth()<ORIGINALSIZE){
             System.err.println("image trop petite");
             return null;
         }
