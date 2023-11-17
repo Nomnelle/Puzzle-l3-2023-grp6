@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import projet.logicUI.Pics;
+import projet.logicUI.ShiftCases;
 import projet.modele.game.Case;
 import projet.modele.game.Grille;
 
@@ -125,7 +127,7 @@ public class GrilleController {
         if (avant != null) {
             Node node = recupererVbox(avant, gridPane);
             if (node!=null){
-                ThreadShift th = new ThreadShift(node,direction, gridPane, xy);
+                ShiftCases th = new ShiftCases(node,direction, gridPane, xy);
                 th.start();
                 moveCount++;
                 score.setText(String.valueOf(getMoveCount()));

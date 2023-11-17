@@ -1,4 +1,4 @@
-package projet.controller;
+package projet.logicUI;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -6,9 +6,9 @@ import javafx.scene.image.WritableImage;
 
 public class Pics {
     Image imageDefault;
-    int rowAndColumn;
+    final int rowAndColumn;
     final int ORIGINALSIZE = 340;
-    int dividedSize;
+    final int dividedSize;
     public Pics(int rowAndColumn) {
         this.rowAndColumn = rowAndColumn;
         this.dividedSize = 340/rowAndColumn;
@@ -26,6 +26,6 @@ public class Pics {
         return new WritableImage(reader, dividedSize*i,dividedSize*j, dividedSize, dividedSize);
     }
     private void initializeDefaultPicture() {
-        imageDefault = new Image("/doc-files/image1.jpg");
+        imageDefault = new Image("/doc-files/image2.jpg");
     }
 }

@@ -8,8 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Line;
-import projet.logic.Shift;
+import projet.logicUI.ShiftUIDesign;
 import projet.PuzzleApplication;
 import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
@@ -65,7 +64,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private Label labelChrono;
 
-    private final Shift shift = new Shift(); //Logique de déplacement
+    private ShiftUIDesign shift;
     private Chrono chrono;
     GrilleController grilleController;
     private int increment = 0;
@@ -229,7 +228,9 @@ public class PuzzleController implements Initializable {
         anchorPaneMid.setDisable(true);
         anchorPaneStats.setVisible(true);
         anchorPaneMenu.setVisible(true);
-        shift.anchorPaneShift(anchorPaneDrag); //Allows the movement of the window
+
+        shift = new ShiftUIDesign(anchorPaneDrag); //UI Design shift
+        shift.start(); //Allows the movement of the window
 
         chrono = new Chrono(labelChrono); //Chrono creation
     }

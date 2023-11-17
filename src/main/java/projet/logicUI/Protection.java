@@ -1,4 +1,4 @@
-package projet.logic;
+package projet.logicUI;
 
 public class Protection {
     private static boolean firstGame;
