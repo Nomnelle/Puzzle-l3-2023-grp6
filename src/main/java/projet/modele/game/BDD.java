@@ -9,12 +9,12 @@ import java.util.ArrayList;
  */
 public class BDD {
 
-    Connection con;
-    String host;
-    String dbName;
-    String port;
-    String username;
-    String password;
+    private Connection con;
+    private String host;
+    private String dbName;
+    private String port;
+    private String username;
+    private String password;
 
     public BDD() {
         // avant de se connecter sur la BDD, allez sur ce lien: https://phpmyadmin.alwaysdata.com/
@@ -48,7 +48,7 @@ public class BDD {
     }
 
     private void closeConnexion() {
-            if (this.con != null) {
+        if (this.con != null) {
             try {
                 this.con.close();
                 System.out.println("Database connection terminated.");
@@ -93,9 +93,28 @@ public class BDD {
      */
     //créer fonction qui permet d'ajouter les données du jeu dans la BDD
 
-    public Boolean addData(String nom_Joueur,String temps_Partie, int taille_Puzzle, int nbCoup) {
+    public Boolean addData(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle) {
 
-        return false;
+        boolean resultAddData = false;
+
+        String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle + "')";
+        String updateQuery2 = "INSERT INTO Joueur (nom_Joueur) VALUES('" + nom_Joueur + "')";
+        try {
+            this.openConnexion();
+            Statement stmt = this.con.createStatement();
+            int n = stmt.executeUpdate(updateQuery);
+            System.out.println(n + " tuples inserés dans la table Partie.");
+            n = stmt.executeUpdate(updateQuery2);
+            System.out.println(n + " tuples inseré dans la table Joueur.");
+            stmt.close();
+            resultAddData = true;
+        } catch (SQLException e) {
+            System.out.println("Probleme avec la requete d'insertion");
+
+        } finally {
+            this.closeConnexion();
+        }
+        return resultAddData;
     }
 }
 

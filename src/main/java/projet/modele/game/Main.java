@@ -54,7 +54,9 @@ public class Main {
 
         boolean game = true;
 
-        while(game){
+        Chrono t = new Chrono();
+
+        while(game) {
             Scanner sc = new Scanner(System.in);
             System.out.println(g);
 
@@ -69,6 +71,18 @@ public class Main {
                 System.out.println("Puzzle résolu ! Bravo!\n");
                 game = false;
             }
+
+            t.pauseTime();
+
+
+            System.out.print("Entrez votre nom");
+
+            String nom_Joueur = sc.nextLine();
+
+            BDD bdd = new BDD();
+
+            bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur());
+
 
         }
 
