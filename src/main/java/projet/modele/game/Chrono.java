@@ -91,7 +91,9 @@ public class Chrono extends Thread {
 
     @Override
     public void run() {
-        labelUI();
+        if(this.timeUI!=null){
+            labelUI();
+        }
         while(true) {
             if(decompte){
                 if ((System.currentTimeMillis()- startingTime) >= 1000) {
