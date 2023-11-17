@@ -41,9 +41,6 @@ public class Main {
 
         System.out.println("Génération de la grille...\n");
 
-        g = null;
-
-        g = Grille.getInstance(4);
         System.out.println(g.getGrille());
         correcte = false;
 
@@ -71,20 +68,19 @@ public class Main {
                 System.out.println("Puzzle résolu ! Bravo!\n");
                 game = false;
             }
-
-            t.pauseTime();
-
-
-            System.out.print("Entrez votre nom");
-
-            String nom_Joueur = sc.nextLine();
-
-            BDD bdd = new BDD();
-
-            bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur());
-
-
         }
+
+        t.pauseTime();
+
+
+        System.out.print("Entrez votre nom");
+        Scanner sc = new Scanner(System.in);
+
+        String nom_Joueur = sc.nextLine();
+
+        BDD bdd = new BDD();
+
+        bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur());
 
 
     }

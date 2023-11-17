@@ -1,8 +1,13 @@
 package projet.modele.game;
 
-import java.sql.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 /**
  * @author npnoi
@@ -35,7 +40,7 @@ public class BDD {
         try {
             String connectUrl = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            con = DriverManager.getConnection(connectUrl, username, password);
+            this.con = DriverManager.getConnection(connectUrl, username, password);
             System.out.println("Database connection established.");
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Cannot load db driver: com.mysql.jdbc.Driver");

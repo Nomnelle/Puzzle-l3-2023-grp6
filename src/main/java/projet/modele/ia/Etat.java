@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.lang.Math;
 
 import static java.lang.Math.ceil;
-import static java.lang.Math.ceilDiv;
 
 public class Etat implements Cloneable {
     private int[][] etatGrille;
