@@ -1,38 +1,46 @@
-package projet.logic;
+package projet.logicUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-public class Shift {
+public class ShiftUIDesign extends java.lang.Thread{
     private final TranslateTransition translateTransition = new TranslateTransition();
+    AnchorPane paneDrag;
+    public ShiftUIDesign(AnchorPane anchorPane){
+        this.paneDrag = anchorPane;
+        this.isDaemon();
+    }
     /*
     ######################
-    Déplacements du logiciel avec un AnchorPane
+    Le Thread sert à déplacer le logiciel avec un AnchorPane
     ######################
      */
-    public void anchorPaneShift(AnchorPane paneDrag){
-        //initialisation des variables
-        //On ne peux pas modifier les variables en lambda, c'est pour cela que des tableaux d'une case sont nécessaires
-        final double[] x = {0};
-        final double[] y = {0};
+    @Override
+    public void run() {
+            //initialisation des variables
+            //On ne peux pas modifier les variables en lambda, c'est pour cela que des tableaux d'une case sont nécessaires
+            final double[] x = {0,0};
+            final double[] y = {0,0};
 
-        //pression de la souris, sauvegarde de la position initiale
-        paneDrag.setOnMousePressed(event -> {
-                    x[0] = event.getSceneX();
-                    y[0] = event.getSceneY();
-        });
+            //pression de la souris, sauvegarde de la position initiale
+            paneDrag.setOnMousePressed(event -> {
+                x[0] = event.getSceneX();
+                y[0] = event.getSceneY();
+            });
 
-        //mouvement de la souris durant la pression,
-        paneDrag.setOnMouseDragged(event -> {
-            double a = event.getScreenX() - x[0];
-            double b = event.getScreenY() - y[0];
-            paneDrag.getScene().getWindow().setX(a);
-            paneDrag.getScene().getWindow().setY(b);
-        });
-    }
+            //mouvement de la souris durant la pression,
+            paneDrag.setOnMouseDragged(event -> {
+                x[1] = event.getScreenX() - x[0];
+                y[1]= event.getScreenY() - y[0];
+
+                paneDrag.getScene().getWindow().setX(x[1]);
+                paneDrag.getScene().getWindow().setY(y[1]);
+            });
+        }
 
     /**
      * Déplacements d'un noeud quelconque en fonction de 4 ou 5 parametres
@@ -85,17 +93,5 @@ public class Shift {
         timeline.getKeyFrames().add(keyFrame);
 
         timeline.play();
-    }
-    
-    public void getCases(Node grille){
-        final double[] mouseX = {0};
-        final double[] mouseY = {0};
-
-        grille.setOnMouseClicked(event -> {
-            mouseX[0] = event.getX();
-            mouseY[0] = event.getY();
-        });
-
-        System.out.println(mouseX[0] + mouseY[0]);
     }
 }

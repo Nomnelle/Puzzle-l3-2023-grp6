@@ -44,17 +44,7 @@
     -fx-background-color: #72E0DD;
 }
 
-.buttonSave {
-    -fx-background-color: #AEF1EF;
-}
-.buttonSave:hover{
-    -fx-background-color: #BFF5F3;
-}
-.buttonSave:pressed{
-    -fx-background-color: #9DCDCB;
-}
-
-.buttonLoad {
+.buttonLoadSave {
     -fx-background-color: #AEF1EF;
 }
 .buttonLoad:hover{
@@ -65,7 +55,7 @@
 }
 
 .buttonStopAI {
-    -fx-background-color: #EDE1F2;
+    -fx-background-color: rgba(237, 225, 242, 0.82);
 }
 .buttonStopAI:hover{
     -fx-background-color: #F0E6F5;
@@ -75,7 +65,7 @@
 }
 
 .buttonStats {
-    -fx-background-color: #E2CFEA;
+    -fx-background-color: rgba(226, 207, 234, 0.81);
 }
 .buttonStats:hover{
     -fx-background-color: #E7D4F0;
@@ -112,7 +102,7 @@
     -fx-background-color: #5390D9;
 }
 .anchorPaneBackground {
-    -fx-background-color: linear-gradient(#5390D9 60%, #4EA8DE 99%);
+    -fx-background-color: linear-gradient(#5390d9 60%, #4EA8DE 99%);
     -fx-border-color: #4EA8DE;
 }
 .anchorPaneMid {
@@ -136,16 +126,7 @@
 /* Styles grid */
 
 .grid {
-    -fx-background-color: #4EA8DE;
+    -fx-background-color: rgba(28, 96, 167, 0.27);
     -fx-border-color: #5390D9;
     -fx-opacity: 0.8;
-}
-.cell {
-    -fx-border-color: #5390D9;
-    -fx-border-width: 0.6 0.6 0.6 0.6;
-}
-
-/* Styles ligne menu */
-.lines{
-    -fx-stroke: #5390D9;
 }

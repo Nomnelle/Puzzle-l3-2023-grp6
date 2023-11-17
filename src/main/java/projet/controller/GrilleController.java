@@ -1,17 +1,23 @@
 package projet.controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
+import projet.logicUI.Pics;
+import projet.logicUI.ShiftCases;
 import projet.modele.game.Case;
 import projet.modele.game.Grille;
 
 public class GrilleController {
     private final int size; private final int rowAndColumn;
-    private boolean paused = false; private boolean gameExist = false;
+    private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
     private int moveCount = 0; private int undoCount = 0;
     private VBox[][] vBoxes; Grille grille;
+
     protected GrilleController(int size, Grille grille, GridPane gridPane){
         this.size = size;
         this.rowAndColumn = (int) Math.sqrt(size);
@@ -78,7 +84,7 @@ public class GrilleController {
         createGrille(); //Create a grid
         setVboxArray(); //Create an array of VBoxes
         associateGrilleVBox(gridPane);//Converts the VBoxes array to VBox with positions equal to the 'Grid' object
-    }
+        }
     /**
      * This method allow to move cases
      * @param scene the scene that contains the grid
@@ -87,48 +93,53 @@ public class GrilleController {
      */
     protected void casesMove(Scene scene, GridPane gridPane, Label score){
         scene.setOnKeyPressed(event -> {
-            if (!paused){
+            if (!paused && !isMoving){
+                isMoving = true;
+                timerMove(gridPane);
                 int[] avant;
-                switch (event.getCode()){
-                    case Z :
+                switch (event.getCode()) {
+                    case Z -> {
+                        System.out.println("Z");
                         avant = grille.deplacerCase("haut");
-                        if (avant!=null) {
-                            Node node = recupererVbox(avant, gridPane);
-                            GridPane.setRowIndex(node, GridPane.getRowIndex(node) - 1);
-                            moveCount++;
-                            score.setText(String.valueOf(getMoveCount()));
-                        }
-                        break;
-                    case S :
+                        shift(avant, gridPane, score, -1, 'y');
+                        System.out.println("fin Z");
+                    }
+                    case S -> {
+                        System.out.println("S");
                         avant = grille.deplacerCase("bas");
-                        if (avant!=null) {
-                            Node node = recupererVbox(avant, gridPane);
-                            GridPane.setRowIndex(node, GridPane.getRowIndex(node) + 1);
-                            moveCount++;
-                            score.setText(String.valueOf(getMoveCount()));
-                        }
-                        break;
-                    case Q :
+                        shift(avant, gridPane, score, 1, 'y');
+                        System.out.println("fin S");
+                    }
+                    case Q -> {
                         avant = grille.deplacerCase("gauche");
-                        if (avant!=null) {
-                            Node node = recupererVbox(avant, gridPane);
-                            GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) - 1);
-                            moveCount++;
-                            score.setText(String.valueOf(getMoveCount()));
-                        }
-                        break;
-                    case D :
+                        shift(avant, gridPane, score, -1, 'x');
+                    }
+                    case D -> {
                         avant = grille.deplacerCase("droite");
-                        if (avant!=null) {
-                            Node node = recupererVbox(avant, gridPane);
-                            GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + 1);
-                            moveCount++;
-                            score.setText(String.valueOf(getMoveCount()));
-                        }
-                        break;
+                        shift(avant, gridPane, score, 1, 'x');
+                    }
                 }
             }
+            System.out.println(grille);
         });
+    }
+    private void shift(int[] avant, GridPane gridPane, Label score, int direction, char xy){
+        if (avant != null) {
+            Node node = recupererVbox(avant, gridPane);
+            if (node!=null){
+                ShiftCases th = new ShiftCases(node,direction, gridPane, xy);
+                th.start();
+                moveCount++;
+                score.setText(String.valueOf(getMoveCount()));
+            }
+        }
+    }
+    private void timerMove(GridPane gridPane){ //Empeche l'utilisateur de spam les touches et de faire tout buger
+        KeyFrame keyFrame = new KeyFrame(Duration.millis((gridPane.getHeight()/gridPane.getRowCount())), e -> isMoving = false);
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(keyFrame);
+
+        timeline.play();
     }
     private void divideGridPane(GridPane gridPane){
         //Reset the old grid
@@ -138,11 +149,9 @@ public class GrilleController {
         //Constraints of lines + columns
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight((double) 100 /rowAndColumn);
-        rowConstraints.setFillHeight(true);
 
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth((double) 100 /rowAndColumn);
-        columnConstraints.setFillWidth(true);
 
         //Addition of lines + columns
         for (int i=0; i<rowAndColumn; i++){
@@ -160,33 +169,39 @@ public class GrilleController {
         }
     }
     private void setVboxArray(){
+        Pics pics = new Pics(rowAndColumn);
+        int x =0; int z = 0;
         vBoxes = new VBox[rowAndColumn][rowAndColumn];
         for (int i = 0; i<rowAndColumn; i++) {
             for (int j=0; j<rowAndColumn; j++){
                 if (i == rowAndColumn - 1 && j == rowAndColumn - 1) continue; //Skip the last cell
                 vBoxes[i][j] = new VBox();
+
+                ImageView imageView = new ImageView();
+                imageView.setImage(pics.cutedPic(x, z));
+
+                vBoxes[i][j].getChildren().add(imageView);
+
+                if (x==rowAndColumn-1) {
+                    x=0;
+                    z++;
+                } else {
+                    x++;
+                }
+                if (z==rowAndColumn) {
+                    z=0;
+                }
             }
         }
     }
     private void associateGrilleVBox(GridPane gridPane){
-        Pics pics = new Pics(rowAndColumn);
-        ImageView imageView;
-        int i=0; int j=0;
-
         for (Case c : grille.getGrille()){
             if (c.getIndice()==0) continue; //Skip case with the indices 0
 
             int[] indexes = convertIndexes(c.getIndice()-1);
             VBox vBox = vBoxes[indexes[0]][indexes[1]];
 
-            imageView = new ImageView();
-            imageView.setImage(pics.cutedPic(i, j));
-
-            vBox.getChildren().add(imageView);
             gridPane.add(vBox, c.getY(), c.getX());
-            vBox.getStyleClass().add("cell");
-            if (i!=rowAndColumn) {i++;}
-            else i=0; j++;
         }
         gameExist = true; //A game exists from that moment
     }
