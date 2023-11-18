@@ -102,8 +102,8 @@ public class BDD {
 
         boolean resultAddData = false;
 
-        String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle + "')";
-        String updateQuery2 = "INSERT INTO Joueur (nom_Joueur) VALUES('" + nom_Joueur + "')";
+        String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle+ "');";
+        String updateQuery2 = "INSERT INTO Joueur (nom_Joueur, idPartie) VALUES('" + nom_Joueur + "', LAST_INSERT_ID());";
         try {
             this.openConnexion();
             Statement stmt = this.con.createStatement();

@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math;
 
-import static java.lang.Math.ceil;
-
 public class Etat implements Cloneable {
     private int[][] etatGrille;
     private int xVide, yVide;
@@ -40,6 +38,10 @@ public class Etat implements Cloneable {
         return this.profondeur;
     }
 
+    public int getHeuristique(){
+        return this.heuristique;
+    }
+
     protected Etat clone() throws CloneNotSupportedException {
         Etat e2 = (Etat) super.clone();
 
@@ -66,10 +68,10 @@ public class Etat implements Cloneable {
         return this.mouvements;
     }
 
-    private int[] calculerPosVictoire(int val) {
-// valeur de la longueur - 1 et if
+    public int[] calculerPosVictoire(int val) {
         int[] result = new int[2];
-        result[0] = (int)  ceil(val / this.longueur) -1;
+        double div = (double) val/ (double) this.longueur;
+        result[0] = (int) Math.ceil(div) -1;
         int temp = val % this.longueur - 1;
         if(temp == -1) {
             result[1] = this.longueur - 1;
@@ -83,10 +85,12 @@ public class Etat implements Cloneable {
 
         int result = 0;
 
-        for(int i = 0; i < this.longueur - 1; i++) {
-            for(int j = 0; j < this.longueur - 1; j++) {
-                int[] coordonneesVictoire = this.calculerPosVictoire(this.etatGrille[i][j]);
-                result += Math.abs (coordonneesVictoire[0]-i) + Math.abs (coordonneesVictoire[1]-j);
+        for(int i = 0; i < this.longueur; i++) {
+            for(int j = 0; j < this.longueur; j++) {
+                if(this.etatGrille[i][j]!=0){
+                    int[] coordonneesVictoire = this.calculerPosVictoire(this.etatGrille[i][j]);
+                    result += Math.abs (coordonneesVictoire[0]-i) + Math.abs (coordonneesVictoire[1]-j);
+                }
             }
         }
         this.heuristique = result;

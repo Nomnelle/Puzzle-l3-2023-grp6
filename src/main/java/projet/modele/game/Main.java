@@ -46,7 +46,7 @@ public class Main {
 
         while(!correcte){
             g.remplirGrille();
-            correcte = g.testerSiGrilleSoluble();
+            correcte = g.testerSiGrilleSoluble()&&!g.verifierVictoire();
         }
 
         boolean game = true;
@@ -80,7 +80,7 @@ public class Main {
 
         BDD bdd = new BDD();
 
-        bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur());
+        bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur()*g.getLongueur());
 
 
     }
