@@ -25,7 +25,7 @@ public class BDD {
         // avant de se connecter sur la BDD, allez sur ce lien: https://phpmyadmin.alwaysdata.com/
         con = null;
         host = "mysql-puzzle-mick-purson-palich-watrin-mysql.alwaysdata.net";
-        dbName = "puzzle-mick-purson-palich-watrin-mysql_Puzzle";
+        dbName = "puzzle-mick-purson-palich-watrin-mysql_puzzle";
         port = "3306";
         username = "329728";
         password = "Puzzle.2023";

@@ -2,6 +2,7 @@ module com.example.puzzle {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires mysql.connector.java;
 
 
     opens projet to javafx.fxml;
