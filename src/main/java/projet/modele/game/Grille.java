@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.HashSet;
 public class Grille implements Parametres, Serializable {
 
-    private static Grille INSTANCE;
-
     private static class Memento implements Serializable{
         private final HashSet<Case> grilleSauvegarde;
 
@@ -34,7 +32,7 @@ public class Grille implements Parametres, Serializable {
     private int compteurMemento;
 
 
-    private Grille(int l) {
+    public Grille(int l) {
         /**
          * Construct a Grille object
          * @param length of the grid
@@ -46,7 +44,7 @@ public class Grille implements Parametres, Serializable {
         compteurMemento = 4;
     }
 
-    private Grille(int l, PuzzleController c) {
+    public Grille(int l, PuzzleController c) {
         /**
          * Construct a Grille object
          * @param length of the grid, controller to link to the GUI
@@ -57,39 +55,6 @@ public class Grille implements Parametres, Serializable {
         pastGrid = new Caretaker();
         instanceGUI = c.getIncrement();
         compteurMemento = 4;
-    }
-
-    public static Grille getInstance(int longueur){
-        /**
-         * Construct a Grille object if it does not exist, or retrieve the existing object
-         * @param length of the grid
-         * @return a Grille object
-         */
-        if(INSTANCE==null){
-            INSTANCE = new Grille(longueur);
-        }
-        return INSTANCE;
-    }
-
-    @Serial
-    private Object readResolve() throws ObjectStreamException {
-        /**
-         * Return the Grille object when serialized - avoid multiple object with Singleton design pattern
-         * @return a Grille object
-         */
-        return INSTANCE;
-    }
-
-    public static Grille getInstance(int longueur, PuzzleController controller){
-        /**
-         * Construct a Grille object if it does not exist, or retrieve the existing object
-         * @param length of the grid, controller to link to the GUI
-         * @return a Grille object
-         */
-        if((INSTANCE==null)||(INSTANCE.instanceGUI!=controller.getIncrement())){
-            INSTANCE = new Grille(longueur, controller);
-        }
-        return INSTANCE;
     }
 
     public HashSet<Case> getGrille() {

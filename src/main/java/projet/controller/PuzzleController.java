@@ -137,15 +137,13 @@ public class PuzzleController implements Initializable {
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
         Serial serial = new Serial();
         Grille grille = serial.deserial();
-        Grille.getInstance(grille.getLongueur());
+        System.out.println(grille);
 
         System.out.println(grille);
 
-
         labelVictoire.setVisible(false);
-        increment++;
 
-        grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), Grille.getInstance(grille.getLongueur(), this), gridPane, chrono);
+        grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), grille, gridPane, chrono);
         grilleController.initializeGridLoaded();
 
         disableButtonCase();
@@ -306,7 +304,7 @@ public class PuzzleController implements Initializable {
         labelVictoire.setVisible(false);
         increment++;
 
-        grilleController = new GrilleController(gridPaneSize, Grille.getInstance(gridSize, this), gridPane, chrono);
+        grilleController = new GrilleController(gridPaneSize, new Grille(gridSize, this), gridPane, chrono);
         grilleController.initializeGrid();
 
         disableButtonCase();
