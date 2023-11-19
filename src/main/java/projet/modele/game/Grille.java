@@ -10,7 +10,7 @@ public class Grille implements Parametres, Serializable {
 
     private static Grille INSTANCE;
 
-    private static class Memento {
+    private static class Memento implements Serializable{
         private final HashSet<Case> grilleSauvegarde;
 
         public Memento(HashSet<Case> etatGrille){
