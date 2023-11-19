@@ -29,13 +29,13 @@ public class GrilleController {
     }
     private final int size; private final int rowAndColumn;
     private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
-    private int moveCount = 0; private int undoCount = 0;
+    private int moveCount = 0;
     private VBox[][] vBoxes; Grille grille;
     String username = System.getProperty("user.name");
     private static final BDD bdd = new BDD();
     Chrono chrono;
     GridPane gridPane;
-    private LinkedList<UndoObjet> undoObjets = new LinkedList<>();
+    private final LinkedList<UndoObjet> undoObjets = new LinkedList<>();
 
     protected GrilleController(int size, Grille grille, GridPane gridPane, Chrono chrono){
         this.size = size;
@@ -71,22 +71,20 @@ public class GrilleController {
      * @return 'true' if the movement has been cancelled
      */
     protected boolean undoLastMovement(){
-        if(!undoObjets.isEmpty()) {
-            if (moveCount > 0 && moveCount > undoCount && undoCount < 4) {
-                undoCount++;
+        if(!undoObjets.isEmpty() && !isMoving && !paused) {
+            isMoving = true;
+            timerMove();
+            if (moveCount >= 0) {
                 goBack();
                 return true;
             }
         }
         return false;
     }
-    /**
-     * This function lets you know how many times the user press undo
-     * @return undo count
-     */
-    protected int getUndoCount(){
-        return undoCount;
+    protected Grille getGrille(){
+        return this.grille;
     }
+
     /**
      * This function lets you know how many movements have been done
      * @return movement count
@@ -117,7 +115,7 @@ public class GrilleController {
         scene.setOnKeyPressed(event -> {
             if (!paused && !isMoving){
                 isMoving = true;
-                timerMove(gridPane);
+                timerMove();
                 int[] avant;
                 switch (event.getCode()) {
                     case Z -> {
@@ -150,7 +148,6 @@ public class GrilleController {
             bdd.addData(username, moveCount, chrono.toString(), size);
             victoire.setDisable(false);
             victoire.setVisible(true);
-            undoCount = 0;
             paused = true;
         }
     }
@@ -165,10 +162,12 @@ public class GrilleController {
                 moveCount++;
                 score.setText(String.valueOf(getMoveCount()));
                 //Pattern
-                undoObjets.add(new UndoObjet(direction, node, xy));;
+                undoObjets.add(new UndoObjet(direction, node, xy));
                 if(undoObjets.size() > 4){
                     undoObjets.removeFirst();
                 }
+                System.out.println("BASIC MOVE");
+                System.out.println(grille);
             }
         }
     }
@@ -176,22 +175,17 @@ public class GrilleController {
         if (node!=null){
             ShiftCases th = new ShiftCases(node,-(direction), gridPane, xy);
             th.start();
-            paused = false;
         }
     }
     public void goBack(){
-        paused = true;
             UndoObjet undo = undoObjets.removeLast();
             shift(undo.node, undo.direction, undo.xy);
             grille.undoLastMovement();
+            System.out.println("RETURN");
             System.out.println(grille);
     }
-    protected void resetUndo(){
-        undoCount = 0;
-    }
 
-
-    private void timerMove(GridPane gridPane){ //Empeche l'utilisateur de spam les touches et de faire tout buger
+    private void timerMove(){ //Empeche l'utilisateur de spam les touches et de faire tout buger
         KeyFrame keyFrame = new KeyFrame(Duration.millis((gridPane.getHeight()/gridPane.getRowCount())), e -> isMoving = false);
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);

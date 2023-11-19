@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import projet.logicUI.Serial;
 import projet.logicUI.ShiftUIDesign;
 import projet.PuzzleApplication;
 import projet.modele.game.Chrono;
@@ -131,14 +132,32 @@ public class PuzzleController implements Initializable {
     protected void setButtonLoad(){
     //La méthode initialize du contrôleur vérifiera l’existence du modèle sérialisé (i.e. du fichier modele.ser)
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
+        Serial serial = new Serial();
+        Grille grille = serial.deserial();
 
+        labelVictoire.setVisible(false);
+        increment++;
 
+        grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), Grille.getInstance(grille.getLongueur(), this), gridPane, chrono);
+
+        disableButtonCase();
         translationAnimationPlay();
         initializeKeyListener();
+
+        grilleController.isPaused(false);
+
+        chrono.reset();
+        chrono.goTime();
+
+        buttonUndo.setText("UNDO (4)");
+        buttonUndo.setDisable(false);
     }
     @FXML
     protected void setButtonSave(){
-
+        if (grilleController !=null && grilleController.gameExist()) {
+            Serial serial = new Serial(grilleController.getGrille());
+            serial.saveGrille();
+        }
     }
     /*
     BOUTON Stop AI
@@ -161,18 +180,18 @@ public class PuzzleController implements Initializable {
     @FXML
     protected void setButtonUndo(){
         //Deactivates the undo button after 4 uses
-        switch (grilleController.getUndoCount()){
-            case 0 :
+        switch (grilleController.getGrille().getCompteurMemento()){
+            case 4 :
                 if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (3)");}
                 break;
-            case 1 :
+            case 3 :
                 if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (2)");}
                 break;
             case 2 :
                 if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (1)");}
                 break;
-            case 3 :
-                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (0)");buttonUndo.setDisable(true);}
+            case 1 :
+                if (grilleController.undoLastMovement()) {buttonUndo.setText("UNDO (0)"); buttonUndo.setDisable(true);}
                 break;
         }
     }
@@ -287,7 +306,6 @@ public class PuzzleController implements Initializable {
         chrono.goTime();
 
         buttonUndo.setText("UNDO (4)");
-        grilleController.resetUndo();
         buttonUndo.setDisable(false);
     }
 }
