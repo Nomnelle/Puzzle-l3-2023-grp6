@@ -42,6 +42,11 @@
         </Button>
     </AnchorPane>
     <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0" />
+   <Label fx:id="labelVictoire" alignment="CENTER" contentDisplay="CENTER" text="Victoire" textAlignment="CENTER" visible="false" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
+      <font>
+         <Font size="56.0" />
+      </font>
+   </Label>
     <AnchorPane fx:id="anchorPaneMenu" layoutX="61.0" layoutY="-4.0" prefHeight="202.0" prefWidth="244.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
         <Button fx:id="buttonPlay" maxWidth="140.0" mnemonicParsing="false" onAction="#setButtonPlay" prefWidth="140.0" text="PLAY" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
         <Button fx:id="buttonRestart" maxWidth="140.0" mnemonicParsing="false" onAction="#setButtonRestart" prefWidth="140.0" text="RESTART" AnchorPane.bottomAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />

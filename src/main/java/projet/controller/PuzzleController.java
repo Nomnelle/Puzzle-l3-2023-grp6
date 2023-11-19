@@ -63,6 +63,8 @@ public class PuzzleController implements Initializable {
     private Label labelScore;
     @FXML
     private Label labelChrono;
+    @FXML
+    private Label labelVictoire;
 
     private ShiftUIDesign shift;
     private Chrono chrono;
@@ -254,7 +256,7 @@ public class PuzzleController implements Initializable {
     }
     private void initializeKeyListener(){
         try {
-            grilleController.casesMove(PuzzleApplication.getScene(), gridPane, labelScore);
+            grilleController.casesMove(PuzzleApplication.getScene(), labelScore, labelVictoire);
         } catch (Exception e){
             System.err.println("Impossible");
         }
@@ -270,9 +272,10 @@ public class PuzzleController implements Initializable {
         buttonCase16.setDisable(false);
     }
     private void buttonCaseLogic(int gridPaneSize, int gridSize){
+        labelVictoire.setVisible(false);
         increment++;
 
-        grilleController = new GrilleController(gridPaneSize, Grille.getInstance(gridSize, this), gridPane);
+        grilleController = new GrilleController(gridPaneSize, Grille.getInstance(gridSize, this), gridPane, chrono);
 
         disableButtonCase();
         translationAnimationPlay();
@@ -282,5 +285,9 @@ public class PuzzleController implements Initializable {
 
         chrono.reset();
         chrono.goTime();
+
+        buttonUndo.setText("UNDO (4)");
+        grilleController.resetUndo();
+        buttonUndo.setDisable(false);
     }
 }

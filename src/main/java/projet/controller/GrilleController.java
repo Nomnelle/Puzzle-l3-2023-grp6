@@ -9,19 +9,40 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 import projet.logicUI.Pics;
 import projet.logicUI.ShiftCases;
+import projet.modele.game.BDD;
 import projet.modele.game.Case;
+import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
 
+import java.util.LinkedList;
+
 public class GrilleController {
+    private class UndoObjet {
+        int direction;
+        Node node;
+        char xy;
+        public UndoObjet(int direction, Node node, char xy){
+            this.direction = direction;
+            this.node = node;
+            this.xy = xy;
+        }
+    }
     private final int size; private final int rowAndColumn;
     private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
     private int moveCount = 0; private int undoCount = 0;
     private VBox[][] vBoxes; Grille grille;
+    String username = System.getProperty("user.name");
+    private static final BDD bdd = new BDD();
+    Chrono chrono;
+    GridPane gridPane;
+    private LinkedList<UndoObjet> undoObjets = new LinkedList<>();
 
-    protected GrilleController(int size, Grille grille, GridPane gridPane){
+    protected GrilleController(int size, Grille grille, GridPane gridPane, Chrono chrono){
         this.size = size;
         this.rowAndColumn = (int) Math.sqrt(size);
         this.grille = grille;
+        this.chrono = chrono;
+        this.gridPane = gridPane;
         initializeGrid(gridPane);
     }
     /**
@@ -50,10 +71,13 @@ public class GrilleController {
      * @return 'true' if the movement has been cancelled
      */
     protected boolean undoLastMovement(){
-        if (moveCount>0 && moveCount>undoCount && undoCount<4){
-            grille.undoLastMovement();
-            undoCount++;
-            return true;
+        if(!undoObjets.isEmpty()) {
+            if (moveCount > 0 && moveCount > undoCount && undoCount < 4) {
+                grille.undoLastMovement();
+                undoCount++;
+                goBack();
+                return true;
+            }
         }
         return false;
     }
@@ -88,10 +112,9 @@ public class GrilleController {
     /**
      * This method allow to move cases
      * @param scene the scene that contains the grid
-     * @param gridPane the grid
      * @param score the score Label
      */
-    protected void casesMove(Scene scene, GridPane gridPane, Label score){
+    protected void casesMove(Scene scene, Label score, Label victoire){
         scene.setOnKeyPressed(event -> {
             if (!paused && !isMoving){
                 isMoving = true;
@@ -101,29 +124,39 @@ public class GrilleController {
                     case Z -> {
                         System.out.println("Z");
                         avant = grille.deplacerCase("haut");
-                        shift(avant, gridPane, score, -1, 'y');
-                        System.out.println("fin Z");
+                        shift(avant, score, -1, 'y');
                     }
                     case S -> {
                         System.out.println("S");
                         avant = grille.deplacerCase("bas");
-                        shift(avant, gridPane, score, 1, 'y');
-                        System.out.println("fin S");
+                        shift(avant, score, 1, 'y');
                     }
                     case Q -> {
                         avant = grille.deplacerCase("gauche");
-                        shift(avant, gridPane, score, -1, 'x');
+                        shift(avant, score, -1, 'x');
                     }
                     case D -> {
                         avant = grille.deplacerCase("droite");
-                        shift(avant, gridPane, score, 1, 'x');
+                        shift(avant, score, 1, 'x');
                     }
                 }
+                victory(victoire);
             }
             System.out.println(grille);
         });
     }
-    private void shift(int[] avant, GridPane gridPane, Label score, int direction, char xy){
+
+    private void victory(Label victoire){ //Victoire ??
+        if (grille.verifierVictoire()){
+            chrono.pauseTime();
+            bdd.addData(username, moveCount, chrono.toString(), size);
+            victoire.setDisable(false);
+            victoire.setVisible(true);
+            undoCount = 0;
+            paused = true;
+        }
+    }
+    private void shift(int[] avant, Label score, int direction, char xy){
         if (avant != null) {
             Node node = recupererVbox(avant, gridPane);
             if (node!=null){
@@ -131,9 +164,39 @@ public class GrilleController {
                 th.start();
                 moveCount++;
                 score.setText(String.valueOf(getMoveCount()));
+
+                //Patern
+                undoObjets.add(new UndoObjet(direction, node, xy));;
+                if(undoObjets.size() > 4){
+                    undoObjets.removeFirst();
+                }
+                System.out.println("azazazazazaz");
+                System.out.println(undoObjets);
+
             }
         }
     }
+    private void shift(Node node, int direction, char xy){
+            if (node!=null){
+                ShiftCases th = new ShiftCases(node,-(direction), gridPane, xy);
+                th.start();
+                paused = false;
+            }
+    }
+    public void goBack(){
+        paused = true;
+            UndoObjet undo = undoObjets.removeLast();
+            shift(undo.node, undo.direction, undo.xy);
+            grille.undoLastMovement();
+            System.out.println(grille);
+
+            System.out.println("undo terminé");
+    }
+    protected void resetUndo(){
+        undoCount = 0;
+    }
+
+
     private void timerMove(GridPane gridPane){ //Empeche l'utilisateur de spam les touches et de faire tout buger
         KeyFrame keyFrame = new KeyFrame(Duration.millis((gridPane.getHeight()/gridPane.getRowCount())), e -> isMoving = false);
         Timeline timeline = new Timeline();

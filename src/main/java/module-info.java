@@ -4,7 +4,6 @@ module com.example.puzzle {
     requires java.sql;
     requires mysql.connector.java;
 
-
     opens projet to javafx.fxml;
     exports projet;
     exports projet.controller;
