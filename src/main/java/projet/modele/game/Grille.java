@@ -383,7 +383,7 @@ public class Grille implements Parametres, Serializable {
         /**
          * retrieve the last saved grid from the caretaker in order to restore the grid in a previous state
          */
-        if(!this.pastGrid.isEmpty()){
+        if(!this.pastGrid.isEmpty()&&this.compteurMemento>0){
             if(this.pastGrid.retrieveMemento() instanceof Memento memento){
                 this.grille = new HashSet<>(memento.getGrilleSauvegarde());
                 this.compteurMemento--;
