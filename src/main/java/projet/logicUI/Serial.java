@@ -17,7 +17,10 @@ public class Serial {
     public Serial(){
 
     }
-
+    public boolean verifySave(){
+        Path path = Paths.get(PATH+GRIDSAVE);
+        return Files.exists(path);
+    }
     public void saveGrille(){
         //Save Path
         Path path = Paths.get(PATH);

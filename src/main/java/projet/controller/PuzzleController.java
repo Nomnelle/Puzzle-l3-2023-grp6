@@ -69,12 +69,13 @@ public class PuzzleController implements Initializable {
 
     private ShiftUIDesign shift;
     private Chrono chrono;
-    GrilleController grilleController;
+    private GrilleController grilleController;
+    private final Serial serial = new Serial();
     private int increment = 0;
     public int getIncrement(){
         return increment;
     }
-    Grille grille;
+
     /*
     ====================
     Button action
@@ -94,6 +95,7 @@ public class PuzzleController implements Initializable {
         buttonRestart.setDisable(false);
         buttonPlay.setText("RESUME");
         chrono.pauseTime();
+        buttonSave.setDisable(false);
     }
     @FXML
     protected void setButtonPlay(){
@@ -133,6 +135,12 @@ public class PuzzleController implements Initializable {
     protected void setButtonLoad(){
     //La méthode initialize du contrôleur vérifiera l’existence du modèle sérialisé (i.e. du fichier modele.ser)
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
+        Serial serial = new Serial();
+        Grille grille = serial.deserial();
+        Grille.getInstance(grille.getLongueur());
+
+        System.out.println(grille);
+
 
         labelVictoire.setVisible(false);
         increment++;
@@ -154,10 +162,9 @@ public class PuzzleController implements Initializable {
     }
     @FXML
     protected void setButtonSave(){
-        if (grilleController !=null && grilleController.gameExist()) {
             Serial serial = new Serial(grilleController.getGrille());
             serial.saveGrille();
-        }
+            buttonLoad.setDisable(false);
     }
     /*
     BOUTON Stop AI
@@ -255,8 +262,10 @@ public class PuzzleController implements Initializable {
 
         chrono = new Chrono(labelChrono); //Chrono creation
 
-        Serial serial = new Serial();
-        grille = serial.deserial();
+        if (!serial.verifySave()){
+            buttonLoad.setDisable(true);
+        }
+        buttonSave.setDisable(grilleController == null || !grilleController.gameExist());
     }
     /*
     ====================
