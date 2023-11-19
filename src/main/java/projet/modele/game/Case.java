@@ -1,9 +1,11 @@
 package projet.modele.game;
 
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
 
     private final int x, y;
-    private class Piece {
+    private class Piece implements Serializable{
         public String valeur;
         public int indice;
     }

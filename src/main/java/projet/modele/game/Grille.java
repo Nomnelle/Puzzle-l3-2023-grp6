@@ -39,7 +39,7 @@ public class Grille implements Parametres, Serializable {
          * Construct a Grille object
          * @param length of the grid
          */
-        this.grille = new HashSet<>();;
+        this.grille = new HashSet<>();
         this.longueur = l;
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
