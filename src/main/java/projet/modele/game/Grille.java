@@ -31,6 +31,7 @@ public class Grille implements Parametres, Serializable {
     private int nombreCoups;
     private Caretaker pastGrid;
     private int instanceGUI = 0;
+    private int compteurMemento;
 
 
     private Grille(int l) {
@@ -42,6 +43,7 @@ public class Grille implements Parametres, Serializable {
         this.longueur = l;
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
+        compteurMemento = 4;
     }
 
     private Grille(int l, PuzzleController c) {
@@ -54,6 +56,7 @@ public class Grille implements Parametres, Serializable {
         this.nombreCoups = 0;
         pastGrid = new Caretaker();
         instanceGUI = c.getIncrement();
+        compteurMemento = 4;
     }
 
     public static Grille getInstance(int longueur){
@@ -111,6 +114,14 @@ public class Grille implements Parametres, Serializable {
          * @return the attribute nbCoups
          */
         return nombreCoups;
+    }
+
+    public int getCompteurMemento(){
+        /**
+         * Get you the number of time the player can undo
+         * @return the number of time the player can undo
+         */
+        return compteurMemento;
     }
 
     public void remplirGrille(){
@@ -353,22 +364,19 @@ public class Grille implements Parametres, Serializable {
          * @return true if the grid can be solved
          */
         if((this.longueur%2) != 0){
-            if((this.compterInversions()%2)==0){
-                return true;
-            }
+            return (this.compterInversions() % 2) == 0;
         }else{
-            if((this.compterColonne() % 2) != (this.compterInversions() % 2)){
-                return true;
-            }
+            return (this.compterColonne() % 2) != (this.compterInversions() % 2);
         }
-        return false;
     }
 
     public void saveToMemento(){
         /**
          * save the last grid into the caretaker
          */
-        this.pastGrid.saveGrille(new Memento(this.grille));
+        if(this.compteurMemento==0){
+            this.pastGrid.saveGrille(new Memento(this.grille));
+        }
     }
 
     public void undoLastMovement(){
@@ -378,6 +386,7 @@ public class Grille implements Parametres, Serializable {
         if(!this.pastGrid.isEmpty()){
             if(this.pastGrid.retrieveMemento() instanceof Memento memento){
                 this.grille = new HashSet<>(memento.getGrilleSauvegarde());
+                this.compteurMemento--;
             }
         }
     }
