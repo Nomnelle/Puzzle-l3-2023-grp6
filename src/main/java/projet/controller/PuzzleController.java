@@ -74,6 +74,7 @@ public class PuzzleController implements Initializable {
     public int getIncrement(){
         return increment;
     }
+    Grille grille;
     /*
     ====================
     Button action
@@ -132,13 +133,12 @@ public class PuzzleController implements Initializable {
     protected void setButtonLoad(){
     //La méthode initialize du contrôleur vérifiera l’existence du modèle sérialisé (i.e. du fichier modele.ser)
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
-        Serial serial = new Serial();
-        Grille grille = serial.deserial();
 
         labelVictoire.setVisible(false);
         increment++;
 
         grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), Grille.getInstance(grille.getLongueur(), this), gridPane, chrono);
+        grilleController.initializeGridLoaded();
 
         disableButtonCase();
         translationAnimationPlay();
@@ -254,6 +254,9 @@ public class PuzzleController implements Initializable {
         shift.start(); //Allows the movement of the window
 
         chrono = new Chrono(labelChrono); //Chrono creation
+
+        Serial serial = new Serial();
+        grille = serial.deserial();
     }
     /*
     ====================
@@ -295,6 +298,7 @@ public class PuzzleController implements Initializable {
         increment++;
 
         grilleController = new GrilleController(gridPaneSize, Grille.getInstance(gridSize, this), gridPane, chrono);
+        grilleController.initializeGrid();
 
         disableButtonCase();
         translationAnimationPlay();

@@ -43,7 +43,6 @@ public class GrilleController {
         this.grille = grille;
         this.chrono = chrono;
         this.gridPane = gridPane;
-        initializeGrid(gridPane);
     }
     /**
      * This function lets you know the size of the grid
@@ -98,14 +97,19 @@ public class GrilleController {
      * Step 2 : Create a grid in commandline
      * Step 3 : Create an array of VBoxes
      * Step 4 : Converts the VBoxes array to VBox with positions equal to the 'Grid' object
-     * @param gridPane The GridPane to initialize. He will first be reset before being configured.
      */
-    protected void initializeGrid(GridPane gridPane){
+    protected void initializeGrid(){
         divideGridPane(gridPane); //Divides the GridPane with constraints
         createGrille(); //Create a grid
         setVboxArray(); //Create an array of VBoxes
         associateGrilleVBox(gridPane);//Converts the VBoxes array to VBox with positions equal to the 'Grid' object
         }
+    protected void initializeGridLoaded(){
+        divideGridPane(gridPane); //Divides the GridPane with constraints
+        setVboxArray(); //Create an array of VBoxes
+        associateGrilleVBox(gridPane);//Converts the VBoxes array to VBox with positions equal to the 'Grid' object
+    }
+
     /**
      * This method allow to move cases
      * @param scene the scene that contains the grid
@@ -211,7 +215,6 @@ public class GrilleController {
         }
     }
     private void createGrille(){
-        grille = Grille.getInstance(rowAndColumn); //Set size
         //Retry the grid creation if she is not soluble
         boolean correct = false;
             while(!correct){

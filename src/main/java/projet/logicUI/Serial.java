@@ -37,7 +37,6 @@ public class Serial {
         }
         finally {
             try {
-
                 if(oos != null) {
                     oos.flush();
                     oos.close();
@@ -49,17 +48,21 @@ public class Serial {
     }
     public Grille deserial(){
         ObjectInputStream ois = null;
+
         try (final FileInputStream fichierIn = new FileInputStream(PATH+GRIDSAVE)){
 
             ois = new ObjectInputStream(fichierIn);
-            System.out.println(ois.readObject());
-            return grille = (Grille) ois.readObject();
+
+            return (Grille) ois.readObject();
+
         } catch (final java.io.IOException e) {
             e.printStackTrace();
             return null;
+
         } catch (final ClassNotFoundException e) {
             e.printStackTrace();
             return null;
+
         } finally {
             try {
                 if (ois != null) {
