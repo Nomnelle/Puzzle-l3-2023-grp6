@@ -374,7 +374,7 @@ public class Grille implements Parametres, Serializable {
         /**
          * save the last grid into the caretaker
          */
-        if(this.compteurMemento==0){
+        if(this.compteurMemento>0){
             this.pastGrid.saveGrille(new Memento(this.grille));
         }
     }
