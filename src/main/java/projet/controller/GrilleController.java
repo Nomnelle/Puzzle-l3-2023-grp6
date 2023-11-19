@@ -73,7 +73,6 @@ public class GrilleController {
     protected boolean undoLastMovement(){
         if(!undoObjets.isEmpty()) {
             if (moveCount > 0 && moveCount > undoCount && undoCount < 4) {
-                grille.undoLastMovement();
                 undoCount++;
                 goBack();
                 return true;
@@ -142,7 +141,6 @@ public class GrilleController {
                 }
                 victory(victoire);
             }
-            System.out.println(grille);
         });
     }
 
@@ -160,28 +158,26 @@ public class GrilleController {
         if (avant != null) {
             Node node = recupererVbox(avant, gridPane);
             if (node!=null){
+                //Thread
                 ShiftCases th = new ShiftCases(node,direction, gridPane, xy);
                 th.start();
+                //Score
                 moveCount++;
                 score.setText(String.valueOf(getMoveCount()));
-
-                //Patern
+                //Pattern
                 undoObjets.add(new UndoObjet(direction, node, xy));;
                 if(undoObjets.size() > 4){
                     undoObjets.removeFirst();
                 }
-                System.out.println("azazazazazaz");
-                System.out.println(undoObjets);
-
             }
         }
     }
     private void shift(Node node, int direction, char xy){
-            if (node!=null){
-                ShiftCases th = new ShiftCases(node,-(direction), gridPane, xy);
-                th.start();
-                paused = false;
-            }
+        if (node!=null){
+            ShiftCases th = new ShiftCases(node,-(direction), gridPane, xy);
+            th.start();
+            paused = false;
+        }
     }
     public void goBack(){
         paused = true;
@@ -189,8 +185,6 @@ public class GrilleController {
             shift(undo.node, undo.direction, undo.xy);
             grille.undoLastMovement();
             System.out.println(grille);
-
-            System.out.println("undo terminé");
     }
     protected void resetUndo(){
         undoCount = 0;
