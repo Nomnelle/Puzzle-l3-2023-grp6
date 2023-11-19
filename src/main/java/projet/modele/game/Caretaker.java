@@ -14,9 +14,6 @@ public class Caretaker implements Serializable {
     }
 
     public void saveGrille(Object memento){
-        if(sauvegardeEtats.size()>5){
-            sauvegardeEtats.removeFirst();
-        }
         sauvegardeEtats.push(memento);
     }
 
