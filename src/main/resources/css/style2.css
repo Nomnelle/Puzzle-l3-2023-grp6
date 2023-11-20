@@ -13,33 +13,33 @@
 }
 
 .buttonMenu {
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #D6BCC8;
     -fx-opacity: 0.7;
-    -fx-border-color: #FFF1E6;
+    -fx-border-color: #FDE2E4;
     -fx-text-fill: #011627;
 }
 .buttonMenu:hover{
-    -fx-background-color: #becfff;
+    -fx-background-color: rgba(214, 188, 200, 0.55);
 }
 .buttonMenu:pressed{
-    -fx-background-color: #b7c6ff;
+    -fx-background-color: #b78f9d;
 }
 
 .buttonUndo {
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #D6BCC8;
     -fx-opacity: 0.7;
-    -fx-border-color: #FFF1E6;
+    -fx-border-color: #FDE2E4;
     -fx-text-fill: #011627;
 }
 .buttonUndo:hover{
-    -fx-background-color: #becfff;
+    -fx-background-color: rgba(214, 188, 200, 0.55);
 }
 .buttonUndo:pressed{
-    -fx-background-color: #b7c6ff;
+    -fx-background-color: #b78f9d;
 }
 
 .buttonPlay {
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #939FEE;
 }
 .buttonPlay:hover{
     -fx-background-color: #becfff;
@@ -49,43 +49,43 @@
 }
 
 .buttonLoadSave {
-    -fx-background-color: #DFE7FD;
+    -fx-background-color: #A2AEED;
 }
-.buttonSave:hover{
-    -fx-background-color: #E3EBFF;
+.buttonLoadSave:hover{
+    -fx-background-color: rgba(162, 174, 237, 0.63);
 }
-.buttonSave:pressed{
-    -fx-background-color: #D9E4FA;
+.buttonLoadSave:pressed{
+    -fx-background-color: #828cbe;
 }
 
 .buttonStopAI {
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #c8a9d5;
 }
 .buttonStopAI:hover{
-    -fx-background-color: #FCE5E9;
+    -fx-background-color: rgba(200, 169, 213, 0.47);
 }
 .buttonStopAI:pressed{
-    -fx-background-color: #F7C8D5;
+    -fx-background-color: #a98eb2;
 }
 
 .buttonStats {
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: rgba(232, 133, 159, 0.56);
 }
 .buttonStats:hover{
-    -fx-background-color: #FFF5E9;
+    -fx-background-color: rgba(232, 133, 159, 0.31);
 }
 .buttonStats:pressed{
-    -fx-background-color: #FFEDDC;
+    -fx-background-color: rgba(232, 133, 159, 0.89);
 }
 
 .buttonBack {
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: rgba(232, 133, 159, 0.56);
 }
 .buttonBack:hover{
-    -fx-background-color: #FFF5E9;
+    -fx-background-color: rgba(232, 133, 159, 0.31);
 }
 .buttonBack:pressed{
-    -fx-background-color: #FFEDDC;
+    -fx-background-color: rgba(232, 133, 159, 0.89);
 }
 
 .buttonStyle{
@@ -94,40 +94,40 @@
     -fx-background-radius: 0px;
 }
 .buttonStyle:hover{
-    -fx-background-color: #FFF1E6;
+    -fx-background-color: #D6BCC8;
 }
 .buttonStyle:pressed{
-    -fx-background-color: #CDDAFD;
+    -fx-background-color: #939FEE;
 }
 
 /* Styles panes */
 
 .anchorPaneDrag {
-    -fx-background-color: #FAD2E1;
+    -fx-background-color: #CEA9D0;
 }
 .anchorPaneBackground {
-    -fx-background-color: linear-gradient(#EAE4E9 65%, #FAD2E1 75%);
+    -fx-background-color: linear-gradient(#D6BCC8 65%, #CEA9D0 75%);
 
-    -fx-border-color: #FAD2E1;
+    -fx-border-color: #CEA9D0;
 }
 .anchorPaneMid {
-    -fx-background-color: #FAD2E1;
-    -fx-effect: innershadow(gaussian, rgb(234, 228, 233), 10, 0.05, 0, 5);
+    -fx-background-color: #CEA9D0;
+    -fx-effect: innershadow(gaussian, rgb(214, 188, 200), 10, 0.05, 0, 5);
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
 .anchorPaneMenu {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #FAD2E1;
+    -fx-background-color: #D6BCC8;
+    -fx-border-color: #CEA9D0;
 }
 .anchorPaneStats {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #FAD2E1;
+    -fx-background-color: #D6BCC8;
+    -fx-border-color: #CEA9D0;
 }
 
 /* Styles grid */
 
 .grid {
-    -fx-background-color: #FDE2E4;
-    -fx-border-color: #EAE4E9;
+    -fx-background-color: #CEA9D0;
+    -fx-border-color: #FDE2E4;
 }

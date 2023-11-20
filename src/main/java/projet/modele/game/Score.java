@@ -10,6 +10,9 @@ public class Score {
 
     private int scoreCalcul(){
         if (time<=1){return 0;}
+        double score = 1000 - ((double) movements / (time*2));
+
+
         return time*movements; //Inexacte
     }
 

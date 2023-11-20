@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import projet.logicUI.Serial;
@@ -66,6 +67,8 @@ public class PuzzleController implements Initializable {
     private Label labelChrono;
     @FXML
     private Label labelVictoire;
+    @FXML
+    private TableView arrayPlayers;
 
     private ShiftUIDesign shift;
     private Chrono chrono;
@@ -176,6 +179,11 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonStatsShow(){
+        //Load Array
+
+
+
+        //Load window
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneStats, 800);
     }
@@ -264,6 +272,7 @@ public class PuzzleController implements Initializable {
             buttonLoad.setDisable(true);
         }
         buttonSave.setDisable(grilleController == null || !grilleController.gameExist());
+
     }
     /*
     ====================
