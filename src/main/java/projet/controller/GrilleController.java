@@ -153,6 +153,7 @@ public class GrilleController {
             player.victory();
             victoire.setVisible(true);
             paused = true;
+            gameExist = false;
         }
     }
     private void shift(int[] avant, Label score, int direction, char xy){

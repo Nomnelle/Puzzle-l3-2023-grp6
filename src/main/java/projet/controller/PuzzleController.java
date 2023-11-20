@@ -64,6 +64,8 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonStyle;
     @FXML
+    private Button buttonImage;
+    @FXML
     private Label labelScore;
     @FXML
     private Label labelChrono;
@@ -77,6 +79,7 @@ public class PuzzleController implements Initializable {
     private GrilleController grilleController;
     private final Serial serial = new Serial();
     private int increment = 0;
+    public static int image = 1;
     public int getIncrement(){
         return increment;
     }
@@ -101,6 +104,9 @@ public class PuzzleController implements Initializable {
         buttonPlay.setText("RESUME");
         chrono.pauseTime();
         buttonSave.setDisable(false);
+        if (!grilleController.gameExist()){
+            buttonImage.setDisable(false);
+        }
     }
     @FXML
     protected void setButtonPlay(){
@@ -226,6 +232,11 @@ public class PuzzleController implements Initializable {
     protected void setButtonStyle(){
         PuzzleApplication.styleChanger();
     }
+    @FXML
+    protected void setButtonImage(){
+        if (image<2) image += 1; else image = 1;
+        buttonImage.setText("Image " + image);
+    }
     /*
     ====================
     Initialisation
@@ -248,6 +259,7 @@ public class PuzzleController implements Initializable {
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
         buttonStyle.getStyleClass().add("buttonStyle");
+        buttonImage.getStyleClass().add("buttonStyle");
         //Initializing the style of AnchorPanes
         anchorPaneBackground.getStyleClass().add("anchorPaneBackground");
         anchorPaneDrag.getStyleClass().add("anchorPaneDrag");
@@ -330,5 +342,7 @@ public class PuzzleController implements Initializable {
 
         buttonUndo.setText("UNDO (4)");
         buttonUndo.setDisable(false);
+
+        buttonImage.setDisable(true);
     }
 }

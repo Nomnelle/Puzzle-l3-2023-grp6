@@ -11,7 +11,12 @@
                 <Font name="MS Reference Sans Serif" size="15.0" />
             </font>
         </Button>
-      <Button fx:id="buttonStyle" layoutX="49.0" layoutY="2.0" mnemonicParsing="false" onAction="#setButtonStyle" prefHeight="37.0" prefWidth="50.0" text="Style" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button fx:id="buttonStyle" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="2.0" mnemonicParsing="false" onAction="#setButtonStyle" prefHeight="37.0" prefWidth="50.0" text="Style" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Candara" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonImage" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="2.0" maxWidth="90.0" mnemonicParsing="false" onAction="#setButtonImage" text="Image 1" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Candara" size="14.0" />
          </font>
