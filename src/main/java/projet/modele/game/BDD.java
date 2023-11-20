@@ -63,9 +63,8 @@ public class BDD {
         }
     }
 
-    public ArrayList<String> getTuples() {
+    public ArrayList<String> getTuples(String query) {
         ArrayList<String> res = null;
-        String query = "SELECT * FROM Joueur";
         try {
             this.openConnexion();
             Statement stmt = this.con.createStatement();
