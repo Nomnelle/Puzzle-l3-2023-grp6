@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import projet.logicUI.Pics;
+import projet.logicUI.Player;
 import projet.logicUI.ShiftCases;
 import projet.modele.game.BDD;
 import projet.modele.game.Case;
@@ -31,7 +32,6 @@ public class GrilleController {
     private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
     private int moveCount = 0;
     private VBox[][] vBoxes; Grille grille;
-    String username = System.getProperty("user.name");
     private static final BDD bdd = new BDD();
     Chrono chrono;
     GridPane gridPane;
@@ -149,8 +149,8 @@ public class GrilleController {
     private void victory(Label victoire){ //Victoire ??
         if (grille.verifierVictoire()){
             chrono.pauseTime();
-            bdd.addData(username, moveCount, chrono.toString(), size);
-            victoire.setDisable(false);
+            Player player = new Player(chrono.toString(), moveCount, size);
+            player.victory();
             victoire.setVisible(true);
             paused = true;
         }

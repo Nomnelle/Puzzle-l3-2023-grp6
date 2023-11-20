@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import projet.logicUI.Player;
 import projet.logicUI.Serial;
 import projet.logicUI.ShiftUIDesign;
 import projet.PuzzleApplication;
@@ -68,7 +70,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private Label labelVictoire;
     @FXML
-    private TableView arrayPlayers;
+    private TableView<Player> arrayPlayers;
 
     private ShiftUIDesign shift;
     private Chrono chrono;
@@ -140,9 +142,6 @@ public class PuzzleController implements Initializable {
     //Si le fichier existe, elle désérialise le modèle et elle met à jour la vue en fonction de ce que contient le modèle
         Serial serial = new Serial();
         Grille grille = serial.deserial();
-        System.out.println(grille);
-
-        System.out.println(grille);
 
         labelVictoire.setVisible(false);
 
@@ -177,10 +176,14 @@ public class PuzzleController implements Initializable {
     /*
     BOUTON Stats
      */
+
+
     @FXML
     protected void setButtonStatsShow(){
         //Load Array
+        TableColumn colName = new TableColumn<>();
 
+       // arrayPlayers.
 
 
         //Load window
