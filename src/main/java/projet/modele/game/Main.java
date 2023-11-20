@@ -1,4 +1,6 @@
 package projet.modele.game;
+import projet.logicUI.Player;
+
 import java.util.Scanner;
 
 public class Main {
@@ -79,8 +81,9 @@ public class Main {
         String nom_Joueur = sc.nextLine();
 
         BDD bdd = new BDD();
-
-        bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur()*g.getLongueur());
+        //DSL pour l'ajout
+        Player player = new Player(t, g.getNombreCoups(), g.getLongueur()*g.getLongueur());
+        player.victory();
 
 
     }

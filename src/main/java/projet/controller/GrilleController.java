@@ -18,7 +18,7 @@ import projet.modele.game.Grille;
 import java.util.LinkedList;
 
 public class GrilleController {
-    private class UndoObjet {
+    private static class UndoObjet {
         int direction;
         Node node;
         char xy;
@@ -149,7 +149,7 @@ public class GrilleController {
     private void victory(Label victoire){ //Victoire ??
         if (grille.verifierVictoire()){
             chrono.pauseTime();
-            Player player = new Player(chrono.toString(), moveCount, size);
+            Player player = new Player(chrono, moveCount, size);
             player.victory();
             victoire.setVisible(true);
             paused = true;
