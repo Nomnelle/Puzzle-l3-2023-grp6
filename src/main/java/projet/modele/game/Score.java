@@ -12,4 +12,10 @@ public class Score {
         if (time<=1){return 0;}
         return time*movements; //Inexacte
     }
+
+
+    //Stop à 10
+
+
+    //BAS :  ME
 }
