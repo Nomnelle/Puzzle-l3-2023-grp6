@@ -28,7 +28,7 @@ public class Player {
         double time = h*3600 + m*60 + s;
 
         if (movements==0){score = 0;} //Security
-        else score = (double) (500 /(movements*2)) + (500/(time+1) + 250);
+        else score = (double) (500 /(movements)) + (500/(time+1));
         System.out.println("LE SCORE : " + score);
     }
 
