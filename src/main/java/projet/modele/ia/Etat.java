@@ -81,7 +81,7 @@ public class Etat implements Cloneable {
         return result;
     }
 
-    public void ManhattanDistance() {
+    public void calculerManhattanDistance() {
 
         int result = 0;
 

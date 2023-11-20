@@ -34,7 +34,7 @@ public class TestManhattanDistance {
 
     @Test
     public void testManhattanDistance(){
-        e.ManhattanDistance();
+        e.calculerManhattanDistance();
 
         assert e.getHeuristique() == 10;
     }
