@@ -120,6 +120,7 @@ public class GrilleController {
      * This method allow to move cases
      * @param scene the scene that contains the grid
      * @param score the score Label
+     * @param victoire the label that say 'VICTORY'
      */
     protected void casesMove(Scene scene, Label score, Label victoire){
         scene.setOnKeyPressed(event -> {

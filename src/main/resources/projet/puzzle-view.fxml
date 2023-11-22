@@ -63,14 +63,9 @@
       <Button fx:id="buttonCase9" layoutX="120.0" layoutY="20.0" maxHeight="60.0" maxWidth="100.0" mnemonicParsing="false" onAction="#buttonCase9" prefHeight="60.0" prefWidth="100.0" text="9 CASES" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="buttonCase16" layoutX="220.0" layoutY="20.0" maxHeight="60.0" maxWidth="100.0" mnemonicParsing="false" onAction="#buttonCase16" prefHeight="60.0" prefWidth="100.0" text="16 CASES" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
     </AnchorPane>
-    <AnchorPane fx:id="anchorPaneStats" layoutX="20.0" layoutY="160.0" prefHeight="340.0" prefWidth="340.0" visible="false">
-      <TableView fx:id="arrayPlayers" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="75.0" text="Score" />
-          <TableColumn prefWidth="75.0" text="Size" />
-        </columns>
-      </TableView>
+    <AnchorPane fx:id="anchorPaneStats" layoutX="20.0" layoutY="160.0" prefHeight="340.0" prefWidth="340.0">
+      <ListView fx:id="arrayPlayers" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      </ListView>
         <Button fx:id="buttonBack" layoutX="144.0" layoutY="150.0" mnemonicParsing="false" onAction="#setButtonBack" prefHeight="35.0" prefWidth="300.0" text="Retour" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
     </AnchorPane>
 </AnchorPane>

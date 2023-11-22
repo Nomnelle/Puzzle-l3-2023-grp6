@@ -40,5 +40,4 @@ public class ShiftCases extends java.lang.Thread {
             }
         });
     }
-
 }

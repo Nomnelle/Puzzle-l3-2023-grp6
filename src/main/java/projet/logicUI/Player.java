@@ -6,8 +6,9 @@ import projet.modele.game.Chrono;
 public class Player {
     private final Chrono chrono;
     private final int movements;
-    private final String username = System.getProperty("user.name");
+
     private final int size;
+    private final String username = System.getProperty("user.name");
     private double score;
 
     public Player(Chrono chrono, int movements, int size){
@@ -15,6 +16,13 @@ public class Player {
         this.movements = movements;
         this.size = size;
     }
+    /*public Player(){
+
+
+
+    }
+
+     */
 
     public void victory(){
         setScore();
@@ -29,6 +37,9 @@ public class Player {
 
         if (movements==0){score = 0;} //Security
         else score = (double) (500 /(movements)) + (500/(time+1));
+        if (size==16) score = score*100;
+        if (size==9) score = score*10;
+
         System.out.println("LE SCORE : " + score);
     }
 
