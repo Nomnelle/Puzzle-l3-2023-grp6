@@ -10,7 +10,6 @@ import javafx.util.Duration;
 import projet.logicUI.Pics;
 import projet.logicUI.Player;
 import projet.logicUI.ShiftCases;
-import projet.modele.game.BDD;
 import projet.modele.game.Case;
 import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
@@ -22,21 +21,32 @@ public class GrilleController {
         int direction;
         Node node;
         char xy;
+        /**
+         * Object which allows going back thanks to saving the previous state
+         * @param direction direction
+         * @param node      case
+         * @param xy        axe
+         */
         public UndoObjet(int direction, Node node, char xy){
             this.direction = direction;
             this.node = node;
             this.xy = xy;
         }
     }
-    private final int size; private final int rowAndColumn;
-    private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
-    private int moveCount = 0;
-    private VBox[][] vBoxes; Grille grille;
-    private static final BDD bdd = new BDD();
-    Chrono chrono;
-    GridPane gridPane;
     private final LinkedList<UndoObjet> undoObjets = new LinkedList<>();
+    private final int size; private final int rowAndColumn;
+    private boolean paused = false; private boolean gameExist = false; private boolean isMoving = false;
+    private int moveCount = 0;
+    private VBox[][] vBoxes; Grille grille; GridPane gridPane;
+    Chrono chrono;
 
+    /**
+     * Controller allowing us to assign a functional grid to our interface.
+     * @param size      size
+     * @param grille    theoretical grid
+     * @param gridPane  GridPane
+     * @param chrono    Chronometer
+     */
     protected GrilleController(int size, Grille grille, GridPane gridPane, Chrono chrono){
         this.size = size;
         this.rowAndColumn = (int) Math.sqrt(size);
@@ -45,15 +55,8 @@ public class GrilleController {
         this.gridPane = gridPane;
     }
     /**
-     * This function lets you know the size of the grid
-     * @return the size of the grid
-     */
-    protected int getSize(){
-        return size;
-    }
-    /**
-     * This function allow to define the state of the game
-     * Sets paused to true if the game is paused
+     * This method set the state of the game
+     * set 'true' if the game might be paused
      */
     protected void isPaused(boolean isPaused){
         paused = isPaused;
@@ -80,10 +83,13 @@ public class GrilleController {
         }
         return false;
     }
+    /**
+     * This function lets you get access to the grid
+     * @return the Grid
+     */
     protected Grille getGrille(){
         return this.grille;
     }
-
     /**
      * This function lets you know how many movements have been done
      * @return movement count
