@@ -71,10 +71,11 @@ public class PuzzleController implements Initializable {
     @FXML
     private Label labelVictoire;
     @FXML
-    private ListView<Player> arrayPlayers;
+    private ListView<String> arrayPlayers;
     private ShiftUIDesign shift; //Manage movements and animation of the software
     private GrilleController grilleController; //Manage and create the grid
     private Chrono chrono;
+    private Player player;
     private int increment = 0;
     public static int image = 1;
 
@@ -112,6 +113,8 @@ public class PuzzleController implements Initializable {
         if (!grilleController.gameExist()){
             buttonImage.setDisable(false);
         }
+
+        player.run();
     }
     /*
      * Button which asks for the choice of grid, or continues a game already started
@@ -193,15 +196,15 @@ public class PuzzleController implements Initializable {
      * This button also set the ListView
      */
     @FXML
-    protected void setButtonStatsShow(){
-        //Load Array
-        ObservableList<Player> players = FXCollections.observableArrayList();
-        arrayPlayers = new ListView<>(players);
-
-
+    protected void setButtonStatsShow() {
         //Load ranking panel
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "haut");
         shift.disabledNodeDuration(anchorPaneStats, 800);
+        //Load Array
+        try {
+            ObservableList<String> players = FXCollections.observableArrayList("Position           ID          Size    Score\n" + player.toString());
+            arrayPlayers.setItems(players);
+        } catch (Exception ignored){}
     }
     /*
      * Button that allows you to cancel a move
@@ -291,6 +294,8 @@ public class PuzzleController implements Initializable {
         if (!Serial.verifySave()){ //Checks if a backup file exists
             buttonLoad.setDisable(true); //If not, disable the loading option
         }
+
+        player = new Player();
     }
     /**
      * Reset the state of the game
