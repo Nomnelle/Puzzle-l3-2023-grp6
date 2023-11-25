@@ -47,10 +47,10 @@
 .buttonLoadSave {
     -fx-background-color: #AEF1EF;
 }
-.buttonLoad:hover{
+.buttonLoadSave:hover{
     -fx-background-color: #BFF5F3;
 }
-.buttonLoad:pressed{
+.buttonLoadSave:pressed{
     -fx-background-color: #9DCDCB;
 }
 

@@ -8,8 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import projet.logicUI.Pics;
+import projet.logicUI.Player;
 import projet.logicUI.ShiftCases;
-import projet.modele.game.BDD;
 import projet.modele.game.Case;
 import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
@@ -17,26 +17,36 @@ import projet.modele.game.Grille;
 import java.util.LinkedList;
 
 public class GrilleController {
-    private class UndoObjet {
+    private static class UndoObjet {
         int direction;
         Node node;
         char xy;
+        /**
+         * Object which allows going back thanks to saving the previous state
+         * @param direction direction
+         * @param node      case
+         * @param xy        axe
+         */
         public UndoObjet(int direction, Node node, char xy){
             this.direction = direction;
             this.node = node;
             this.xy = xy;
         }
     }
-    private final int size; private final int rowAndColumn;
-    private boolean paused = false; private boolean gameExist = false; boolean isMoving = false;
-    private int moveCount = 0;
-    private VBox[][] vBoxes; Grille grille;
-    String username = System.getProperty("user.name");
-    private static final BDD bdd = new BDD();
-    Chrono chrono;
-    GridPane gridPane;
     private final LinkedList<UndoObjet> undoObjets = new LinkedList<>();
+    private final int size; private final int rowAndColumn;
+    private boolean paused = false; private boolean gameExist = false; private boolean isMoving = false;
+    private int moveCount = 0;
+    private VBox[][] vBoxes; Grille grille; GridPane gridPane;
+    Chrono chrono;
 
+    /**
+     * Controller allowing us to assign a functional grid to our interface.
+     * @param size      size
+     * @param grille    theoretical grid
+     * @param gridPane  GridPane
+     * @param chrono    Chronometer
+     */
     protected GrilleController(int size, Grille grille, GridPane gridPane, Chrono chrono){
         this.size = size;
         this.rowAndColumn = (int) Math.sqrt(size);
@@ -45,15 +55,8 @@ public class GrilleController {
         this.gridPane = gridPane;
     }
     /**
-     * This function lets you know the size of the grid
-     * @return the size of the grid
-     */
-    protected int getSize(){
-        return size;
-    }
-    /**
-     * This function allow to define the state of the game
-     * Sets paused to true if the game is paused
+     * This method set the state of the game
+     * set 'true' if the game might be paused
      */
     protected void isPaused(boolean isPaused){
         paused = isPaused;
@@ -80,10 +83,13 @@ public class GrilleController {
         }
         return false;
     }
+    /**
+     * This function lets you get access to the grid
+     * @return the Grid
+     */
     protected Grille getGrille(){
         return this.grille;
     }
-
     /**
      * This function lets you know how many movements have been done
      * @return movement count
@@ -114,6 +120,7 @@ public class GrilleController {
      * This method allow to move cases
      * @param scene the scene that contains the grid
      * @param score the score Label
+     * @param victoire the label that say 'VICTORY'
      */
     protected void casesMove(Scene scene, Label score, Label victoire){
         scene.setOnKeyPressed(event -> {
@@ -149,10 +156,11 @@ public class GrilleController {
     private void victory(Label victoire){ //Victoire ??
         if (grille.verifierVictoire()){
             chrono.pauseTime();
-            bdd.addData(username, moveCount, chrono.toString(), size);
-            victoire.setDisable(false);
+            Player player = new Player(chrono, moveCount, size);
+            player.victory();
             victoire.setVisible(true);
             paused = true;
+            gameExist = false;
         }
     }
     private void shift(int[] avant, Label score, int direction, char xy){

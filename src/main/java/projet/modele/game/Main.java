@@ -1,4 +1,6 @@
 package projet.modele.game;
+import projet.logicUI.Player;
+
 import java.util.Scanner;
 
 /**
@@ -98,7 +100,7 @@ public class Main {
         String nom_Joueur = sc.nextLine();
 
         // Save game data to the database
-        BDD bdd = new BDD();
-        bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur()*g.getLongueur());
+        Player player = new Player(t, g.getNombreCoups(), g.getLongueur()*g.getLongueur());
+        player.victory();
     }
 }

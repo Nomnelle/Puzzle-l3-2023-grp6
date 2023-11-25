@@ -3,6 +3,7 @@ package projet.logicUI;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import projet.controller.PuzzleController;
 
 public class Pics {
     Image imageDefault;
@@ -26,6 +27,6 @@ public class Pics {
         return new WritableImage(reader, dividedSize*i,dividedSize*j, dividedSize, dividedSize);
     }
     private void initializeDefaultPicture() {
-        imageDefault = new Image("/doc-files/image2.jpg");
+        imageDefault = new Image("/doc-files/"+ PuzzleController.image +".jpg");
     }
 }

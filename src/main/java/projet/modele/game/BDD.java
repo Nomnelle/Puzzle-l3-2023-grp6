@@ -116,11 +116,12 @@ public class BDD {
      * @param taille_Puzzle The size of the puzzle.
      * @return True if the data insertion is successful, false otherwise.
      */
-    public Boolean addData(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle) {
+
+    public Boolean addData(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle, double score) {
 
         boolean resultAddData = false;
 
-        String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle+ "');";
+        String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle, score) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle + "', '" + score +"');";
         String updateQuery2 = "INSERT INTO Joueur (nom_Joueur, idPartie) VALUES('" + nom_Joueur + "', LAST_INSERT_ID());";
         try {
             this.openConnexion();
@@ -133,6 +134,7 @@ public class BDD {
             resultAddData = true;
         } catch (SQLException e) {
             System.out.println("Probleme avec la requete d'insertion");
+            e.printStackTrace();
 
         } finally {
             this.closeConnexion();

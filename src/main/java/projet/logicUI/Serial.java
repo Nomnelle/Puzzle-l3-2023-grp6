@@ -8,8 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Serial {
-    private final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
-    private final String GRIDSAVE = "gridsave.ser";
+    private static final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
+    private static final String GRIDSAVE = "gridsave.ser";
     Grille grille = null;
     public Serial(Grille grille){
         this.grille = grille;
@@ -17,7 +17,12 @@ public class Serial {
     public Serial(){
 
     }
-    public boolean verifySave(){
+
+    /**
+     *
+     * @return true if the save exist
+     */
+    public static boolean verifySave(){
         Path path = Paths.get(PATH+GRIDSAVE);
         return Files.exists(path);
     }
@@ -49,7 +54,7 @@ public class Serial {
             }
         }
     }
-    public Grille deserial(){
+    public Grille deserialize(){
         ObjectInputStream ois = null;
 
         try (final FileInputStream fichierIn = new FileInputStream(PATH+GRIDSAVE)){
@@ -58,11 +63,7 @@ public class Serial {
 
             return (Grille) ois.readObject();
 
-        } catch (final java.io.IOException e) {
-            e.printStackTrace();
-            return null;
-
-        } catch (final ClassNotFoundException e) {
+        } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
 
