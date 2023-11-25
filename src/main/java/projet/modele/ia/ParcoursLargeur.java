@@ -2,11 +2,41 @@ package projet.modele.ia;
 
 import projet.modele.game.Grille;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
+    }
+
+    @Override
+    protected void execute(Grille g) throws CloneNotSupportedException {
+        ArrayList<String> result = new ArrayList<>();
+        graph.add(new Etat(g));
+        visited.add(new Etat(g));
+        boolean trouve = false;
+        while ((!graph.isEmpty()) && (!trouve)) {
+            Etat e = graph.pop();
+            if (e.estComparable(this.etatBut))
+                if (!e.equals(etatBut)) {
+                    this.appliquerAction(e);
+                } else {
+                    trouve = true;
+                    result = e.getMouvements();
+                }
+            else {
+                mouvements = new LinkedList<>();
+                return;
+            }
+        }
+        if (trouve) {
+            mouvements = new LinkedList<>(result);
+        } else {
+            mouvements = new LinkedList<>();
+        }
     }
 
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {

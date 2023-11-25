@@ -12,33 +12,7 @@ public abstract class ParcoursGraph implements IA {
     protected LinkedList<Etat> graph;
     protected HashSet<Etat> visited;
 
-    protected void execute(Grille g) throws CloneNotSupportedException{
-        ArrayList<String> result = new ArrayList<>();
-        graph.add(new Etat(g));
-        visited.add(new Etat(g));
-        boolean trouve = false;
-        while ((!graph.isEmpty()) && (!trouve)) {
-            Etat e = graph.pop();
-            if (e.estComparable(this.etatBut))
-                if (!e.equals(etatBut)) {
-                    this.appliquerAction(e);
-                } else {
-                    trouve = true;
-                    result = e.getMouvements();
-                }
-            else {
-                mouvements = new LinkedList<>();
-                return;
-            }
-        }
-        if (trouve) {
-            mouvements = new LinkedList<>(result);
-        } else {
-            mouvements = new LinkedList<>();
-        }
-
-
-    }
+    protected abstract void execute(Grille g) throws CloneNotSupportedException;
 
     protected void init(Grille g){
         visited = new HashSet<>();
