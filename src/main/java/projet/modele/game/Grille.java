@@ -197,7 +197,7 @@ public class Grille implements Parametres, Serializable {
 
     /**
      * move a cell according to an input
-     * @param input an input in french - haut, bas, droite, and gauche
+     * @param input an input written in french - haut, bas, droite, or gauche
      * @return the coordinates of the moving cell before it moves
      */
     public int[] deplacerCase(String input) {
