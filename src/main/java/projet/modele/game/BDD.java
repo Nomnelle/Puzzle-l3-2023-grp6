@@ -10,17 +10,21 @@ import java.sql.Statement;
 
 
 /**
- * @author npnoi
+ * The BDD class handles database operations for the puzzle game.
  */
 public class BDD {
 
-    private Connection con;
-    private String host;
-    private String dbName;
-    private String port;
-    private String username;
-    private String password;
+    private Connection con;  // Database connection
+    private String host;  // Database host address
+    private String dbName;  // Database name
+    private String port;  // Database port
+    private String username;  // Database username
+    private String password;  // Database password
 
+    /**
+     * Constructs a BDD object with default database connection details.
+     * Note: Before connecting to the database, visit the provided link.
+     */
     public BDD() {
         // avant de se connecter sur la BDD, allez sur ce lien: https://phpmyadmin.alwaysdata.com/
         con = null;
@@ -31,6 +35,9 @@ public class BDD {
         password = "Puzzle.2023";
     }
 
+    /**
+     * Opens a new database connection. If a connection already exists, it is closed first.
+     */
     private void openConnexion() {
 
         if (this.con != null) {
@@ -52,17 +59,26 @@ public class BDD {
 
     }
 
+    /**
+     * Closes the current database connection if it exists.
+     */
     private void closeConnexion() {
         if (this.con != null) {
             try {
                 this.con.close();
                 System.out.println("Database connection terminated.");
             } catch (Exception e) {
-                /* ignore close errors */
+                //ignore close errors
             }
         }
     }
 
+    /**
+     * Retrieves tuples from the database based on the provided query.
+     *
+     * @param query The SQL query to retrieve tuples.
+     * @return An ArrayList containing strings representing tuples.
+     */
     public ArrayList<String> getTuples(String query) {
         ArrayList<String> res = null;
         try {
@@ -91,12 +107,15 @@ public class BDD {
         return res;
     }
 
-    /*
-     * Insère un ou plusieurs tuples dans la base à partir de la requête passée en paramètre
-     * Pour cela, il faut utiliser la méthode executeUpdate dans la classe Statement
+    /**
+     * Inserts game data into the database.
+     *
+     * @param nom_Joueur The player's name.
+     * @param nombre_Coups The number of moves in the game.
+     * @param temps_Partie The duration of the game.
+     * @param taille_Puzzle The size of the puzzle.
+     * @return True if the data insertion is successful, false otherwise.
      */
-    //créer fonction qui permet d'ajouter les données du jeu dans la BDD
-
     public Boolean addData(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle) {
 
         boolean resultAddData = false;

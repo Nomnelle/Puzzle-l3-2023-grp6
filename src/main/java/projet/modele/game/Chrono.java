@@ -6,15 +6,23 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+/**
+ * A class representing a timer (Chrono) that extends Thread. It can be used to measure elapsed time
+ * or as a countdown timer with a graphical user interface.
+ */
 public class Chrono extends Thread {
 
-    private int heure;
-    private int minute;
-    private int seconde;
-    private long startingTime;
-    private volatile boolean decompte;
-    private Label timeUI;
+    private int heure;  //hours
+    private int minute;  //minutes
+    private int seconde;  //seconds
+    private long startingTime;  //time of reference
+    private volatile boolean decompte;  //// Flag indicating whether the timer is counting down
+    private Label timeUI;  // Graphical user interface element for displaying the time
 
+    /**
+     * Constructs a Chrono object for measuring elapsed time.
+     * The timer starts automatically upon instantiation.
+     */
     public Chrono() {
         this.heure = 0;
         this.minute = 0;
@@ -24,6 +32,13 @@ public class Chrono extends Thread {
         startingTime = System.currentTimeMillis();
         this.start();
     }
+
+    /**
+     * Constructs a Chrono object for displaying time on a graphical user interface.
+     * The timer starts automatically upon instantiation.
+     *
+     * @param label The Label element used for displaying the time.
+     */
     public Chrono(Label label){ //Controller UI
         this.timeUI = label;
         this.heure = 0;
@@ -35,32 +50,61 @@ public class Chrono extends Thread {
         this.start();
     }
 
+    /**
+     * Gets the current hour value of the timer.
+     *
+     * @return The current hour value.
+     */
     public int getHeure() {
         return heure;
     }
 
+    /**
+     * Gets the current minute value of the timer.
+     *
+     * @return The current minute value.
+     */
     public int getMinute() {
         return minute;
-
     }
 
+    /**
+     * Gets the current second value of the timer.
+     *
+     * @return The current second value.
+     */
     public int getSeconde() {
         return seconde;
-
     }
 
+    /**
+     * Gets the status of the countdown flag.
+     *
+     * @return True if the timer is counting down, false otherwise.
+     */
     public boolean getDecompte() {
         return decompte;
     }
 
+    /**
+     * Pauses the timer.
+     */
     public void pauseTime(){
         this.decompte = false;
     }
 
+    /**
+     * Resumes the timer.
+     */
     public void goTime(){
         this.decompte = true;
     }
 
+    /**
+     * Overrides the toString method to provide a formatted string representation of the timer.
+     *
+     * @return A formatted string displaying the current time.
+     */
     @Override
     public String toString() {
 
@@ -89,6 +133,9 @@ public class Chrono extends Thread {
 
     }
 
+    /**
+     * Overrides the run method to continuously update the timer.
+     */
     @Override
     public void run() {
         if(this.timeUI!=null){
@@ -96,7 +143,7 @@ public class Chrono extends Thread {
         }
         while(true) {
             if(decompte){
-                if ((System.currentTimeMillis()- startingTime) >= 1000) {
+                if ((System.currentTimeMillis()- startingTime) >= 1000) { // Update time in decompte mode
                     startingTime = System.currentTimeMillis();
                     seconde++;
                     if (seconde >= 60) {
@@ -114,11 +161,19 @@ public class Chrono extends Thread {
         }
 
     }
+
+    /**
+     * Resets the timer to zero.
+     */
     public void reset(){
         this.heure = 0;
         this.minute = 0;
         this.seconde = 0;
     }
+
+    /**
+     * Updates the graphical user interface Label with the current time.
+     */
     private void labelUI(){
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> Platform.runLater(() -> timeUI.setText(toString()))));
         timeline.setCycleCount(Timeline.INDEFINITE);

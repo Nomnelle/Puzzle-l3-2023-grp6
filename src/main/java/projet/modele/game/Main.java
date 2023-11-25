@@ -1,8 +1,17 @@
 package projet.modele.game;
 import java.util.Scanner;
 
+/**
+ * The Main class contains the main method to execute the puzzle game without GUI.
+ */
 public class Main {
 
+    /**
+     * Allows the user to input the desired length of the puzzle grid.
+     *
+     * @param g The grid to be initialized.
+     * @return The initialized grid.
+     */
     public static Grille entrerLongueur(Grille g){
 
         Scanner sc = new Scanner(System.in);
@@ -27,11 +36,19 @@ public class Main {
 
     }
 
+    /**
+     * The main method to execute the puzzle game.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws InterruptedException Exception thrown if a thread is interrupted.
+     */
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("Bonjour !");
         boolean correcte = false;
         Grille g = null;
+
+        // Input the length of the puzzle grid
         while(!(correcte)){
            g = entrerLongueur(g);
            if(g!=null){
@@ -44,6 +61,7 @@ public class Main {
         System.out.println(g.getGrille());
         correcte = false;
 
+        // Fill the grid with solvable configurations
         while(!correcte){
             g.remplirGrille();
             correcte = g.testerSiGrilleSoluble()&&!g.verifierVictoire();
@@ -53,6 +71,7 @@ public class Main {
 
         Chrono t = new Chrono();
 
+        // Game loop
         while(game) {
             Scanner sc = new Scanner(System.in);
             System.out.println(g);
@@ -78,11 +97,8 @@ public class Main {
 
         String nom_Joueur = sc.nextLine();
 
+        // Save game data to the database
         BDD bdd = new BDD();
-
         bdd.addData(nom_Joueur, g.getNombreCoups(), t.toString(), g.getLongueur()*g.getLongueur());
-
-
     }
-
 }

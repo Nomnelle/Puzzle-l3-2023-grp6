@@ -1,16 +1,27 @@
 package projet.modele.game;
 
-import projet.controller.PuzzleController;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+
+/**
+ * The Grille class represents the grid of a puzzle game.
+ * It implements the Parametres interface and includes methods for managing the grid state.
+ */
 public class Grille implements Parametres, Serializable {
 
-    private static class Memento implements Serializable{
-        private final HashSet<Case> grilleSauvegarde;
+    /**
+     * The Memento class is a nested class used to save past grid states.
+     */
+    private static class Memento implements Serializable{  //class to save past grid state
+        private final HashSet<Case> grilleSauvegarde;  //save a state of the grid
 
+        /**
+         * Constructs a Memento object with the given grid state.
+         *
+         * @param etatGrille The state of the grid to be saved.
+         */
         public Memento(HashSet<Case> etatGrille){
             this.grilleSauvegarde = new HashSet<>();
 
@@ -19,24 +30,29 @@ public class Grille implements Parametres, Serializable {
             }
         }
 
+        /**
+         * Gets the saved grid state.
+         *
+         * @return The saved grid state.
+         */
         public HashSet<Case> getGrilleSauvegarde() {
             return this.grilleSauvegarde;
         }
     }
 
-    private HashSet<Case> grille;
-    private final int longueur;
-    private int nombreCoups;
-    private Caretaker pastGrid;
-    private int instanceGUI = 0;
-    private int compteurMemento;
+    private HashSet<Case> grille; //representation of the grid
+    private final int longueur;  //number of cells in a row or in a column
+    private int nombreCoups;  //number of time the player has moved a cell
+    private Caretaker pastGrid;  //save past states of the grid
+    private int compteurMemento;  //save number of time the player got back to a past grid
 
 
+    /**
+     * Constructs a Grille object with the specified length.
+     *
+     * @param l The length of the grid.
+     */
     public Grille(int l) {
-        /**
-         * Construct a Grille object
-         * @param length of the grid
-         */
         this.grille = new HashSet<>();
         this.longueur = l;
         this.nombreCoups = 0;
@@ -44,55 +60,42 @@ public class Grille implements Parametres, Serializable {
         compteurMemento = 4;
     }
 
-    public Grille(int l, PuzzleController c) {
-        /**
-         * Construct a Grille object
-         * @param length of the grid, controller to link to the GUI
-         */
-        this.grille = new HashSet<>();;
-        this.longueur = l;
-        this.nombreCoups = 0;
-        pastGrid = new Caretaker();
-        instanceGUI = c.getIncrement();
-        compteurMemento = 4;
-    }
-
+    /**
+     * Get you the representation of the grille
+     * @return the value of the attribute grille
+     */
     public HashSet<Case> getGrille() {
-        /**
-         * Get you the representation of the grille
-         * @return the value of the attribute grille
-         */
         return grille;
     }
 
+    /**
+     * Get you the length of the grille
+     * @return the value the of attribute longueur
+     */
     public int getLongueur() {
-        /**
-         * Get you the length of the grille
-         * @return the value the of attribute longueur
-         */
         return longueur;
     }
 
+    /**
+     * Get you the number of movements performed by the player
+     * @return the attribute nbCoups
+     */
     public int getNombreCoups() {
-        /**
-         * Get you the number of movements performed by the player
-         * @return the attribute nbCoups
-         */
         return nombreCoups;
     }
 
+    /**
+     * Get you the number of time the player can undo
+     * @return the number of time the player can undo
+     */
     public int getCompteurMemento(){
-        /**
-         * Get you the number of time the player can undo
-         * @return the number of time the player can undo
-         */
         return compteurMemento;
     }
 
+    /**
+     * Fills the grid with numbers and randomizes their order.
+     */
     public void remplirGrille(){
-        /**
-         * fill the grid with numbers from one to length - 1, and randomize their order
-         */
         this.grille = new HashSet<>();
         ArrayList<Integer> listIndex = new ArrayList<>();
         for(int i = 0;i<longueur*longueur;i++){
@@ -117,11 +120,12 @@ public class Grille implements Parametres, Serializable {
 
     }
 
+    /**
+     * Transforms the grid into a 1D array.
+     *
+     * @return The grid representation in a 1D array.
+     */
     public int[] transformerGrilleArray1D() {
-        /**
-         * Transform the grid in a 1D array
-         * @return the grid representation in 1D array
-         */
         Case[][] tableau2D = transformerGrilleArray2D();
         int[] resultat = new int[this.longueur*this.longueur];
         for (int i = 0; i < longueur; i++) {
@@ -132,23 +136,24 @@ public class Grille implements Parametres, Serializable {
         return resultat;
     }
 
+    /**
+     * Transform the grid in a 2D array
+     * @return the grid representation in 2D array
+     */
     public Case[][] transformerGrilleArray2D() {
-        /**
-         * Transform the grid in a 2D array
-         * @return the grid representation in 2D array
-         */
         Case[][] tableau = new Case[this.longueur][this.longueur];
         for (Case c : this.grille) {
             tableau[c.getX()][c.getY()] = c;
         }
         return tableau;
     }
+
+    /**
+     * Override toString method in class Object, in order to have a String representation of the grid
+     * @return the grid representation in a String
+     */
     @Override
     public String toString() {
-        /**
-         * Override toString method in class Object, in order to have a String representation of the grid
-         * @return the grid representation in a String
-         */
         Case[][] tableau = transformerGrilleArray2D();
         String result = "";
         for (int i = 0; i < this.longueur; i++) {
@@ -163,12 +168,12 @@ public class Grille implements Parametres, Serializable {
         return result;
     }
 
+    /**
+     * retrieve a cell placed in the corresponding x and y coordinates
+     * @param x,y coordinates of a cell
+     * @return the cell places in this x and y coordinates
+     */
     public Case retrouverCase(int y, int x) {
-        /**
-         * retrieve a cell placed in the corresponding x and y coordinates
-         * @param x and y of a cell
-         * @return the cell places in this x and y coordinates
-         */
         for (Case c : this.grille) {
             if (y == c.getY() && x == c.getX()) {
                 return c;
@@ -177,11 +182,11 @@ public class Grille implements Parametres, Serializable {
         return null;
     }
 
+    /**
+     * retrieve the empty cell
+     * @return the empty cell
+     */
     public Case retournerCaseVide() {
-        /**
-         * retrieve the empty cell
-         * @return the empty cell
-         */
         for (Case c : this.grille) {
             if (c.getIndice() == 0) {
                 return c;
@@ -190,12 +195,12 @@ public class Grille implements Parametres, Serializable {
         return null;
     }
 
+    /**
+     * move a cell according to an input
+     * @param input an input in french - haut, bas, droite, and gauche
+     * @return the coordinates of the moving cell before it moves
+     */
     public int[] deplacerCase(String input) {
-        /**
-         * move a cell according to an input
-         * @param an input in french - haut, bas, droite, and gauche
-         * @return the coordinates of the moving cell before it moves
-         */
         Case vide = retournerCaseVide();
         Case mouvante = null;
         boolean mouvement = false;
@@ -249,11 +254,12 @@ public class Grille implements Parametres, Serializable {
         return null;
     }
 
+    /**
+     * Checks if the player has won the game.
+     *
+     * @return True if the grid is in the expected state for the player to win.
+     */
     public boolean verifierVictoire() {
-        /**
-         * check if the player has won
-         * @return true if the grid is in the expected state to declare the player as winner
-         */
         int[] etatActuel = this.transformerGrilleArray1D();
         if(etatActuel[etatActuel.length -1]==0){
             for(int i = 1; i < (longueur*longueur) - 1; i++) {
@@ -266,11 +272,12 @@ public class Grille implements Parametres, Serializable {
         return false;
     }
 
+    /**
+     * Counts how many times two cells must be exchanged before the grid is in a winning state (bubble sort).
+     *
+     * @return The number of times cells have exchanged their places.
+     */
     public int compterInversions(){
-        /**
-         * count how many times we have to exchange two cells before the grid is in victory setting - bubble sort
-         * @return how many times cells had exchange their place
-         */
         int[] grilleTest = this.transformerGrilleArray1D();
         int compteur = 0;
         boolean finTri;
@@ -291,18 +298,17 @@ public class Grille implements Parametres, Serializable {
             if(finTri){
                 break;
             }
-
         }
-
         return compteur;
     }
 
+    /**
+     * Removes the empty cell from a 1D array representing a grid.
+     *
+     * @param tabGrille The 1D array representation of a grid.
+     * @return The 1D array representation of the grid without the empty cell.
+     */
     public static int[] retirerCaseVideTableau(int[] tabGrille){
-        /**
-         * remove the empty cell from a 1D array representing a grid
-         * @param the 1D array representation of a grid
-         * @return the 1D array representation of the grid without the empty cell
-         */
         int[] newTabGrille = new int[tabGrille.length - 1];
         int i = 0;
         for(int indice : tabGrille){
@@ -314,20 +320,21 @@ public class Grille implements Parametres, Serializable {
         return newTabGrille;
     }
 
+    /**
+     * return the difference between the actual column of the empty cell, and the column she should be
+     * @return the difference between the actual column of the empty cell, and the column she should be
+     */
     public int compterColonne(){
-        /**
-         * return the difference between the actual column of the empty celle, it the column she should be
-         * @return the difference between the actual column of the empty celle, it the column she should be
-         */
         Case c = this.retournerCaseVide();
         return this.longueur - c.getX();
     }
 
+    /**
+     * Uses various methods to decide if the grid can be solved.
+     *
+     * @return True if the grid can be solved.
+     */
     public boolean testerSiGrilleSoluble(){
-        /**
-         * use retirerCaseVideTableau, compterInversions and compterColonne methods in order to decide if the grid can be solved or not
-         * @return true if the grid can be solved
-         */
         if((this.longueur%2) != 0){
             return (this.compterInversions() % 2) == 0;
         }else{
@@ -335,19 +342,19 @@ public class Grille implements Parametres, Serializable {
         }
     }
 
+    /**
+     * Saves the last grid state into the caretaker.
+     */
     public void saveToMemento(){
-        /**
-         * save the last grid into the caretaker
-         */
         if(this.compteurMemento>0){
             this.pastGrid.saveGrille(new Memento(this.grille));
         }
     }
 
+    /**
+     * Retrieves the last saved grid state from the caretaker to restore the grid to a previous state.
+     */
     public void undoLastMovement(){
-        /**
-         * retrieve the last saved grid from the caretaker in order to restore the grid in a previous state
-         */
         if(!this.pastGrid.isEmpty()&&this.compteurMemento>0){
             if(this.pastGrid.retrieveMemento() instanceof Memento memento){
                 this.grille = new HashSet<>(memento.getGrilleSauvegarde());
