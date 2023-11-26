@@ -6,11 +6,12 @@ import projet.modele.ia.Etat;
 
 public class TestManhattanDistance {
 
-    Grille g = Grille.getInstance(3);
-    Etat e;
+    private Grille g;
+    private Etat e;
 
     @BeforeEach
     public void init(){
+        g = new Grille(3);
         g.getGrille().add(new Case(0,0,8,g));
         g.getGrille().add(new Case(0,1,1,g));
         g.getGrille().add(new Case(0,2,3,g));

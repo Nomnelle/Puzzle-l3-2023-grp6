@@ -12,34 +12,63 @@ public class Etat implements Cloneable {
     private int longueur;
     private ArrayList<String> mouvements;
     private int profondeur;
-
     private int heuristique;
+    private Etat parent;
+    private int priorite;
 
 
     private Etat() {
     }
 
     public Etat(Grille g) {
+        this.parent = null;
+        this.priorite = 0;
         this.profondeur = 0;
         this.mouvements = new ArrayList<>();
         this.longueur = g.getLongueur();
         this.etatGrille = new int[longueur][longueur];
         this.xVide = g.retournerCaseVide().getX();
         this.yVide = g.retournerCaseVide().getY();
-
+        this.heuristique = this.parent.getHeuristique();
         for (int i = 0; i < g.getLongueur(); i++) {
             for (int j = 0; j < g.getLongueur(); j++) {
                 this.etatGrille[i][j] = g.transformerGrilleArray2D()[i][j].getIndice();
             }
         }
+        // Recalcule l'heuristique après la création de l'objet Etat
+        this.calculerManhattanDistance();
     }
 
     public int getProfondeur() {
         return this.profondeur;
     }
 
-    public int getHeuristique(){
+    public int getHeuristique() {
         return this.heuristique;
+    }
+
+    public Etat getParent() {
+        return this.parent;
+    }
+
+    public void setParent(Etat parent) {
+        this.parent = parent;
+    }
+
+    public int getPriorite() {
+        return this.priorite;
+    }
+
+    public void setPriorite(int priorite) {
+        this.priorite = priorite;
+    }
+
+    public void setProfondeur(int profondeur) {
+        this.profondeur = profondeur;
+    }
+
+    public void setHeuristique(int heuristique) {
+        this.heuristique = heuristique;
     }
 
     protected Etat clone() throws CloneNotSupportedException {
@@ -70,12 +99,12 @@ public class Etat implements Cloneable {
 
     public int[] calculerPosVictoire(int val) {
         int[] result = new int[2];
-        double div = (double) val/ (double) this.longueur;
-        result[0] = (int) Math.ceil(div) -1;
+        double div = (double) val / (double) this.longueur;
+        result[0] = (int) Math.ceil(div) - 1;
         int temp = val % this.longueur - 1;
-        if(temp == -1) {
+        if (temp == -1) {
             result[1] = this.longueur - 1;
-        }else{
+        } else {
             result[1] = temp;
         }
         return result;
@@ -85,11 +114,11 @@ public class Etat implements Cloneable {
 
         int result = 0;
 
-        for(int i = 0; i < this.longueur; i++) {
-            for(int j = 0; j < this.longueur; j++) {
-                if(this.etatGrille[i][j]!=0){
+        for (int i = 0; i < this.longueur; i++) {
+            for (int j = 0; j < this.longueur; j++) {
+                if (this.etatGrille[i][j] != 0) {
                     int[] coordonneesVictoire = this.calculerPosVictoire(this.etatGrille[i][j]);
-                    result += Math.abs (coordonneesVictoire[0]-i) + Math.abs (coordonneesVictoire[1]-j);
+                    result += Math.abs(coordonneesVictoire[0] - i) + Math.abs(coordonneesVictoire[1] - j);
                 }
             }
         }
@@ -97,23 +126,43 @@ public class Etat implements Cloneable {
 
     }
 
+    public void calculerPriorite() {
+
+        this.priorite = this.heuristique + this.profondeur;
+
+    }
+
+    public void calculerResultatHeuristique(Etat priorite) {
+
+
+    }
+
+    public void calculerResultatProfondeur(Etat priorite) {
+
+
+    }
+
     public Etat simulerDeplacement(IA.DEPLACEMENT d) throws CloneNotSupportedException {
         Etat e = null;
+        Etat parent = null;
         switch (d) {
             case haut:
                 if (this.xVide + 1 < this.longueur) {
                     e = this.clone();
+                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide + 1][e.yVide];
                     e.etatGrille[e.xVide + 1][e.yVide] = tmp;
                     e.xVide++;
                     e.mouvements.add("haut");
                     e.profondeur++;
+                    e.parent = this;
                 }
                 break;
             case bas:
                 if (this.xVide - 1 >= 0) {
                     e = this.clone();
+                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide - 1][e.yVide];
                     e.etatGrille[e.xVide - 1][e.yVide] = tmp;
@@ -125,6 +174,7 @@ public class Etat implements Cloneable {
             case gauche:
                 if (this.yVide + 1 < this.longueur) {
                     e = this.clone();
+                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide][e.yVide + 1];
                     e.etatGrille[e.xVide][e.yVide + 1] = tmp;
@@ -136,6 +186,7 @@ public class Etat implements Cloneable {
             case droite:
                 if (this.yVide - 1 >= 0) {
                     e = this.clone();
+                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide][e.yVide - 1];
                     e.etatGrille[e.xVide][e.yVide - 1] = tmp;
