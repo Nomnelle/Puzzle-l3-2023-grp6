@@ -3,6 +3,7 @@ module com.example.puzzle {
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.java;
+    requires org.jetbrains.annotations;
 
     opens projet to javafx.fxml;
     exports projet;

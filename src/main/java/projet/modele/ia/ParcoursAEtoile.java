@@ -5,10 +5,11 @@ import projet.modele.game.Grille;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 public class ParcoursAEtoile extends ParcoursGraph implements IA {
 
-    HashSet<Etat> listeFermee = new HashSet<>();
+    PriorityQueue<Etat> listeOuverte = new PriorityQueue<>();
 
     public ParcoursAEtoile(Grille g) throws CloneNotSupportedException {
         this.init(g);
@@ -19,13 +20,12 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
     protected void execute(Grille g) throws CloneNotSupportedException {
         ArrayList<String> result = new ArrayList<>();
         Etat courant = new Etat(g);
-        visited.add(courant);
+        listeOuverte.add(courant);
         boolean trouve = false;
-        while ((!visited.isEmpty()) && (!trouve)) {
+        while ((!listeOuverte.isEmpty()) && (!trouve)) {
 
-            courant = this.rechercherMeilleurNoeud();
+            courant = listeOuverte.poll();
             //Met à jour la listeFermee
-
             this.ajouterListFermee(courant);
 
             appliquerAction(courant);
@@ -48,11 +48,11 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         for (DEPLACEMENT d : DEPLACEMENT.values()) {
             Etat e = etatTest.simulerDeplacement(d);
             if (e != null) {
-                if(!listeFermee.contains(e)) {
-                    ajoute = visited.add(e);
+                if(!visited.contains(e)) {
+                    ajoute = listeOuverte.add(e);
                 } else {
-                    Etat eListeOuverte = rechercherHashSet(visited, e);
-                    if(eListeOuverte != null && !ajoute){
+                    Etat eListeOuverte = rechercherHashSet(e);
+                    if(eListeOuverte != null && ajoute){
                         if (e.getPriorite() < eListeOuverte.getPriorite()) {
                             eListeOuverte.setPriorite(e.getPriorite());
                             eListeOuverte.setHeuristique(e.getHeuristique());
@@ -70,37 +70,21 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         return mouvements.pop();
     }
 
-
-    public Etat rechercherMeilleurNoeud(){
-        Etat meilleurEtat = null;
-
-        for(Etat e : this.visited){
-            if(!(meilleurEtat==null)){
-                if(e.getPriorite()<meilleurEtat.getPriorite()){
-                    meilleurEtat = e;
-                }
-            }else{
-                meilleurEtat = e;
-            }
-        }
-        return meilleurEtat;
-    }
-
     //Cette fonction vérifie si l'état est dans la listeOuverte,
     // si c'est le cas l'état sera ajouté dans la listeFermee
     public void ajouterListFermee(Etat etat) {
-        if (visited.contains(etat)) {
-            boolean ajoute = listeFermee.add(etat);
+        if(listeOuverte.contains(etat)) {
+            boolean ajoute = visited.add(etat);
             if(ajoute){
-                visited.remove(etat);
+                listeOuverte.remove(etat);
             }
         }
     }
 
 
     //Cette fonction recherche un noeud dans HashSet
-    private Etat rechercherHashSet(HashSet<Etat> set, Etat etat) {
-        for (Etat e : set) {
+    private Etat rechercherHashSet(Etat etat) {
+        for(Etat e : listeOuverte) {
             if (e.equals(etat)) {
                 return e;
             }

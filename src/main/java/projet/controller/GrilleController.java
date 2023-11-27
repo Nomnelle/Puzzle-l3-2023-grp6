@@ -227,7 +227,7 @@ public class GrilleController {
         boolean correct = false;
             while(!correct){
             grille.remplirGrille();
-            correct = grille.testerSiGrilleSoluble();
+            correct = grille.testerSiGrilleSoluble()&&!grille.verifierVictoire();
         }
     }
     private void setVboxArray(){

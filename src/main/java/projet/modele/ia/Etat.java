@@ -1,12 +1,13 @@
 package projet.modele.ia;
 
+import org.jetbrains.annotations.NotNull;
 import projet.modele.game.Grille;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math;
 
-public class Etat implements Cloneable {
+public class Etat implements Cloneable, Comparable<Etat> {
     private int[][] etatGrille;
     private int xVide, yVide;
     private int longueur;
@@ -214,5 +215,10 @@ public class Etat implements Cloneable {
             s = s + Arrays.toString(this.etatGrille[i]) + "\n";
         }
         return s;
+    }
+
+    @Override
+    public int compareTo(@NotNull Etat etat) {
+        return Integer.compare(this.priorite, etat.priorite);
     }
 }
