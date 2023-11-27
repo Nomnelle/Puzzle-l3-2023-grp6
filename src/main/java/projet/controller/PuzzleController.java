@@ -144,21 +144,21 @@ public class PuzzleController implements Initializable {
     @FXML
     protected void buttonCase4(){
         increment++;
-        grilleController = new GrilleController(4, new Grille(2, this), gridPane, chrono);
+        grilleController = new GrilleController(4, new Grille(2), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
     }
     @FXML
     protected void buttonCase9(){
         increment++;
-        grilleController = new GrilleController(9, new Grille(3, this), gridPane, chrono);
+        grilleController = new GrilleController(9, new Grille(3), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
     }
     @FXML
     protected void buttonCase16(){
         increment++;
-        grilleController = new GrilleController(16, new Grille(4, this), gridPane, chrono);
+        grilleController = new GrilleController(16, new Grille(4), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
     }

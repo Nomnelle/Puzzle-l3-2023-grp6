@@ -28,11 +28,8 @@ public class TestParcoursAEtoileTest {
 
     @Test
     public void testParcoursAEtoile() throws CloneNotSupportedException {
-        Grille grille = new Grille(3);
 
-        grille.remplirGrille();
-
-        ParcoursAEtoile parcoursAEtoile = new ParcoursAEtoile(grille);
+        ParcoursAEtoile parcoursAEtoile = new ParcoursAEtoile(g);
         String resultat = parcoursAEtoile.next();
 
         Assertions.assertNotNull(resultat);

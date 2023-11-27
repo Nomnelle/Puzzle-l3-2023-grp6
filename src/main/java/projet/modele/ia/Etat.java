@@ -13,7 +13,6 @@ public class Etat implements Cloneable {
     private ArrayList<String> mouvements;
     private int profondeur;
     private int heuristique;
-    private Etat parent;
     private int priorite;
 
 
@@ -21,22 +20,19 @@ public class Etat implements Cloneable {
     }
 
     public Etat(Grille g) {
-        this.parent = null;
-        this.priorite = 0;
         this.profondeur = 0;
         this.mouvements = new ArrayList<>();
         this.longueur = g.getLongueur();
         this.etatGrille = new int[longueur][longueur];
         this.xVide = g.retournerCaseVide().getX();
         this.yVide = g.retournerCaseVide().getY();
-        this.heuristique = this.parent.getHeuristique();
         for (int i = 0; i < g.getLongueur(); i++) {
             for (int j = 0; j < g.getLongueur(); j++) {
                 this.etatGrille[i][j] = g.transformerGrilleArray2D()[i][j].getIndice();
             }
         }
-        // Recalcule l'heuristique après la création de l'objet Etat
         this.calculerManhattanDistance();
+        this.calculerPriorite();
     }
 
     public int getProfondeur() {
@@ -45,14 +41,6 @@ public class Etat implements Cloneable {
 
     public int getHeuristique() {
         return this.heuristique;
-    }
-
-    public Etat getParent() {
-        return this.parent;
-    }
-
-    public void setParent(Etat parent) {
-        this.parent = parent;
     }
 
     public int getPriorite() {
@@ -127,72 +115,62 @@ public class Etat implements Cloneable {
     }
 
     public void calculerPriorite() {
-
         this.priorite = this.heuristique + this.profondeur;
-
-    }
-
-    public void calculerResultatHeuristique(Etat priorite) {
-
-
-    }
-
-    public void calculerResultatProfondeur(Etat priorite) {
-
-
     }
 
     public Etat simulerDeplacement(IA.DEPLACEMENT d) throws CloneNotSupportedException {
         Etat e = null;
-        Etat parent = null;
         switch (d) {
             case haut:
                 if (this.xVide + 1 < this.longueur) {
                     e = this.clone();
-                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide + 1][e.yVide];
                     e.etatGrille[e.xVide + 1][e.yVide] = tmp;
                     e.xVide++;
                     e.mouvements.add("haut");
                     e.profondeur++;
-                    e.parent = this;
+                    e.calculerManhattanDistance();
+                    e.calculerPriorite();
                 }
                 break;
             case bas:
                 if (this.xVide - 1 >= 0) {
                     e = this.clone();
-                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide - 1][e.yVide];
                     e.etatGrille[e.xVide - 1][e.yVide] = tmp;
                     e.xVide--;
                     e.mouvements.add("bas");
                     e.profondeur++;
+                    e.calculerManhattanDistance();
+                    e.calculerPriorite();
                 }
                 break;
             case gauche:
                 if (this.yVide + 1 < this.longueur) {
                     e = this.clone();
-                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide][e.yVide + 1];
                     e.etatGrille[e.xVide][e.yVide + 1] = tmp;
                     e.yVide++;
                     e.mouvements.add("gauche");
                     e.profondeur++;
+                    e.calculerManhattanDistance();
+                    e.calculerPriorite();
                 }
                 break;
             case droite:
                 if (this.yVide - 1 >= 0) {
                     e = this.clone();
-                    parent = this.clone();
                     int tmp = e.etatGrille[e.xVide][e.yVide];
                     e.etatGrille[e.xVide][e.yVide] = e.etatGrille[e.xVide][e.yVide - 1];
                     e.etatGrille[e.xVide][e.yVide - 1] = tmp;
                     e.yVide--;
                     e.mouvements.add("droite");
                     e.profondeur++;
+                    e.calculerManhattanDistance();
+                    e.calculerPriorite();
                 }
                 break;
         }

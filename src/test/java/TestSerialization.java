@@ -12,14 +12,14 @@ public class TestSerialization {
     @BeforeEach
     public void initTest() {
         longueur = 2;
-        g = Grille.getInstance(longueur);
+        g = new Grille(2);
     }
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
         ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
         ObjectOutputStream oos = new java.io.ObjectOutputStream(baos);
-        oos.writeObject(Grille.getInstance(longueur));
+        oos.writeObject(g);
         oos.close();
 
         InputStream is = new ByteArrayInputStream(baos.toByteArray());

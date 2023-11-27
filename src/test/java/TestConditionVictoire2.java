@@ -9,7 +9,7 @@ public class TestConditionVictoire2 {
 
     @BeforeEach
     public void initGrille(){
-        grilleTest = Grille.getInstance(3);
+        grilleTest = new Grille(3);
         grilleTest.getGrille().add(new Case(0,0,"A",1,grilleTest));
         grilleTest.getGrille().add(new Case(0,1,"B",2,grilleTest));
         grilleTest.getGrille().add(new Case(0,2,"C",3,grilleTest));

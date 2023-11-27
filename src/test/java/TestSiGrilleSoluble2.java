@@ -9,7 +9,7 @@ public class TestSiGrilleSoluble2 {
 
     @BeforeEach
     public void initGrille(){
-        grilleTest = Grille.getInstance(3);
+        grilleTest = new Grille(3);
         grilleTest.getGrille().add(new Case(0,0,"H",8,grilleTest));
         grilleTest.getGrille().add(new Case(0,1,"A",1,grilleTest));
         grilleTest.getGrille().add(new Case(0,2,"B",2,grilleTest));
