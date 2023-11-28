@@ -2,96 +2,87 @@ package projet.logicUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ShiftUIDesign extends java.lang.Thread{
-    private final TranslateTransition translateTransition = new TranslateTransition();
     AnchorPane paneDrag;
+    private double x; private double y;
+
+    /**
+     * Constructor of stylistic shifts
+     * @param anchorPane that is used to drag the window
+     */
     public ShiftUIDesign(AnchorPane anchorPane){
         this.paneDrag = anchorPane;
-        this.isDaemon();
+        this.setDaemon(true);
     }
-    /*
-    ######################
-    Le Thread sert à déplacer le logiciel avec un AnchorPane
-    ######################
+    /**
+     * The Thread is used to move the software with an AnchorPane
      */
     @Override
     public void run() {
-            //initialisation des variables
-            //On ne peux pas modifier les variables en lambda, c'est pour cela que des tableaux d'une case sont nécessaires
-            final double[] x = {0,0};
-            final double[] y = {0,0};
+        //save initial position of mouse (on scene)
+        paneDrag.setOnMousePressed(event -> {
+            this.x = event.getSceneX();
+            this.y = event.getSceneY();
+        });
 
-            //pression de la souris, sauvegarde de la position initiale
-            paneDrag.setOnMousePressed(event -> {
-                x[0] = event.getSceneX();
-                y[0] = event.getSceneY();
-            });
-
-            //mouvement de la souris durant la pression,
-            paneDrag.setOnMouseDragged(event -> {
-                x[1] = event.getScreenX() - x[0];
-                y[1]= event.getScreenY() - y[0];
-
-                paneDrag.getScene().getWindow().setX(x[1]);
-                paneDrag.getScene().getWindow().setY(y[1]);
-            });
-        }
+        //new XY position calculated by subtracting the window position with the mouse position
+        paneDrag.setOnMouseDragged(event -> {
+            Stage stage = (Stage) paneDrag.getScene().getWindow();
+            stage.setX(event.getScreenX() - this.x);
+            stage.setY(event.getScreenY() - this.y);
+        });
+    }
 
     /**
-     * Déplacements d'un noeud quelconque en fonction de 4 ou 5 parametres
+     * Movements of any node
      *
-     * @param cible Noeud ciblé par la méthode
+     * @param cible Node targeted by the method
      *
-     * @param conflit Noeud à désactiver temporairement.
-     *                Ce parametre est facultatif en fonction du contexte,
-     *                il permet d'empecher les interactions avec un composant durant l'animation.
+     * @param conflict Node to temporarily deactivate (can be null).
+     *                allows you to prevent interactions with a component during the animation.
      *
-     * @param px Déplacement quantifié en pixel
-     * @param duration Durée de l'animation en ms. (entier)
-     * @param direction Direction du déplacement
+     * @param px Displacement (px)
+     * @param duration Animation duration in ms (int)
+     * @param direction Direction of travel
      */
 
-    public void nodeShift(Node cible, Node conflit, int px, int duration, String direction) {
+    public void nodeShift(Node cible, Node conflict, int px, int duration, String direction) {
+        TranslateTransition translateTransition = new TranslateTransition();
         translateTransition.setDuration(Duration.millis(duration)); //duration
         translateTransition.setNode(cible); //node
 
         switch (direction) {
             case "gauche" ->
-                //déplacement vers la gauche
                     translateTransition.setToX(cible.getTranslateX() - px);
             case "droite" ->
-                //déplacement vers la droite
                     translateTransition.setToX(cible.getTranslateX() + px);
             case "haut" ->
-                //déplacement vers le haut
                     translateTransition.setToY(cible.getTranslateY() - px);
             case "bas" ->
-                //déplacement vers le bas
                     translateTransition.setToY(cible.getTranslateY() + px);
         }
-
         translateTransition.play();
 
-        if (conflit != null){
-            disabledNodeDuration(conflit, duration);
+        if (conflict != null){
+            disabledNodeDuration(conflict, duration);
         }
-
     }
-    public void nodeShift(Node cible, int px, int duration, String direction){
-        nodeShift(cible, null, px, duration, direction);
-    }
-    public void disabledNodeDuration(Node conflit, int duration){
-        conflit.setDisable(true); //désactive le noeud conflictuel
 
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(duration), e -> conflit.setDisable(false));
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(keyFrame);
+    /**
+     * Deactivates a node for a specific period of time
+     *
+     * @param conflict Node to temporarily deactivate
+     * @param duration Duration of desactivation in ms (int)
+     */
+    public void disabledNodeDuration(Node conflict, int duration){
+        conflict.setDisable(true); //disable the conflicting node
 
-        timeline.play();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(duration), e -> conflict.setDisable(false)));
+        timeline.play(); //enable the conflicting node after 'duration'
     }
 }

@@ -77,7 +77,7 @@ public class PuzzleController implements Initializable {
     private Chrono chrono;
     private Player player;
     private int increment = 0;
-    public static int image = 1;
+    public static int image = 1; //default image : the first
 
     /**
      * Allows you to make a logical link between the view and the game
@@ -92,30 +92,6 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonClose(){System.exit(0);}
-    /*
-     * Button which allows access to the menu
-     */
-    @FXML
-    protected void setButtonMenu(){
-        chrono.pauseTime();
-
-        setChoiceHide();
-        buttonSave.setDisable(false);
-        buttonRestart.setDisable(false);
-
-        grilleController.isPaused(true);
-
-        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
-        anchorPaneMid.setDisable(true);
-
-        buttonPlay.setText("RESUME");
-
-        if (!grilleController.gameExist()){
-            buttonImage.setDisable(false);
-        }
-
-        player.run();
-    }
     /*
      * Button which asks for the choice of grid, or continues a game already started
      */
@@ -170,19 +146,47 @@ public class PuzzleController implements Initializable {
         Serial serial = new Serial(); //Manage serialization
         Grille grille = serial.deserialize(); //Deserialize
 
-        grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), grille, gridPane, chrono);
-        grilleController.initializeGridLoaded();
+        if (grille != null) { //can be null (it already happened, because of old version of .ser file)
+            grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), grille, gridPane, chrono);
+            grilleController.initializeGridLoaded();
 
-        goInUI();
+            goInUI();
+        }
     }
     /*
      * Button that allows the user to save a game
      */
     @FXML
     protected void setButtonSave(){
-        Serial serial = new Serial(grilleController.getGrille());
-        serial.saveGrille();
-        buttonLoad.setDisable(false);
+        if (grilleController.getGrille() != null) {
+            Serial serial = new Serial(grilleController.getGrille());
+            serial.saveGrille();
+            buttonLoad.setDisable(false);
+        }
+    }
+    /*
+     * Button which allows access to the menu
+     */
+    @FXML
+    protected void setButtonMenu(){
+        chrono.pauseTime();
+
+        setChoiceHide();
+        buttonSave.setDisable(false);
+        buttonRestart.setDisable(false);
+
+        grilleController.isPaused(true);
+
+        shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
+        anchorPaneMid.setDisable(true);
+
+        buttonPlay.setText("RESUME");
+
+        if (!grilleController.gameExist()){
+            buttonImage.setDisable(false);
+        }
+
+        player.run();
     }
     /*
      * Button that stopAI
