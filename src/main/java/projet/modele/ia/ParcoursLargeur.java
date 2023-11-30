@@ -5,13 +5,29 @@ import projet.modele.game.Grille;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * The ParcoursLargeur class represents a breadth-first search algorithm for solving a puzzle.
+ * It extends ParcoursGraph and implements the IA interface.
+ */
 public class ParcoursLargeur extends ParcoursGraph implements IA{
 
+    /**
+     * Constructs a ParcoursLargeur object and initializes the search algorithm.
+     *
+     * @param g The initial state of the puzzle grid.
+     * @throws CloneNotSupportedException If cloning the initial state is not supported.
+     */
     public ParcoursLargeur(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
     }
 
+    /**
+     * Executes the breadth-first search algorithm to find a solution to the puzzle.
+     *
+     * @param g The initial state of the puzzle grid.
+     * @throws CloneNotSupportedException If cloning the initial state is not supported.
+     */
     @Override
     protected void execute(Grille g) throws CloneNotSupportedException {
         ArrayList<String> result = new ArrayList<>();
@@ -39,6 +55,12 @@ public class ParcoursLargeur extends ParcoursGraph implements IA{
         }
     }
 
+    /**
+     * Applies the possible actions to simulate the next states in the search.
+     *
+     * @param etatTest The state to test and simulate actions from.
+     * @throws CloneNotSupportedException If cloning the state for simulation is not supported.
+     */
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
         for (DEPLACEMENT d : DEPLACEMENT.values()) {
             Etat e = etatTest.simulerDeplacement(d);
@@ -50,11 +72,21 @@ public class ParcoursLargeur extends ParcoursGraph implements IA{
         }
     }
 
+    /**
+     * Gets the next move in the solution path.
+     *
+     * @return The next move as a string.
+     */
     @Override
     public String next() {
         return mouvements.removeFirst();
     }
 
+    /**
+     * Returns a string representation of the solution path.
+     *
+     * @return A string representation of the solution path.
+     */
     @Override
     public  String toString(){
         return mouvements.toString();

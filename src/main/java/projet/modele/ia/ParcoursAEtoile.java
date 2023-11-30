@@ -4,21 +4,39 @@ import projet.controller.GrilleController;
 import projet.modele.game.Grille;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+/**
+ * The ParcoursAEtoile class represents an A* algorithm for solving a puzzle.
+ * It extends the ParcoursGraph abstract class and implements the IA interface.
+ */
 public class ParcoursAEtoile extends ParcoursGraph implements IA {
 
-    PriorityQueue<Etat> listeOuverte = new PriorityQueue<>();
+    PriorityQueue<Etat> listeOuverte = new PriorityQueue<>();  //Priority queue for open list
 
+    /**
+     * Default constructor for ParcoursAEtoile.
+     */
     public ParcoursAEtoile(){}
 
+    /**
+     * Constructor for ParcoursAEtoile with an initial grid state.
+     *
+     * @param g The initial state of the puzzle grid.
+     * @throws CloneNotSupportedException If cloning the initial state is not supported.
+     */
     public ParcoursAEtoile(Grille g) throws CloneNotSupportedException {
         this.init(g);
         this.execute(g);
     }
 
+    /**
+     * Executes the A* algorithm to find the solution path for the puzzle.
+     *
+     * @param g The initial state of the puzzle grid.
+     * @throws CloneNotSupportedException If cloning the initial state is not supported.
+     */
     @Override
     protected void execute(Grille g) throws CloneNotSupportedException {
         ArrayList<String> result = new ArrayList<>();
@@ -28,7 +46,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         while ((!listeOuverte.isEmpty()) && (!trouve)) {
 
             courant = listeOuverte.poll();
-            //Met à jour la listeFermee
+            //update the closed list
             this.ajouterListFermee(courant);
 
             appliquerAction(courant);
@@ -46,6 +64,12 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         mouvements = new LinkedList<>(result);
     }
 
+    /**
+     * Solves the puzzle and updates the GUI using a separate thread.
+     *
+     * @param g         The initial state of the puzzle grid.
+     * @param gControl  The controller for updating the GUI.
+     */
     public void resoudreGUI(Grille g, GrilleController gControl){
         threadResolution = new Thread(() -> {
             init(g);
@@ -56,7 +80,6 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
             } catch(OutOfMemoryError oom){
 
             }
-            System.out.println("proooout");
 
             while(!mouvements.isEmpty()){
                 if(threadResolution.isInterrupted()){
@@ -72,13 +95,21 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         threadResolution.start();
     }
 
+    /**
+     * Stops the puzzle-solving thread.
+     */
     public void stopperResolution() {
         if (threadResolution != null && threadResolution.isAlive()) {
             threadResolution.interrupt();
-            System.out.println("hey");
         }
     }
 
+    /**
+     * Applies possible actions to simulate next states in the A* algorithm.
+     *
+     * @param etatTest The state to test and simulate actions from.
+     * @throws CloneNotSupportedException If cloning the state for simulation is not supported.
+     */
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
         boolean ajoute = true;
         for (DEPLACEMENT d : DEPLACEMENT.values()) {
@@ -100,14 +131,21 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         }
     }
 
-
+    /**
+     * Gets the next movement in the solution path.
+     *
+     * @return The next movement in the solution path.
+     */
     @Override
     public String next() {
         return mouvements.pop();
     }
 
-    //Cette fonction vérifie si l'état est dans la listeOuverte,
-    // si c'est le cas l'état sera ajouté dans la listeFermee
+    /**
+     * Adds a state to the closed list if it is in the open list.
+     *
+     * @param etat The state to add to the closed list.
+     */
     public void ajouterListFermee(Etat etat) {
         if(listeOuverte.contains(etat)) {
             boolean ajoute = visited.add(etat);
@@ -117,7 +155,12 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
         }
     }
 
-
+    /**
+     * Searches for a state in the open list.
+     *
+     * @param etat The state to search for in the open list.
+     * @return The found state or null if not found.
+     */
     //Cette fonction recherche un noeud dans HashSet
     private Etat rechercherHashSet(Etat etat) {
         for(Etat e : listeOuverte) {
