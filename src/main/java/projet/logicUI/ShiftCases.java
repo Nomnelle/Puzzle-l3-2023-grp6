@@ -9,6 +9,16 @@ public class ShiftCases extends java.lang.Thread {
     final int direction;
     final double cellSize;
     final char xy;
+    final double SPEED = 2.5;
+
+    /**
+     * Constructor of shift case thread
+     *
+     * @param node node
+     * @param direction (int) plus or minus
+     * @param gridPane the gridPane
+     * @param xy (char) axe X or Y
+     */
     public ShiftCases(Node node, int direction, GridPane gridPane, char xy){
         setDaemon(true);
 
@@ -19,10 +29,11 @@ public class ShiftCases extends java.lang.Thread {
     }
     @Override
     public void run(){
-        for (int i=0; i<cellSize/2.5; i++){
-            final double way = (direction*i)*2.5;
+        //Divide the celle size by a number and multiply the movement by the same number
+        for (int i=0; i<cellSize/SPEED; i++){ //example : 100/2.5 = 40
+            final double way = (direction*i)*SPEED; //example 1 * 40 * 2.5 = 100 = cell size (target)
             Platform.runLater(() -> {
-                if (xy=='x'){node.setTranslateX(way);} else {node.setTranslateY(way);}
+                if (xy=='x'){node.setTranslateX(way);} else {node.setTranslateY(way);} //move the node
             });
             try {
                 sleep(1);
@@ -31,6 +42,7 @@ public class ShiftCases extends java.lang.Thread {
             }
         }
         Platform.runLater(() -> {
+            //in case the calculations are incorrect, we place the node in the right place at the end
             if (xy=='x'){
                 GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + direction);
                 node.setTranslateX(0);

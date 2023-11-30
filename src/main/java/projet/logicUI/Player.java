@@ -107,8 +107,6 @@ public class Player extends Thread {
         if (size==4) score = score/10;
         if (size==9) score = score*10;
         if (size==16) score = score*100;
-
-        System.out.println("LE SCORE : " + score);
     }
     /**
      * Add the score in database

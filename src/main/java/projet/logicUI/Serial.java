@@ -10,22 +10,32 @@ import java.nio.file.Paths;
 public class Serial {
     private static final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
     private static final String GRIDSAVE = "gridsave.ser";
-    Grille grille = null;
+    Grille grille;
+
+    /**
+     * Saving controller
+     * @param grille the grid
+     */
     public Serial(Grille grille){
         this.grille = grille;
     }
-    public Serial(){
-
-    }
 
     /**
-     *
+     * Loading controller
+     */
+    public Serial(){this.grille = null;}
+
+    /**
      * @return true if the save exist
      */
     public static boolean verifySave(){
         Path path = Paths.get(PATH+GRIDSAVE);
         return Files.exists(path);
     }
+
+    /**
+     * This method allow to save the current grid on a .ser file
+     */
     public void saveGrille(){
         //Save Path
         Path path = Paths.get(PATH);
@@ -34,47 +44,31 @@ public class Serial {
             } catch (IOException e) {System.err.println("Unable to save Directory");}
         }
 
-        ObjectOutputStream oos = null;
-
-        try (FileOutputStream gridStream = new FileOutputStream(PATH+GRIDSAVE)){
+        //Save file
+        ObjectOutputStream oos;
+        try (FileOutputStream gridStream = new FileOutputStream(PATH+GRIDSAVE)){ //don't need manual flush and close
             oos = new ObjectOutputStream(gridStream);
             oos.writeObject(grille);
 
         } catch (IOException e) {
             System.err.println("Unable to save grid");
         }
-        finally {
-            try {
-                if(oos != null) {
-                    oos.flush();
-                    oos.close();
-                }
-            } catch (final IOException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
+
+    /**
+     * This method load the saved grid by a .ser file
+     *
+     * @return deserialized grid
+     */
     public Grille deserialize(){
         ObjectInputStream ois = null;
 
         try (final FileInputStream fichierIn = new FileInputStream(PATH+GRIDSAVE)){
-
             ois = new ObjectInputStream(fichierIn);
-
             return (Grille) ois.readObject();
 
         } catch (final IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             return null;
-
-        } finally {
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (final IOException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 }
