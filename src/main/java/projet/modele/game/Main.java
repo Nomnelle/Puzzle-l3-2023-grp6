@@ -93,12 +93,6 @@ public class Main {
 
         t.pauseTime();
 
-
-        System.out.print("Entrez votre nom");
-        Scanner sc = new Scanner(System.in);
-
-        String nom_Joueur = sc.nextLine();
-
         // Save game data to the database
         Player player = new Player(t, g.getNombreCoups(), g.getLongueur()*g.getLongueur());
         player.victory();

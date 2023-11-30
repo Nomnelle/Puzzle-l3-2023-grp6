@@ -8,9 +8,11 @@ import java.util.LinkedList;
 
 public abstract class ParcoursGraph implements IA {
     protected int[][] etatBut;
-    protected LinkedList<String> mouvements;
+    protected LinkedList<String>  mouvements;
     protected LinkedList<Etat> graph;
     protected HashSet<Etat> visited;
+
+    protected Thread threadResolution;
 
     protected abstract void execute(Grille g) throws CloneNotSupportedException;
 

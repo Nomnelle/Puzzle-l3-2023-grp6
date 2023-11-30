@@ -37,8 +37,10 @@ public class GrilleController {
     private final int size; private final int rowAndColumn;
     private boolean paused = false; private boolean gameExist = false; private boolean isMoving = false;
     private int moveCount = 0;
-    private VBox[][] vBoxes; Grille grille; GridPane gridPane;
-    Chrono chrono;
+    private VBox[][] vBoxes;
+    private volatile Grille grille;
+    private GridPane gridPane;
+    private Chrono chrono;
 
     /**
      * Controller allowing us to assign a functional grid to our interface.
@@ -153,7 +155,29 @@ public class GrilleController {
         });
     }
 
-    private void victory(Label victoire){ //Victoire ??
+    public void executerMouvement(String movement) {
+            int[] avant = grille.deplacerCase(movement);
+            switch (movement) {
+                case "haut":
+                    Node node = recupererVbox(avant, gridPane);
+                    GridPane.setRowIndex(node, GridPane.getRowIndex(node) - 1);
+                    break;
+                case "bas":
+                    node = recupererVbox(avant, gridPane);
+                    GridPane.setRowIndex(node, GridPane.getRowIndex(node) + 1);
+                    break;
+                case "gauche":
+                    node = recupererVbox(avant, gridPane);
+                    GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) - 1);
+                    break;
+                case "droite":
+                    node = recupererVbox(avant, gridPane);
+                    GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + 1);
+                    break;
+        }
+    }
+
+    public void victory(Label victoire){ //Victoire ??
         if (grille.verifierVictoire()){
             chrono.pauseTime();
             Player player = new Player(chrono, moveCount, size);

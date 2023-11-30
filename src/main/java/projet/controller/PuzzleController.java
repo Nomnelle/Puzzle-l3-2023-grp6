@@ -2,6 +2,7 @@ package projet.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import projet.logicUI.ShiftUIDesign;
 import projet.PuzzleApplication;
 import projet.modele.game.Chrono;
 import projet.modele.game.Grille;
+import projet.modele.ia.ParcoursAEtoile;
 
 public class PuzzleController implements Initializable {
     /*
@@ -73,9 +75,11 @@ public class PuzzleController implements Initializable {
     @FXML
     private ListView<String> arrayPlayers;
     private ShiftUIDesign shift; //Manage movements and animation of the software
-    private GrilleController grilleController; //Manage and create the grid
+    private volatile GrilleController grilleController; //Manage and create the grid
     private Chrono chrono;
     private Player player;
+    private boolean iaEnCours;
+    private ParcoursAEtoile ia;
     private int increment = 0;
     public static int image = 1;
 
@@ -143,21 +147,21 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void buttonCase4(){
-        increment++;
+        iaEnCours = false;
         grilleController = new GrilleController(4, new Grille(2), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
     }
     @FXML
     protected void buttonCase9(){
-        increment++;
+        iaEnCours = false;
         grilleController = new GrilleController(9, new Grille(3), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
     }
     @FXML
     protected void buttonCase16(){
-        increment++;
+        iaEnCours = false;
         grilleController = new GrilleController(16, new Grille(4), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
@@ -189,6 +193,20 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonStopAI(){
+        this.iaEnCours = !this.iaEnCours;
+        translationAnimationPlay();
+
+        if(this.iaEnCours){
+            grilleController.isPaused(true);
+            ia = new ParcoursAEtoile();
+            Platform.runLater(() -> {
+                ia.resoudreGUI(grilleController.getGrille(), grilleController);
+            });
+        }else{
+            ia.stopperResolution();
+            grilleController.isPaused(false);
+            chrono.goTime();
+        }
 
     }
     /*

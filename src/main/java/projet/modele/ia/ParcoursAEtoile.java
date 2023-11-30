@@ -1,5 +1,6 @@
 package projet.modele.ia;
 
+import projet.controller.GrilleController;
 import projet.modele.game.Grille;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.PriorityQueue;
 public class ParcoursAEtoile extends ParcoursGraph implements IA {
 
     PriorityQueue<Etat> listeOuverte = new PriorityQueue<>();
+
+    public ParcoursAEtoile(){}
 
     public ParcoursAEtoile(Grille g) throws CloneNotSupportedException {
         this.init(g);
@@ -30,17 +33,50 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
 
             appliquerAction(courant);
 
-            if(courant.equals(etatBut)){
+            if (courant.equals(etatBut)) {
                 trouve = true;
             }
         }
 
-        if(trouve){
+        if (trouve) {
             result = new ArrayList<>(courant.getMouvements());
 
         }
 
         mouvements = new LinkedList<>(result);
+    }
+
+    public void resoudreGUI(Grille g, GrilleController gControl){
+        threadResolution = new Thread(() -> {
+            init(g);
+            try {
+                execute(g);
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            } catch(OutOfMemoryError oom){
+
+            }
+            System.out.println("proooout");
+
+            while(!mouvements.isEmpty()){
+                if(threadResolution.isInterrupted()){
+                    break;
+                }
+                gControl.executerMouvement(next());
+                System.out.println(getLongueurMouvements());
+                System.out.println(g);
+
+            }
+
+        });
+        threadResolution.start();
+    }
+
+    public void stopperResolution() {
+        if (threadResolution != null && threadResolution.isAlive()) {
+            threadResolution.interrupt();
+            System.out.println("hey");
+        }
     }
 
     protected void appliquerAction(Etat etatTest) throws CloneNotSupportedException {
