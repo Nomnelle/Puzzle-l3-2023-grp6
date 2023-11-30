@@ -168,6 +168,11 @@ public class GrilleController {
         });
     }
 
+    /**
+     * Executes a movement on the puzzle grid based on the given input.
+     *
+     * @param movement The direction of the movement: "haut" (up), "bas" (down), "gauche" (left), or "droite" (right).
+     */
     public void executerMouvement(String movement) {
             int[] avant = grille.deplacerCase(movement);
             switch (movement) {
