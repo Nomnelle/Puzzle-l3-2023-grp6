@@ -206,7 +206,7 @@ public class PuzzleController implements Initializable {
     }
 
     /**
-     * Button that stopAI
+     * Button that manage the IA
      */
     @FXML
     protected void setButtonAI(){
@@ -225,16 +225,6 @@ public class PuzzleController implements Initializable {
                 stopperIA();
                 buttonAI.setText("START AI");
             }
-        }
-    }
-
-    private void stopperIA(){
-        if (grilleController != null){
-            ia.stopperResolution();
-            grilleController.isPaused(false);
-            chrono.goTime();
-            buttonUndo.setDisable(false);
-            buttonSave.setDisable(false);
         }
     }
 
@@ -420,5 +410,16 @@ public class PuzzleController implements Initializable {
         buttonCase4.setVisible(false);
         buttonCase9.setVisible(false);
         buttonCase16.setVisible(false);
+    }
+
+    /**
+     * that stop the AI
+     */
+    private void stopperIA(){
+        if (grilleController != null){
+            ia.stopperResolution();
+            grilleController.isPaused(false);
+            chrono.goTime();
+        }
     }
 }
