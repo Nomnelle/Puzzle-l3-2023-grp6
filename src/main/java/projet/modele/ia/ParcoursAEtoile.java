@@ -85,6 +85,8 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
                 if(threadResolution.isInterrupted()){
                     break;
                 }
+
+
                 gControl.executerMouvement(next());
                 try{
                     Thread.sleep(1000);

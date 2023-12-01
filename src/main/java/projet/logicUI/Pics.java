@@ -45,6 +45,6 @@ public class Pics {
      * Initialize the picture thanks to the previous choice of the user
      */
     private void initializeDefaultPicture() {
-        imageDefault = new Image("/doc-files/"+ PuzzleController.image +".jpg");
+        imageDefault = new Image("/doc-files/"+ PuzzleController.picture +".jpg");
     }
 }

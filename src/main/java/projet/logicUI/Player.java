@@ -11,7 +11,6 @@ public class Player extends Thread {
     private int size;
     private String username;
     private double score;
-    private final BDD bdd = new BDD();
     public ArrayList<String> arrayList;
 
     /**
@@ -41,11 +40,13 @@ public class Player extends Thread {
         setScore();
         bddADD();
     }
+
     /**
      * Get the score of the player
      */
     @Override
     public void run(){
+        final BDD bdd = new BDD();
         String query = "SELECT Joueur.nom_Joueur, Partie.taille_Puzzle, Partie.score " +
                             "FROM Partie " +
                             "JOIN Joueur ON Partie.idPartie = Joueur.idPartie "+
@@ -74,6 +75,7 @@ public class Player extends Thread {
         }
         return stringBuilder.toString();
     }
+
     /**
      * Set the username
      * Remove excess or add the excess, it depends on the number of characters in the username
@@ -113,6 +115,7 @@ public class Player extends Thread {
      * Adding the score to the database avoids calculating the score of 20 people each time you open the game, All we have to do is get it back
      */
     private void bddADD(){
+        final BDD bdd = new BDD();
         bdd.ajouterDonnees(username, movements, chrono.toString(), size, score);
     }
 }

@@ -19,7 +19,7 @@ import projet.modele.game.Grille;
 import projet.modele.ia.ParcoursAEtoile;
 
 public class PuzzleController implements Initializable {
-    /*
+    /**
     ====================
     Nodes
     ====================
@@ -79,8 +79,8 @@ public class PuzzleController implements Initializable {
     private Chrono chrono;
     private Player player;
     private boolean iaEnCours;
-    private ParcoursAEtoile ia;
-    public static int image = 1; //default image : the first
+    private ParcoursAEtoile ia = new ParcoursAEtoile();
+    public static int picture = 1; //default image : the first
 
     /**
      * Button that closes the software
@@ -168,7 +168,7 @@ public class PuzzleController implements Initializable {
     protected void setButtonSave(){
         if (grilleController.getGrille() != null) {
             Serial serial = new Serial(grilleController.getGrille());
-            serial.saveGrille();
+            serial.saveGrid();
             buttonLoad.setDisable(false);
         }
     }
@@ -189,7 +189,11 @@ public class PuzzleController implements Initializable {
         shift.nodeShift(anchorPaneMenu, anchorPaneMenu, 600, 800, "bas");
         anchorPaneMid.setDisable(true);
 
-        buttonPlay.setText("RESUME");
+        if (grilleController.gameExist()){
+            buttonPlay.setText("RESUME");
+        } else {
+            buttonPlay.setText("PLAY");
+        }
 
         if (!grilleController.gameExist()){
             buttonImage.setDisable(false);
@@ -278,15 +282,15 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonStyle(){
-        PuzzleApplication.styleChanger();
+        PuzzleApplication.styleSwitch();
     }
     /*
      * Button that allows you to change the image
      */
     @FXML
     protected void setButtonImage(){
-        if (image<2) image += 1; else image = 1; //Never go above the range and set int
-        buttonImage.setText("Image " + image); //Set the button text
+        if (picture <2) picture += 1; else picture = 1; //Never go above the range and set int
+        buttonImage.setText("Picture " + picture); //Set the button text
     }
 
     /**

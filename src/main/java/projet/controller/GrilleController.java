@@ -38,11 +38,14 @@ public class GrilleController {
         }
     }
     private final LinkedList<UndoObjet> undoObjets = new LinkedList<>();
-    private final int size; private final int rowAndColumn;
-    private boolean paused = false; private boolean gameExist = false; private boolean isMoving = false;
+    private final int size;
+    private final int rowAndColumn;
+    private boolean paused = false;
+    private boolean gameExist = false;
+    private boolean isMoving = false;
     private int moveCount = 0;
     private VBox[][] vBoxes;
-    private volatile Grille grille;
+    private Grille grille;
     private GridPane gridPane;
     private Chrono chrono;
 
@@ -116,7 +119,7 @@ public class GrilleController {
      */
     protected void initializeGrid(){
         divideGridPane();
-        createGrille();
+        createGrid();
         setVboxArray();
         associateGrilleVBox();
     }
@@ -302,7 +305,7 @@ public class GrilleController {
     /**
      * Create a theoretical grid
      */
-    private void createGrille(){
+    private void createGrid(){
         //Retry the grid creation if she is not soluble
         boolean correct = false;
             while(!correct){

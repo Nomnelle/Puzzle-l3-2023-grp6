@@ -14,15 +14,15 @@ public class PuzzleApplication extends Application {
     private static int STYLE = 1;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PuzzleApplication.class.getResource("puzzle-view.fxml")); //Vue
+        FXMLLoader fxmlLoader = new FXMLLoader(PuzzleApplication.class.getResource("puzzle-view.fxml"));
         SCENE = new Scene(fxmlLoader.load(), 380, 520); //Scene
 
-        //Parametres généraux du stage
+        //General parameter
         stage.setTitle("Puzzle");
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
 
-        styleChanger();
+        styleSwitch();
         stage.setScene(SCENE);
 
         stage.show();
@@ -30,10 +30,12 @@ public class PuzzleApplication extends Application {
     public static Scene getScene(){
         return SCENE;
     }
-    /*
-    Au lancement, le style est la feuille n°1, si la méthode est appelé ultérieurement, le style change.
-    */
-    public static void styleChanger(){
+
+    /**
+     This function allows you to change the style of the graphical interface
+     */
+    public static void styleSwitch(){
+        //At launch, the style is sheet #1, if the method is called later, the style changes.
         SCENE.getStylesheets().clear();
         try {
             SCENE.getStylesheets().add(Objects.requireNonNull(PuzzleApplication.class.getResource("/css/style" + STYLE + ".css")).toExternalForm());
