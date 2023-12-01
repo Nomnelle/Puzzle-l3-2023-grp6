@@ -7,6 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Serialisation
+ */
 public class Serial {
     private static final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
     private static final String GRIDSAVE = "gridsave.ser";

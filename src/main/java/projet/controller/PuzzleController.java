@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import projet.logicUI.LoadStats;
 import projet.logicUI.Player;
 import projet.logicUI.Serial;
 import projet.logicUI.ShiftUIDesign;
@@ -77,7 +78,7 @@ public class PuzzleController implements Initializable {
     private ShiftUIDesign shift; //Manage movements and animation of the software
     private volatile GrilleController grilleController; //Manage and create the grid
     private Chrono chrono;
-    private Player player;
+    private LoadStats loadStats = new LoadStats();
     private boolean iaEnCours;
     private ParcoursAEtoile ia = new ParcoursAEtoile();
     public static int picture = 1; //default image : the first
@@ -198,8 +199,6 @@ public class PuzzleController implements Initializable {
         if (!grilleController.gameExist()){
             buttonImage.setDisable(false);
         }
-
-        player = new Player();
     }
 
     /**
@@ -243,7 +242,7 @@ public class PuzzleController implements Initializable {
         shift.disabledNodeDuration(anchorPaneStats, 800);
         //Load Array
         try {
-            ObservableList<String> players = FXCollections.observableArrayList("Position           ID          Size    Score\n" + player.toString());
+            ObservableList<String> players = FXCollections.observableArrayList("Position           ID          Size    Score\n" + loadStats.toString());
             arrayPlayers.setItems(players);
         } catch (Exception ignored){}
     }
@@ -340,7 +339,7 @@ public class PuzzleController implements Initializable {
             buttonLoad.setDisable(true); //If not, disable the loading option
         }
 
-        player = new Player();
+        loadStats.start();
     }
 
     /**
@@ -361,6 +360,7 @@ public class PuzzleController implements Initializable {
         buttonUndo.setDisable(false);
 
         buttonImage.setDisable(true);
+        labelScore.setText("0");
     }
 
     /**

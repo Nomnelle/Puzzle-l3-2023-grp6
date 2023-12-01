@@ -95,6 +95,7 @@ public class Main {
 
         // Save game data to the database
         Player player = new Player(t, g.getNombreCoups(), g.getLongueur()*g.getLongueur());
-        player.victory();
+        player.setScore();
+        player.start();
     }
 }

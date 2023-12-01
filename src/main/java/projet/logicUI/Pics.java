@@ -5,6 +5,9 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import projet.controller.PuzzleController;
 
+/**
+ * Take and cut photos
+ */
 public class Pics {
     Image imageDefault;
     final int ORIGINALSIZE = 340; //size of picture

@@ -4,6 +4,9 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Manages the cases movement logic and their smoothness
+ */
 public class ShiftCases extends java.lang.Thread {
     final Node node;
     final int direction;

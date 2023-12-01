@@ -3,15 +3,15 @@ package projet.logicUI;
 import projet.modele.game.BDD;
 import projet.modele.game.Chrono;
 
-import java.util.ArrayList;
-
+/**
+ * Manage players victory, score, and send them to the database
+ */
 public class Player extends Thread {
-    private Chrono chrono;
-    private int movements;
-    private int size;
-    private String username;
+    private final Chrono chrono;
+    private final int movements;
+    private final int size;
+    private final String username;
     private double score;
-    public ArrayList<String> arrayList;
 
     /**
      * Create and set a new player with his game stats
@@ -25,57 +25,15 @@ public class Player extends Thread {
         this.size = size;
         this.username = String.valueOf(setUsername());
     }
-
     /**
-     * Allows you to load the database and the game simultaneously
-     */
-    public Player(){
-        this.start();
-    }
-
-    /**
-     * Victory method
-     */
-    public void victory(){
-        setScore();
-        bddADD();
-    }
-
-    /**
-     * Get the score of the player
+     * Add the score in database
+     * Adding the score to the database avoids calculating the score of 20 people each time you open the game, All we have to do is get it back
      */
     @Override
     public void run(){
         final BDD bdd = new BDD();
-        String query = "SELECT Joueur.nom_Joueur, Partie.taille_Puzzle, Partie.score " +
-                            "FROM Partie " +
-                            "JOIN Joueur ON Partie.idPartie = Joueur.idPartie "+
-                            "WHERE Partie.score IS NOT NULL "+
-                            "ORDER BY Partie.score DESC "+
-                            "LIMIT 20";
-        arrayList = bdd.requeterBDD(query);
+        bdd.ajouterDonnees(username, movements, chrono.toString(), size, score);
     }
-
-    /**
-     * @return A list of the best players
-     */
-    @Override
-    public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
-
-        char oldCharacter = ':';
-        char newCharacter = '\t';
-
-        int i = 0;
-
-        for (String user : arrayList){
-            i++;
-            String updatedString = user.replace(oldCharacter, newCharacter);
-            stringBuilder.append("      ").append(i).append("         ").append(newCharacter).append(updatedString).append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
     /**
      * Set the username
      * Remove excess or add the excess, it depends on the number of characters in the username
@@ -97,7 +55,7 @@ public class Player extends Thread {
     /**
      * Set the score according to time and number of moves
      */
-    private void setScore(){
+    public void setScore(){
         int h = chrono.getHeure();
         int m = chrono.getMinute();
         int s = chrono.getSeconde();
@@ -109,13 +67,5 @@ public class Player extends Thread {
         if (size==4) score = score/10;
         if (size==9) score = score*10;
         if (size==16) score = score*100;
-    }
-    /**
-     * Add the score in database
-     * Adding the score to the database avoids calculating the score of 20 people each time you open the game, All we have to do is get it back
-     */
-    private void bddADD(){
-        final BDD bdd = new BDD();
-        bdd.ajouterDonnees(username, movements, chrono.toString(), size, score);
     }
 }

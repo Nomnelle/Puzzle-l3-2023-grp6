@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import projet.logicUI.LoadStats;
 import projet.logicUI.Pics;
 import projet.logicUI.Player;
 import projet.logicUI.ShiftCases;
@@ -16,6 +17,9 @@ import projet.modele.game.Grille;
 
 import java.util.LinkedList;
 
+/**
+ * Control the GridPane and associated events
+ */
 public class GrilleController {
 
     /**
@@ -217,7 +221,8 @@ public class GrilleController {
         if (grille.verifierVictoire()){
             chrono.pauseTime();
             Player player = new Player(chrono, moveCount, size);
-            player.victory();
+            player.setScore();
+            player.start();
             victoire.setVisible(true);
             paused = true;
             gameExist = false;
