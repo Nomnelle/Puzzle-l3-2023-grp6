@@ -116,7 +116,7 @@ public class GrilleController {
      */
     protected void initializeGrid(){
         divideGridPane();
-        createGrille();
+        createGrid();
         setVboxArray();
         associateGrilleVBox();
     }
@@ -302,7 +302,7 @@ public class GrilleController {
     /**
      * Create a theoretical grid
      */
-    private void createGrille(){
+    private void createGrid(){
         //Retry the grid creation if she is not soluble
         boolean correct = false;
             while(!correct){
