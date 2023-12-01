@@ -57,7 +57,7 @@ public class PuzzleController implements Initializable {
     @FXML
     private Button buttonLoad;
     @FXML
-    private Button buttonStopAI;
+    private Button buttonAI;
     @FXML
     private Button buttonStats;
     @FXML
@@ -95,9 +95,10 @@ public class PuzzleController implements Initializable {
     protected void setButtonPlay(){
         if (grilleController !=null && grilleController.gameExist()){ //Check the existence of a part
             //Return to the game
-            translationAnimationPlay();
-            grilleController.isPaused(false);
-            chrono.goTime();
+            goInGame();
+            if (iaEnCours){
+                Platform.runLater(() -> ia.resoudreGUI(grilleController.getGrille(), grilleController));
+            }
         } else {
             setChoiceShow(); //Request a grid size
         }
@@ -118,10 +119,10 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void buttonCase4(){
-
         grilleController = new GrilleController(4, new Grille(2), gridPane, chrono);
         grilleController.initializeGrid();
-        goInUI();
+        resetAll();
+        goInGame();
     }
 
     /**
@@ -131,7 +132,8 @@ public class PuzzleController implements Initializable {
     protected void buttonCase9(){
         grilleController = new GrilleController(9, new Grille(3), gridPane, chrono);
         grilleController.initializeGrid();
-        goInUI();
+        resetAll();
+        goInGame();
     }
 
     /**
@@ -141,7 +143,8 @@ public class PuzzleController implements Initializable {
     protected void buttonCase16(){
         grilleController = new GrilleController(16, new Grille(4), gridPane, chrono);
         grilleController.initializeGrid();
-        goInUI();
+        resetAll();
+        goInGame();
     }
 
     /**
@@ -156,8 +159,8 @@ public class PuzzleController implements Initializable {
         if (grille != null) { //can be null (it already happened, because of old version of .ser file)
             grilleController = new GrilleController(grille.getLongueur()*grille.getLongueur(), grille, gridPane, chrono);
             grilleController.initializeGridLoaded();
-
-            goInUI();
+            resetAll();
+            goInGame();
         }
     }
 
@@ -178,6 +181,8 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonMenu(){
+        stopperIA();
+
         chrono.pauseTime();
 
         setChoiceHide();
@@ -204,22 +209,23 @@ public class PuzzleController implements Initializable {
      * Button that stopAI
      */
     @FXML
-    protected void setButtonStopAI(){
-        this.iaEnCours = !this.iaEnCours;
-        translationAnimationPlay();
+    protected void setButtonAI(){
+        if (grilleController !=null && grilleController.gameExist()) {
+            this.iaEnCours = !this.iaEnCours;
+            translationAnimationPlay();
 
-        if(this.iaEnCours){
-            grilleController.isPaused(true);
-            ia = new ParcoursAEtoile();
-            Platform.runLater(() -> {
-                ia.resoudreGUI(grilleController.getGrille(), grilleController);
-            });
-            buttonUndo.setDisable(true);
-            buttonSave.setDisable(true);
-        }else{
-            stopperIA();
+            if (this.iaEnCours) {
+                buttonAI.setText("STOP AI");
+                grilleController.isPaused(true); //The users can't move
+                ia = new ParcoursAEtoile();
+                Platform.runLater(() -> ia.resoudreGUI(grilleController.getGrille(), grilleController));
+                buttonUndo.setDisable(true);
+                chrono.goTime();
+            } else {
+                stopperIA();
+                buttonAI.setText("START AI");
+            }
         }
-
     }
 
     private void stopperIA(){
@@ -309,7 +315,7 @@ public class PuzzleController implements Initializable {
         buttonCase16.getStyleClass().add("buttonPlay");
         buttonLoad.getStyleClass().add("buttonLoadSave");
         buttonSave.getStyleClass().add("buttonLoadSave");
-        buttonStopAI.getStyleClass().add("buttonStopAI");
+        buttonAI.getStyleClass().add("buttonAI");
         buttonStats.getStyleClass().add("buttonStats");
         buttonBack.getStyleClass().add("buttonBack");
         buttonStyle.getStyleClass().add("buttonStyle");
@@ -345,24 +351,35 @@ public class PuzzleController implements Initializable {
     }
 
     /**
-     * Reset the state of the game
+     * Go in game
      */
-    private void goInUI(){
-        labelVictoire.setVisible(false);
-
+    private void goInGame(){
         translationAnimationPlay();
-        initializeKeyListener();
 
         grilleController.isPaused(false);
 
-        chrono.reset();
         chrono.goTime();
 
-        buttonUndo.setText("UNDO (4)");
         buttonUndo.setDisable(false);
-
         buttonImage.setDisable(true);
+    }
+
+    /**
+     * Reset the state of the game
+     */
+    private void resetAll(){
+        initializeKeyListener();
+        labelVictoire.setVisible(false);
+
+        chrono.reset();
+
+        buttonAI.setText("START AI");
+        buttonUndo.setText("UNDO (4)");
         labelScore.setText("0");
+
+        if (this.iaEnCours){
+            iaEnCours = false;
+        }
     }
 
     /**
