@@ -10,20 +10,20 @@ import java.nio.file.Paths;
 public class Serial {
     private static final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
     private static final String GRIDSAVE = "gridsave.ser";
-    Grille grille;
+    Grille grid;
 
     /**
      * Saving controller
      * @param grille the grid
      */
     public Serial(Grille grille){
-        this.grille = grille;
+        this.grid = grille;
     }
 
     /**
      * Loading controller
      */
-    public Serial(){this.grille = null;}
+    public Serial(){this.grid = null;}
 
     /**
      * @return true if the save exist
@@ -36,7 +36,7 @@ public class Serial {
     /**
      * This method allow to save the current grid on a .ser file
      */
-    public void saveGrille(){
+    public void saveGrid(){
         //Save Path
         Path path = Paths.get(PATH);
         if (!Files.exists(path)){
@@ -48,7 +48,7 @@ public class Serial {
         ObjectOutputStream oos;
         try (FileOutputStream gridStream = new FileOutputStream(PATH+GRIDSAVE)){ //don't need manual flush and close
             oos = new ObjectOutputStream(gridStream);
-            oos.writeObject(grille);
+            oos.writeObject(grid);
 
         } catch (IOException e) {
             System.err.println("Unable to save grid");

@@ -17,7 +17,7 @@
             <Font name="Candara" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="buttonImage" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="2.0" maxWidth="90.0" mnemonicParsing="false" onAction="#setButtonImage" text="Image 1" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="0.0">
+      <Button fx:id="buttonImage" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="2.0" maxWidth="90.0" mnemonicParsing="false" onAction="#setButtonImage" text="Picture 1" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Candara" size="14.0" />
          </font>
@@ -48,7 +48,7 @@
         </Button>
     </AnchorPane>
     <GridPane fx:id="gridPane" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0" />
-   <Label fx:id="labelVictoire" alignment="CENTER" contentDisplay="CENTER" text="Victoire" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
+   <Label fx:id="labelVictoire" alignment="CENTER" contentDisplay="CENTER" text="VICTORY" textAlignment="CENTER" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
       <font>
          <Font name="Candara" size="56.0" />
       </font>
@@ -56,10 +56,10 @@
     <AnchorPane fx:id="anchorPaneMenu" layoutX="61.0" layoutY="-4.0" prefHeight="202.0" prefWidth="244.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="158.0">
         <Button fx:id="buttonPlay" maxWidth="140.0" mnemonicParsing="false" onAction="#setButtonPlay" prefWidth="140.0" text="PLAY" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
         <Button fx:id="buttonRestart" maxWidth="140.0" mnemonicParsing="false" onAction="#setButtonRestart" prefWidth="140.0" text="RESTART" AnchorPane.bottomAnchor="260.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-        <Button fx:id="buttonSave" layoutX="188.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonSave" prefHeight="60.0" prefWidth="140.0" text="SAUVEGARDER" AnchorPane.bottomAnchor="180.0" AnchorPane.rightAnchor="20.0" />
-        <Button fx:id="buttonLoad" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonLoad" prefHeight="60.0" prefWidth="140.0" text="CHARGER" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="20.0" />
+        <Button fx:id="buttonSave" layoutX="188.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonSave" prefHeight="60.0" prefWidth="140.0" text="SAVE" AnchorPane.bottomAnchor="180.0" AnchorPane.rightAnchor="20.0" />
+        <Button fx:id="buttonLoad" layoutX="20.0" layoutY="108.0" mnemonicParsing="false" onAction="#setButtonLoad" prefHeight="60.0" prefWidth="140.0" text="LOAD" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="20.0" />
         <Button fx:id="buttonStopAI" layoutX="143.0" layoutY="180.0" mnemonicParsing="false" onAction="#setButtonStopAI" prefHeight="60.0" prefWidth="300.0" text="IA STOP" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-        <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="60.0" prefWidth="76.0" text="STAT" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+        <Button fx:id="buttonStats" layoutX="132.0" layoutY="241.0" mnemonicParsing="false" onAction="#setButtonStatsShow" prefHeight="60.0" prefWidth="76.0" text="STATS" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
         <Button fx:id="buttonCase4" layoutX="20.0" layoutY="20.0" maxHeight="60.0" maxWidth="100.0" mnemonicParsing="false" onAction="#buttonCase4" prefHeight="60.0" prefWidth="100.0" text="4 CASES" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="buttonCase9" layoutX="120.0" layoutY="20.0" maxHeight="60.0" maxWidth="100.0" mnemonicParsing="false" onAction="#buttonCase9" prefHeight="60.0" prefWidth="100.0" text="9 CASES" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="20.0" />
       <Button fx:id="buttonCase16" layoutX="220.0" layoutY="20.0" maxHeight="60.0" maxWidth="100.0" mnemonicParsing="false" onAction="#buttonCase16" prefHeight="60.0" prefWidth="100.0" text="16 CASES" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
@@ -69,6 +69,6 @@
          <cursor>
             <Cursor fx:constant="CROSSHAIR" />
          </cursor></ListView>
-        <Button fx:id="buttonBack" layoutX="144.0" layoutY="150.0" mnemonicParsing="false" onAction="#setButtonBack" prefHeight="35.0" prefWidth="300.0" text="Retour" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+        <Button fx:id="buttonBack" layoutX="144.0" layoutY="150.0" mnemonicParsing="false" onAction="#setButtonBack" prefHeight="35.0" prefWidth="300.0" text="BACK" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
     </AnchorPane>
 </AnchorPane>

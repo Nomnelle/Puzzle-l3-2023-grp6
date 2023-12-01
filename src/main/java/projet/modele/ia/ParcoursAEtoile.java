@@ -4,7 +4,6 @@ import projet.controller.GrilleController;
 import projet.modele.game.Grille;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -62,7 +61,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
                 if(threadResolution.isInterrupted()){
                     break;
                 }
-                gControl.executerMouvement(next());
+                gControl.executeMovement(next());
                 System.out.println(getLongueurMouvements());
                 System.out.println(g);
 
