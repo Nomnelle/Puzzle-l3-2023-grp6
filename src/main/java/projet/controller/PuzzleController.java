@@ -199,7 +199,7 @@ public class PuzzleController implements Initializable {
             buttonImage.setDisable(false);
         }
 
-        player.run();
+        player = new Player();
     }
 
     /**
