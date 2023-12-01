@@ -25,6 +25,7 @@ public class Player extends Thread {
         this.size = size;
         this.username = String.valueOf(setUsername());
     }
+
     /**
      * Add the score in database
      * Adding the score to the database avoids calculating the score of 20 people each time you open the game, All we have to do is get it back
@@ -34,6 +35,24 @@ public class Player extends Thread {
         final BDD bdd = new BDD();
         bdd.ajouterDonnees(username, movements, chrono.toString(), size, score);
     }
+
+    /**
+     * Set the score according to time and number of moves
+     */
+    public void setScore(){
+        int h = chrono.getHeure();
+        int m = chrono.getMinute();
+        int s = chrono.getSeconde();
+
+        double time = h*3600 + m*60 + s;
+
+        if (movements==0){score = 0;} //Security
+        else score = (double) (500 /(movements)) + (500/(time+1));
+        if (size==4) score = score/10;
+        if (size==9) score = score*10;
+        if (size==16) score = score*100;
+    }
+
     /**
      * Set the username
      * Remove excess or add the excess, it depends on the number of characters in the username
@@ -51,21 +70,5 @@ public class Player extends Thread {
         } else {
             return username;
         }
-    }
-    /**
-     * Set the score according to time and number of moves
-     */
-    public void setScore(){
-        int h = chrono.getHeure();
-        int m = chrono.getMinute();
-        int s = chrono.getSeconde();
-
-        double time = h*3600 + m*60 + s;
-
-        if (movements==0){score = 0;} //Security
-        else score = (double) (500 /(movements)) + (500/(time+1));
-        if (size==4) score = score/10;
-        if (size==9) score = score*10;
-        if (size==16) score = score*100;
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Allows you to load the database and the game simultaneously
  */
 public class LoadStats extends Thread{
-    public ArrayList<String> arrayList;
+    private ArrayList<String> arrayList;
 
     /**
      * Get the score of the player

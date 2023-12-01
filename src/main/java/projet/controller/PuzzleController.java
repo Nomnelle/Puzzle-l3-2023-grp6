@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import projet.logicUI.LoadStats;
-import projet.logicUI.Player;
 import projet.logicUI.Serial;
 import projet.logicUI.ShiftUIDesign;
 import projet.PuzzleApplication;
@@ -224,11 +223,13 @@ public class PuzzleController implements Initializable {
     }
 
     private void stopperIA(){
-        ia.stopperResolution();
-        grilleController.isPaused(false);
-        chrono.goTime();
-        buttonUndo.setDisable(false);
-        buttonSave.setDisable(false);
+        if (grilleController != null){
+            ia.stopperResolution();
+            grilleController.isPaused(false);
+            chrono.goTime();
+            buttonUndo.setDisable(false);
+            buttonSave.setDisable(false);
+        }
     }
 
     /**
@@ -339,6 +340,7 @@ public class PuzzleController implements Initializable {
             buttonLoad.setDisable(true); //If not, disable the loading option
         }
 
+        loadStats.setDaemon(true);
         loadStats.start();
     }
 

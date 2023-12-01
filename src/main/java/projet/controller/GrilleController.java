@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import projet.logicUI.LoadStats;
 import projet.logicUI.Pics;
 import projet.logicUI.Player;
 import projet.logicUI.ShiftCases;
