@@ -202,7 +202,7 @@ public class GrilleController {
     private void goBack(){
         UndoObjet undo = undoObjets.removeLast(); //Remove the last movement saved
         shift(undo.node, undo.direction, undo.xy);
-        grille.undoLastMovement();
+        grille.annulerMouvement();
     }
 
     /**

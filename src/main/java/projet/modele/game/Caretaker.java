@@ -22,7 +22,7 @@ public class Caretaker implements Serializable {
      *
      * @return True if the list is empty, false otherwise.
      */
-    public boolean isEmpty(){
+    public boolean etreVide(){
         return sauvegardeEtats.isEmpty();
     }
 
@@ -31,7 +31,7 @@ public class Caretaker implements Serializable {
      *
      * @param memento The Memento to be saved.
      */
-    public void saveGrille(Object memento){
+    public void sauvegarderGrille(Object memento){
         sauvegardeEtats.push(memento);
     }
 
@@ -40,18 +40,7 @@ public class Caretaker implements Serializable {
      *
      * @return The latest saved Memento.
      */
-    public Object retrieveMemento(){
+    public Object renvoyerMemento(){
         return sauvegardeEtats.pop();
     }
-
-    /**
-     * Retrieves a Memento at a specific index without removing it from the list.
-     *
-     * @param index The index of the desired Memento.
-     * @return The Memento at the specified index.
-     */
-    public Object retrieveMemento(int index){
-        return sauvegardeEtats.get(index);
-    }
-
 }

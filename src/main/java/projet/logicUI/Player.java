@@ -52,7 +52,7 @@ public class Player extends Thread {
                             "WHERE Partie.score IS NOT NULL "+
                             "ORDER BY Partie.score DESC "+
                             "LIMIT 20";
-        arrayList = bdd.getTuples(query);
+        arrayList = bdd.requeterBDD(query);
     }
 
     /**
@@ -113,6 +113,6 @@ public class Player extends Thread {
      * Adding the score to the database avoids calculating the score of 20 people each time you open the game, All we have to do is get it back
      */
     private void bddADD(){
-        bdd.addData(username, movements, chrono.toString(), size, score);
+        bdd.ajouterDonnees(username, movements, chrono.toString(), size, score);
     }
 }

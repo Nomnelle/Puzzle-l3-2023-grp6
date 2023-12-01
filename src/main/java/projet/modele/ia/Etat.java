@@ -320,7 +320,7 @@ public class Etat implements Cloneable, Comparable<Etat> {
     public String toString() {
         String s = "";
         for (int i = 0; i < this.longueur; i++) {
-            s = s + Arrays.toString(this.etatGrille[i]) + "\n";
+            s += Arrays.toString(this.etatGrille[i]) + "\n";
         }
         return s;
     }

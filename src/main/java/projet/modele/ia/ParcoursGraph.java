@@ -2,7 +2,6 @@ package projet.modele.ia;
 
 import projet.modele.game.Grille;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -23,14 +22,14 @@ public abstract class ParcoursGraph implements IA {
      * @param g The initial state of the puzzle grid.
      * @throws CloneNotSupportedException If cloning the initial state is not supported.
      */
-    protected abstract void execute(Grille g) throws CloneNotSupportedException;
+    protected abstract void executer(Grille g) throws CloneNotSupportedException;
 
     /**
      * Initializes the ParcoursGraph with the target state of the puzzle.
      *
      * @param g The initial state of the puzzle grid.
      */
-    protected void init(Grille g){
+    protected void initialiser(Grille g){
         visited = new HashSet<>();
         this.graph = new LinkedList<>();
         this.etatBut = new int[g.getLongueur()][g.getLongueur()];

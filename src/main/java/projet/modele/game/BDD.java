@@ -38,10 +38,10 @@ public class BDD {
     /**
      * Opens a new database connection. If a connection already exists, it is closed first.
      */
-    private void openConnexion() {
+    private void ouvrirConnexion() {
 
         if (this.con != null) {
-            this.closeConnexion();
+            this.fermerConnexion();
         }
 
         try {
@@ -62,7 +62,7 @@ public class BDD {
     /**
      * Closes the current database connection if it exists.
      */
-    private void closeConnexion() {
+    private void fermerConnexion() {
         if (this.con != null) {
             try {
                 this.con.close();
@@ -79,10 +79,10 @@ public class BDD {
      * @param query The SQL query to retrieve tuples.
      * @return An ArrayList containing strings representing tuples.
      */
-    public ArrayList<String> getTuples(String query) {
+    public ArrayList<String> requeterBDD(String query) {
         ArrayList<String> res = null;
         try {
-            this.openConnexion();
+            this.ouvrirConnexion();
             Statement stmt = this.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData metadata = rs.getMetaData(); // permet de récupérer les noms des colonnes des tuples en sortie de la requête
@@ -102,7 +102,7 @@ public class BDD {
         } catch (SQLException e) {
             System.out.println("Probleme avec la requete");
         } finally {
-            this.closeConnexion();
+            this.fermerConnexion();
         }
         return res;
     }
@@ -117,14 +117,14 @@ public class BDD {
      * @return True if the data insertion is successful, false otherwise.
      */
 
-    public Boolean addData(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle, double score) {
+    public Boolean ajouterDonnees(String nom_Joueur, int nombre_Coups, String temps_Partie, int taille_Puzzle, double score) {
 
         boolean resultAddData = false;
 
         String updateQuery = "INSERT INTO Partie (nombre_Coups, temps_Partie, taille_Puzzle, score) VALUES('" + nombre_Coups + "', '" + temps_Partie + "', '" + taille_Puzzle + "', '" + score +"');";
         String updateQuery2 = "INSERT INTO Joueur (nom_Joueur, idPartie) VALUES('" + nom_Joueur + "', LAST_INSERT_ID());";
         try {
-            this.openConnexion();
+            this.ouvrirConnexion();
             Statement stmt = this.con.createStatement();
             int n = stmt.executeUpdate(updateQuery);
             System.out.println(n + " tuples inserés dans la table Partie.");
@@ -137,7 +137,7 @@ public class BDD {
             e.printStackTrace();
 
         } finally {
-            this.closeConnexion();
+            this.fermerConnexion();
         }
         return resultAddData;
     }

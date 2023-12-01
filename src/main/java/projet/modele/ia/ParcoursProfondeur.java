@@ -18,8 +18,8 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
      * @throws CloneNotSupportedException If cloning the initial state is not supported.
      */
     public ParcoursProfondeur(Grille g) throws CloneNotSupportedException {
-        this.init(g);
-        this.execute(g);
+        this.initialiser(g);
+        this.executer(g);
     }
 
     /**
@@ -29,7 +29,7 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
      * @throws CloneNotSupportedException If cloning the initial state is not supported.
      */
     @Override
-    protected void execute(Grille g) throws CloneNotSupportedException {
+    protected void executer(Grille g) throws CloneNotSupportedException {
         ArrayList<String> result = new ArrayList<>();
         graph.add(new Etat(g));
         boolean trouve = false;

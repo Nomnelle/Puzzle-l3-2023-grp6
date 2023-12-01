@@ -207,7 +207,7 @@ public class Grille implements Parametres, Serializable {
         switch (input) {
             case "haut":
                 if (longueur > vide.getX() + 1) {
-                    saveToMemento();
+                    sauvegarderMemento();
                     mouvante = retrouverCase(vide.getY(), vide.getX() + 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -216,7 +216,7 @@ public class Grille implements Parametres, Serializable {
                 break;
             case "bas":
                 if (0 <= vide.getX() - 1) {
-                    saveToMemento();
+                    sauvegarderMemento();
                     mouvante = retrouverCase(vide.getY(), vide.getX() - 1);
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -225,7 +225,7 @@ public class Grille implements Parametres, Serializable {
                 break;
             case "gauche":
                 if (longueur > vide.getY() + 1) {
-                    saveToMemento();
+                    sauvegarderMemento();
                     mouvante = retrouverCase((vide.getY() + 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -234,7 +234,7 @@ public class Grille implements Parametres, Serializable {
                 break;
             case "droite":
                 if (0 <= vide.getY() - 1) {
-                    saveToMemento();
+                    sauvegarderMemento();
                     mouvante = retrouverCase((vide.getY() - 1), vide.getX());
                     vide.echangerValeursCases(mouvante);
                     this.nombreCoups++;
@@ -242,7 +242,7 @@ public class Grille implements Parametres, Serializable {
                 }
                 break;
             case "undo":
-                    undoLastMovement();
+                    annulerMouvement();
                 break;
         }
         if(mouvement){
@@ -344,18 +344,18 @@ public class Grille implements Parametres, Serializable {
     /**
      * Saves the last grid state into the caretaker.
      */
-    public void saveToMemento(){
+    public void sauvegarderMemento(){
         if(this.compteurMemento>0){
-            this.pastGrid.saveGrille(new Memento(this.grille));
+            this.pastGrid.sauvegarderGrille(new Memento(this.grille));
         }
     }
 
     /**
      * Retrieves the last saved grid state from the caretaker to restore the grid to a previous state.
      */
-    public void undoLastMovement(){
-        if(!this.pastGrid.isEmpty()&&this.compteurMemento>0){
-            if(this.pastGrid.retrieveMemento() instanceof Memento memento){
+    public void annulerMouvement(){
+        if(!this.pastGrid.etreVide()&&this.compteurMemento>0){
+            if(this.pastGrid.renvoyerMemento() instanceof Memento memento){
                 this.grille = new HashSet<>(memento.getGrilleSauvegarde());
                 this.compteurMemento--;
             }

@@ -27,8 +27,8 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
      * @throws CloneNotSupportedException If cloning the initial state is not supported.
      */
     public ParcoursAEtoile(Grille g) throws CloneNotSupportedException {
-        this.init(g);
-        this.execute(g);
+        this.initialiser(g);
+        this.executer(g);
     }
 
     /**
@@ -38,7 +38,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
      * @throws CloneNotSupportedException If cloning the initial state is not supported.
      */
     @Override
-    protected void execute(Grille g) throws CloneNotSupportedException {
+    protected void executer(Grille g) throws CloneNotSupportedException {
         ArrayList<String> result = new ArrayList<>();
         Etat courant = new Etat(g);
         listeOuverte.add(courant);
@@ -72,9 +72,9 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
      */
     public void resoudreGUI(Grille g, GrilleController gControl){
         threadResolution = new Thread(() -> {
-            init(g);
+            initialiser(g);
             try {
-                execute(g);
+                executer(g);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             } catch(OutOfMemoryError oom){
@@ -86,8 +86,11 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
                     break;
                 }
                 gControl.executerMouvement(next());
-                System.out.println(getLongueurMouvements());
-                System.out.println(g);
+                try{
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
             }
 
@@ -118,7 +121,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
                 if(!visited.contains(e)) {
                     ajoute = listeOuverte.add(e);
                 } else {
-                    Etat eListeOuverte = rechercherHashSet(e);
+                    Etat eListeOuverte = rechercherListeOuverte(e);
                     if(eListeOuverte != null && ajoute){
                         if (e.getPriorite() < eListeOuverte.getPriorite()) {
                             eListeOuverte.setPriorite(e.getPriorite());
@@ -146,7 +149,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
      *
      * @param etat The state to add to the closed list.
      */
-    public void ajouterListFermee(Etat etat) {
+    private void ajouterListFermee(Etat etat) {
         if(listeOuverte.contains(etat)) {
             boolean ajoute = visited.add(etat);
             if(ajoute){
@@ -161,8 +164,7 @@ public class ParcoursAEtoile extends ParcoursGraph implements IA {
      * @param etat The state to search for in the open list.
      * @return The found state or null if not found.
      */
-    //Cette fonction recherche un noeud dans HashSet
-    private Etat rechercherHashSet(Etat etat) {
+    private Etat rechercherListeOuverte(Etat etat) {
         for(Etat e : listeOuverte) {
             if (e.equals(etat)) {
                 return e;

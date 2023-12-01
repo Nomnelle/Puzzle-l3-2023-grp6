@@ -80,16 +80,7 @@ public class PuzzleController implements Initializable {
     private Player player;
     private boolean iaEnCours;
     private ParcoursAEtoile ia;
-    private int increment = 0;
     public static int image = 1; //default image : the first
-
-    /**
-     * Allows you to make a logical link between the view and the game
-     * @return a number incremented with each new game
-     */
-    public int getIncrement(){
-        return increment;
-    }
 
     /**
      * Button that closes the software
@@ -117,6 +108,7 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonRestart(){
+        stopperIA();
         buttonImage.setDisable(false);
         setChoiceShow();
     }
@@ -126,7 +118,7 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void buttonCase4(){
-        iaEnCours = false;
+
         grilleController = new GrilleController(4, new Grille(2), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
@@ -137,7 +129,6 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void buttonCase9(){
-        iaEnCours = false;
         grilleController = new GrilleController(9, new Grille(3), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
@@ -148,7 +139,6 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void buttonCase16(){
-        iaEnCours = false;
         grilleController = new GrilleController(16, new Grille(4), gridPane, chrono);
         grilleController.initializeGrid();
         goInUI();
@@ -159,6 +149,7 @@ public class PuzzleController implements Initializable {
      */
     @FXML
     protected void setButtonLoad(){
+        stopperIA();
         Serial serial = new Serial(); //Manage serialization
         Grille grille = serial.deserialize(); //Deserialize
 
@@ -221,12 +212,20 @@ public class PuzzleController implements Initializable {
             Platform.runLater(() -> {
                 ia.resoudreGUI(grilleController.getGrille(), grilleController);
             });
+            buttonUndo.setDisable(true);
+            buttonSave.setDisable(true);
         }else{
-            ia.stopperResolution();
-            grilleController.isPaused(false);
-            chrono.goTime();
+            stopperIA();
         }
 
+    }
+
+    private void stopperIA(){
+        ia.stopperResolution();
+        grilleController.isPaused(false);
+        chrono.goTime();
+        buttonUndo.setDisable(false);
+        buttonSave.setDisable(false);
     }
 
     /**
