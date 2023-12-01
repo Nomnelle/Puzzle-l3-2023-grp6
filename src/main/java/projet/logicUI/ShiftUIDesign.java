@@ -7,8 +7,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Manage the windows moving, and the node animation
+ */
 public class ShiftUIDesign extends java.lang.Thread{
-    AnchorPane paneDrag;
+    private final AnchorPane paneDrag;
     private double x; private double y;
 
     /**

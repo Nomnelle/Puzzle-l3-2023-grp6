@@ -58,13 +58,13 @@
     -fx-background-color: #828cbe;
 }
 
-.buttonStopAI {
+.buttonAI {
     -fx-background-color: #c8a9d5;
 }
-.buttonStopAI:hover{
+.buttonAI:hover{
     -fx-background-color: rgba(200, 169, 213, 0.47);
 }
-.buttonStopAI:pressed{
+.buttonAI:pressed{
     -fx-background-color: #a98eb2;
 }
 

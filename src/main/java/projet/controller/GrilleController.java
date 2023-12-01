@@ -16,6 +16,9 @@ import projet.modele.game.Grille;
 
 import java.util.LinkedList;
 
+/**
+ * Control the GridPane and associated events
+ */
 public class GrilleController {
 
     /**
@@ -217,7 +220,8 @@ public class GrilleController {
         if (grille.verifierVictoire()){
             chrono.pauseTime();
             Player player = new Player(chrono, moveCount, size);
-            player.victory();
+            player.setScore();
+            player.start();
             victoire.setVisible(true);
             paused = true;
             gameExist = false;

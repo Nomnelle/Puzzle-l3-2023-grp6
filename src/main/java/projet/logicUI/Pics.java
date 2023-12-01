@@ -5,10 +5,13 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import projet.controller.PuzzleController;
 
+/**
+ * Take and cut photos
+ */
 public class Pics {
-    Image imageDefault;
-    final int ORIGINALSIZE = 340; //size of picture
-    final int dividedSize; //size of a part of the picture
+    private Image imageDefault;
+    private final int ORIGINALSIZE = 340; //size of picture
+    private final int dividedSize; //size of a part of the picture
 
     /**
      * Pics controller
@@ -45,6 +48,6 @@ public class Pics {
      * Initialize the picture thanks to the previous choice of the user
      */
     private void initializeDefaultPicture() {
-        imageDefault = new Image("/doc-files/"+ PuzzleController.picture +".jpg");
+        imageDefault = new Image("/doc-files/"+ PuzzleController.picture + ".jpg");
     }
 }
