@@ -173,7 +173,7 @@ public class GrilleController {
      *
      * @param movement The direction of the movement: "haut" (up), "bas" (down), "gauche" (left), or "droite" (right).
      */
-    public void executerMouvement(String movement) {
+    public void executeMovement(String movement) {
             int[] avant = grille.deplacerCase(movement);
             switch (movement) {
                 case "haut":
