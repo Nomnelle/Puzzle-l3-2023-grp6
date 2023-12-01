@@ -33,18 +33,19 @@ public class ParcoursProfondeur extends ParcoursGraph implements IA {
         ArrayList<String> result = new ArrayList<>();
         graph.add(new Etat(g));
         boolean trouve = false;
-        while ((!graph.isEmpty()) && (!trouve)) {
+        int profondeurMax = 30;
+        while ((!graph.isEmpty())&&(!trouve)) {
             Etat e = graph.pop();
             // Limiting the depth to 30 to avoid infinite loops
-            if (e.getProfondeur() < 30) {
-                if (e.estComparable(this.etatBut))
+            if (e.getProfondeur() < profondeurMax) {
+                if (e.estComparable(this.etatBut)) {
                     if (!e.equals(etatBut)) {
                         this.appliquerAction(e);
                     } else {
                         trouve = true;
                         result = e.getMouvements();
                     }
-                else {
+                } else {
                     mouvements = new LinkedList<>();
                     return;
                 }
