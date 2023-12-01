@@ -118,7 +118,7 @@ public class GrilleController {
         divideGridPane();
         createGrille();
         setVboxArray();
-        associateGridVBox();
+        associateGrilleVBox();
     }
     /**
      * Initialize the Loaded Grid
@@ -129,7 +129,7 @@ public class GrilleController {
     protected void initializeGridLoaded(){
         divideGridPane();
         setVboxArray();
-        associateGridVBox();
+        associateGrilleVBox();
     }
     /**
      * This method allow to move cases thanks to a key (Z, Q, S, D)
@@ -168,23 +168,28 @@ public class GrilleController {
         });
     }
 
-    public void executeMovement(String movement) {
+    /**
+     * Executes a movement on the puzzle grid based on the given input.
+     *
+     * @param movement The direction of the movement: "haut" (up), "bas" (down), "gauche" (left), or "droite" (right).
+     */
+    public void executerMouvement(String movement) {
             int[] avant = grille.deplacerCase(movement);
             switch (movement) {
                 case "haut":
-                    Node node = getVBox(avant);
+                    Node node = recupererVbox(avant);
                     GridPane.setRowIndex(node, GridPane.getRowIndex(node) - 1);
                     break;
                 case "bas":
-                    node = getVBox(avant);
+                    node = recupererVbox(avant);
                     GridPane.setRowIndex(node, GridPane.getRowIndex(node) + 1);
                     break;
                 case "gauche":
-                    node = getVBox(avant);
+                    node = recupererVbox(avant);
                     GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) - 1);
                     break;
                 case "droite":
-                    node = getVBox(avant);
+                    node = recupererVbox(avant);
                     GridPane.setColumnIndex(node, GridPane.getColumnIndex(node) + 1);
                     break;
         }
@@ -226,7 +231,7 @@ public class GrilleController {
      */
     private void shift(int[] avant, Label score, int direction, char xy){
         if (avant != null) {
-            Node node = getVBox(avant);
+            Node node = recupererVbox(avant);
             if (node!=null){
                 //Thread
                 ShiftCases th = new ShiftCases(node,direction, gridPane, xy);
@@ -339,7 +344,7 @@ public class GrilleController {
     /**
      * associate the theoretical cases with VBoxes and set the pos of VBoxes in gridPane
      */
-    private void associateGridVBox(){
+    private void associateGrilleVBox(){
         for (Case c : grille.getGrille()){
             if (c.getIndice()==0) continue; //Skip case with the indices 0
 
@@ -367,7 +372,7 @@ public class GrilleController {
      * @param avant current theoretical case before displacement
      * @return current node before displacement
      */
-    private Node getVBox(int[] avant){
+    private Node recupererVbox(int[] avant){
         for (Node n : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(n)==avant[0] && GridPane.getRowIndex(n)==avant[1]){
                 return n;

@@ -82,12 +82,13 @@ public class PuzzleController implements Initializable {
     private ParcoursAEtoile ia;
     public static int picture = 1; //default image : the first
 
-    /*
+    /**
      * Button that closes the software
      */
     @FXML
     protected void setButtonClose(){System.exit(0);}
-    /*
+
+    /**
      * Button which asks for the choice of grid, or continues a game already started
      */
     @FXML
@@ -101,7 +102,8 @@ public class PuzzleController implements Initializable {
             setChoiceShow(); //Request a grid size
         }
     }
-    /*
+
+    /**
      * Button that restarts a new game and allows the player to change the image
      */
     @FXML
@@ -109,8 +111,9 @@ public class PuzzleController implements Initializable {
         buttonImage.setDisable(false);
         setChoiceShow();
     }
-    /*
-     * Cases choice buttons
+
+    /**
+     * Cases choice buttons : initialisation for 3 puzzle
      */
     @FXML
     protected void buttonCase4(){
@@ -119,6 +122,10 @@ public class PuzzleController implements Initializable {
         grilleController.initializeGrid();
         goInUI();
     }
+
+    /**
+     * Cases choice buttons : initialisation for 8 puzzle
+     */
     @FXML
     protected void buttonCase9(){
         iaEnCours = false;
@@ -126,6 +133,10 @@ public class PuzzleController implements Initializable {
         grilleController.initializeGrid();
         goInUI();
     }
+
+    /**
+     * Cases choice buttons : initialisation for 15 puzzle
+     */
     @FXML
     protected void buttonCase16(){
         iaEnCours = false;
@@ -133,7 +144,8 @@ public class PuzzleController implements Initializable {
         grilleController.initializeGrid();
         goInUI();
     }
-    /*
+
+    /**
      * Button that allows the user to load a game
      */
     @FXML
@@ -148,7 +160,8 @@ public class PuzzleController implements Initializable {
             goInUI();
         }
     }
-    /*
+
+    /**
      * Button that allows the user to save a game
      */
     @FXML
@@ -159,7 +172,8 @@ public class PuzzleController implements Initializable {
             buttonLoad.setDisable(false);
         }
     }
-    /*
+
+    /**
      * Button which allows access to the menu
      */
     @FXML
@@ -187,7 +201,8 @@ public class PuzzleController implements Initializable {
 
         player.run();
     }
-    /*
+
+    /**
      * Button that stopAI
      */
     @FXML
@@ -208,7 +223,8 @@ public class PuzzleController implements Initializable {
         }
 
     }
-    /*
+
+    /**
      * Button that allows the user to view the ranking
      * This button also set the ListView
      */
@@ -223,7 +239,8 @@ public class PuzzleController implements Initializable {
             arrayPlayers.setItems(players);
         } catch (Exception ignored){}
     }
-    /*
+
+    /**
      * Button that allows you to cancel a move
      */
     @FXML
@@ -243,14 +260,16 @@ public class PuzzleController implements Initializable {
                 break;
         }
     }
-    /*
+
+    /**
      * Button that allows you to go back when you are on the ranking panel
      */
     @FXML
     protected void setButtonBack(){
         shift.nodeShift(anchorPaneStats, anchorPaneMenu, 600, 800, "bas");
     }
-    /*
+
+    /**
      * Button that allows you to change the style
      */
     @FXML
@@ -265,7 +284,8 @@ public class PuzzleController implements Initializable {
         if (picture <2) picture += 1; else picture = 1; //Never go above the range and set int
         buttonImage.setText("Picture " + picture); //Set the button text
     }
-    /*
+
+    /**
      * Initialization
      */
     @Override
@@ -314,6 +334,7 @@ public class PuzzleController implements Initializable {
 
         player = new Player();
     }
+
     /**
      * Reset the state of the game
      */
@@ -333,6 +354,7 @@ public class PuzzleController implements Initializable {
 
         buttonImage.setDisable(true);
     }
+
     /**
      * Show the grid view
      */
@@ -341,6 +363,7 @@ public class PuzzleController implements Initializable {
         shift.disabledNodeDuration(anchorPaneMid, 800); //Disable pane containing "menu" button during 800ms
         gridPane.setDisable(false); //Activating the GridPane
     }
+
     /**
      * Initialize the key listener
      */
@@ -351,6 +374,7 @@ public class PuzzleController implements Initializable {
             System.err.println("Impossible");
         }
     }
+
     /**
      * Show the choice of the number of cases and hide the play button
      */
@@ -360,6 +384,7 @@ public class PuzzleController implements Initializable {
         buttonCase9.setVisible(true);
         buttonCase16.setVisible(true);
     }
+
     /**
      * Hide the choice of the number of cases and show the play button
      */
