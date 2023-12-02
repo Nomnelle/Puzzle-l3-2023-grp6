@@ -4,14 +4,12 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-/**
- * Manages the cases movement logic and their smoothness
- */
 public class ShiftCases extends java.lang.Thread {
-    private final Node node;
-    private final int direction;
-    private final double cellSize;
-    private final char xy;
+    final Node node;
+    final int direction;
+    final double cellSize;
+    final char xy;
+    final double SPEED = 2.5;
 
     /**
      * Constructor of shift case thread
@@ -31,10 +29,9 @@ public class ShiftCases extends java.lang.Thread {
     }
     @Override
     public void run(){
-        final double SPEED = 2.5;
         //Divide the celle size by a number and multiply the movement by the same number
-        for (int i = 0; i<cellSize/ SPEED; i++){ //example : 100/2.5 = 40
-            final double way = (direction*i)* SPEED; //example 1 * 40 * 2.5 = 100 = cell size (target)
+        for (int i=0; i<cellSize/SPEED; i++){ //example : 100/2.5 = 40
+            final double way = (direction*i)*SPEED; //example 1 * 40 * 2.5 = 100 = cell size (target)
             Platform.runLater(() -> {
                 if (xy=='x'){node.setTranslateX(way);} else {node.setTranslateY(way);} //move the node
             });

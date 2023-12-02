@@ -7,13 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * Serialisation
- */
 public class Serial {
     private static final String PATH = System.getProperty("user.home") + File.separator + "Puzzle" + File.separator;
     private static final String GRIDSAVE = "gridsave.ser";
-    private final Grille grid;
+    Grille grid;
 
     /**
      * Saving controller
@@ -64,8 +61,10 @@ public class Serial {
      * @return deserialized grid
      */
     public Grille deserialize(){
+        ObjectInputStream ois = null;
+
         try (final FileInputStream fichierIn = new FileInputStream(PATH+GRIDSAVE)){
-            ObjectInputStream ois = new ObjectInputStream(fichierIn);
+            ois = new ObjectInputStream(fichierIn);
             return (Grille) ois.readObject();
 
         } catch (final IOException | ClassNotFoundException e) {

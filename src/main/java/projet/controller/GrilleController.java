@@ -25,7 +25,9 @@ public class GrilleController {
      * Object which allows going back thanks to saving the previous state
      */
     private static class UndoObjet {
-        int direction; Node node; char xy;
+        int direction;
+        Node node;
+        char xy;
 
         /**
          * Constructor
